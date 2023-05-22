@@ -3,6 +3,7 @@
 bin
 obj
 Packages
+Data
 *.bin
 *.avi
 *.dll
