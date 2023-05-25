@@ -48,14 +48,14 @@ public class InferVisualizerViews
         set { bodyPart_Head = value; }
     }
 
-    private string bodyPart_Thorax = "Tx";
+    private string bodyPart_Thorax = "Trx";
     public string BodyPart_Thorax
     {
         get { return bodyPart_Thorax; }
         set { bodyPart_Thorax = value; }
     }
 
-    private string bodyPart_Abdomen = "A";
+    private string bodyPart_Abdomen = "Abd";
     public string BodyPart_Abdomen
     {
         get { return bodyPart_Abdomen; }
