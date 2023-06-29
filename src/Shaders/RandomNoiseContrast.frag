@@ -15,5 +15,5 @@ void main()
 {
   if (length(2 * texCoord - 1) > 1)
     discard;
-  fragColor = rand(texCoord) > contrast  ? colorOn : colorOff;
+  fragColor = rand(texCoord) < contrast  ? colorOn : colorOff;
 }
