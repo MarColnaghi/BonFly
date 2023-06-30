@@ -4,6 +4,7 @@
                  xmlns:gl="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders"
                  xmlns:res="clr-namespace:Bonsai.Resources;assembly=Bonsai.System"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns:scr="clr-namespace:Bonsai.Scripting.Expressions;assembly=Bonsai.Scripting.Expressions"
                  xmlns:io="clr-namespace:Bonsai.IO;assembly=Bonsai.System"
                  xmlns:harp="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp"
                  xmlns:p1="clr-namespace:Bonsai.Harp.CF;assembly=Bonsai.Harp.CF"
@@ -11,8 +12,6 @@
                  xmlns:wie="clr-namespace:Bonsai.Windows.Input;assembly=Bonsai.Windows.Input"
                  xmlns:sys="clr-namespace:System;assembly=mscorlib"
                  xmlns:cv="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision"
-                 xmlns:scr="clr-namespace:Bonsai.Scripting.Expressions;assembly=Bonsai.Scripting.Expressions"
-                 xmlns:p2="clr-namespace:;assembly=Extensions"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -54,17 +53,12 @@
         </Combinator>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.BonVisionResources.bonsai" />
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\BonFlyResources.bonsai" />
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="res:LoadResources" />
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="gl:RenderFrame" />
-      </Expression>
-      <Expression xsi:type="Annotation">
-        <Text><![CDATA[Screen Size = 543.7 x 302.6 mm
-
-DrawingUnits = -27.185cm x -15.13cm
-]]></Text>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.OrthographicView.bonsai">
         <Left>-27.185</Left>
@@ -72,8 +66,51 @@ DrawingUnits = -27.185cm x -15.13cm
         <Bottom>-15.13</Bottom>
         <Top>15.13</Top>
       </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\BonFlyView.bonsai">
+        <Left>-27.185</Left>
+        <Right>27.185</Right>
+        <Bottom>-15.13</Bottom>
+        <Top>15.13</Top>
+      </Expression>
       <Expression xsi:type="rx:PublishSubject">
         <Name>Draw</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="BooleanProperty">
+          <Value>false</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject">
+        <Name>SyncState</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Draw</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>SyncState</Name>
+      </Expression>
+      <Expression xsi:type="scr:ExpressionTransform">
+        <scr:Expression>it ? 1 : 0</scr:Expression>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="ColorR" />
+          <Property Name="ColorG" />
+          <Property Name="ColorB" />
+          <Property Name="ColorA" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawQuad.bonsai">
+        <ExtentX>1</ExtentX>
+        <ExtentY>1</ExtentY>
+        <LocationX>0</LocationX>
+        <LocationY>0</LocationY>
+        <Layer>0</Layer>
+        <Angle>0</Angle>
+        <ColorR>1</ColorR>
+        <ColorG>1</ColorG>
+        <ColorB>1</ColorB>
+        <ColorA>1</ColorA>
       </Expression>
       <Expression xsi:type="GroupWorkflow">
         <Name>Initialize</Name>
@@ -84,7 +121,7 @@ DrawingUnits = -27.185cm x -15.13cm
             </Expression>
             <Expression xsi:type="io:CsvReader">
               <io:FileName>Time of Loom.csv</io:FileName>
-              <io:ScanPattern>%i</io:ScanPattern>
+              <io:ScanPattern>%f,%i</io:ScanPattern>
               <io:SkipRows>0</io:SkipRows>
             </Expression>
             <Expression xsi:type="Combinator">
@@ -96,7 +133,7 @@ DrawingUnits = -27.185cm x -15.13cm
               </Combinator>
             </Expression>
             <Expression xsi:type="rx:AsyncSubject">
-              <Name>TimeOfLoom</Name>
+              <Name>TrialSettings</Name>
             </Expression>
             <Expression xsi:type="GroupWorkflow">
               <Name>HarpDevice</Name>
@@ -490,24 +527,97 @@ DrawingUnits = -27.185cm x -15.13cm
         <Workflow>
           <Nodes>
             <Expression xsi:type="SubscribeSubject">
-              <Name>TimeOfLoom</Name>
+              <Name>TrialSettings</Name>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="rx:Merge" />
             </Expression>
-            <Expression xsi:type="rx:CreateObservable">
-              <Name>Delay</Name>
+            <Expression xsi:type="rx:Condition">
               <Workflow>
                 <Nodes>
                   <Expression xsi:type="WorkflowInput">
                     <Name>Source1</Name>
                   </Expression>
-                  <Expression xsi:type="scr:ExpressionTransform">
-                    <scr:Expression>TimeSpan.FromMilliseconds(it)</scr:Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>Item2</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" DisplayName="TrialType" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>0</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="rx:CreateObservable">
+              <Name>DrawNoisyCircle</Name>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:Take">
+                      <rx:Count>1</rx:Count>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="rx:AsyncSubject">
+                    <Name>TrialSettings</Name>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>Draw</Name>
+                  </Expression>
+                  <Expression xsi:type="IncludeWorkflow" Path="Extensions\TurnSyncOn.bonsai" />
+                  <Expression xsi:type="IncludeWorkflow" Path="Extensions\LoomRangeAnimation.bonsai">
+                    <Duration>PT0S</Duration>
+                    <MaxRadius>25</MaxRadius>
+                    <MonitorDistance>18</MonitorDistance>
+                    <InitialRadius>0.5</InitialRadius>
+                    <InitialVirtualDistance>12.5</InitialVirtualDistance>
+                    <LinearApproachingVelocity>25</LinearApproachingVelocity>
                   </Expression>
                   <Expression xsi:type="PropertyMapping">
                     <PropertyMappings>
-                      <Property Name="DueTime" Selector="it" />
+                      <Property Name="Diameter" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="IncludeWorkflow" Path="Extensions\DrawCircleWithNoise.bonsai">
+                    <Diameter>0.1</Diameter>
+                    <LocationX>0</LocationX>
+                    <LocationY>0</LocationY>
+                    <Layer>0</Layer>
+                    <OnColorR>0</OnColorR>
+                    <OnColorG>0</OnColorG>
+                    <OnColorB>0</OnColorB>
+                    <OnColorA>1</OnColorA>
+                    <OffColorR>1</OffColorR>
+                    <OffColorG>1</OffColorG>
+                    <OffColorB>1</OffColorB>
+                    <OffColorA>1</OffColorA>
+                    <Contrast>0.5</Contrast>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>TrialSettings</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>Item1</Selector>
+                  </Expression>
+                  <Expression xsi:type="scr:ExpressionTransform">
+                    <scr:Expression>TimeSpan.FromSeconds(it)</scr:Expression>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="DueTime" />
                     </PropertyMappings>
                   </Expression>
                   <Expression xsi:type="Combinator">
@@ -515,135 +625,296 @@ DrawingUnits = -27.185cm x -15.13cm
                       <gl:DueTime>PT0S</gl:DueTime>
                     </Combinator>
                   </Expression>
-                  <Expression xsi:type="rx:SelectMany">
-                    <Name>GiveLoom</Name>
-                    <Workflow>
-                      <Nodes>
-                        <Expression xsi:type="Annotation">
-                          <Text><![CDATA[## Work on normalized coordinates
-
-- MaxRadius = 25
-- MonitorDistance = 18 cm!!!!
-- MaxStimDuration = 0.5 seconds
-- InitialRadius = 0.5cm
-- InitialDistance = 12.5 cm
-- LinearApprachingVelocity = 25 cm/s
-
-t_init = -InitialDistance / LinearApprachingVelocity
-t_end = 0
-t = t_init:t_monitor_refresh_period(~1/240):t_end
-
-
-theta = 2 * Math.Atan(InitialRadius / (-LinearApprachingVelocity * t))
-radius_on_the_screen = tan(theta/2) * MonitorDistance
-
-
-]]></Text>
-                        </Expression>
-                        <Expression xsi:type="ExternalizedMapping">
-                          <Property Name="DueTime" />
-                        </Expression>
-                        <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="gl:Timer">
-                            <gl:DueTime>PT0S</gl:DueTime>
-                          </Combinator>
-                        </Expression>
-                        <Expression xsi:type="rx:SelectMany">
-                          <Name>DrawCircle</Name>
-                          <Workflow>
-                            <Nodes>
-                              <Expression xsi:type="SubscribeSubject">
-                                <Name>Draw</Name>
-                              </Expression>
-                              <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.RangeAnimation.bonsai">
-                                <Duration>0.5</Duration>
-                                <RangeBegin>-1</RangeBegin>
-                                <RangeEnd>1</RangeEnd>
-                              </Expression>
-                              <Expression xsi:type="Combinator">
-                                <Combinator xsi:type="p2:CalculateLoomRadius">
-                                  <p2:MaxRadius>25</p2:MaxRadius>
-                                  <p2:MonitorDistance>18</p2:MonitorDistance>
-                                  <p2:InitialRadius>0.5</p2:InitialRadius>
-                                  <p2:InitialVirtualDistance>12.5</p2:InitialVirtualDistance>
-                                  <p2:LinearApproachingVelocity>25</p2:LinearApproachingVelocity>
-                                </Combinator>
-                              </Expression>
-                              <Expression xsi:type="PropertyMapping">
-                                <PropertyMappings>
-                                  <Property Name="Diameter" />
-                                </PropertyMappings>
-                              </Expression>
-                              <Expression xsi:type="ExternalizedMapping">
-                                <Property Name="LocationX" />
-                                <Property Name="LocationY" />
-                                <Property Name="Layer" />
-                                <Property Name="ColorR" />
-                                <Property Name="ColorG" />
-                                <Property Name="ColorB" />
-                                <Property Name="ColorA" />
-                              </Expression>
-                              <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                                <Diameter>0.1</Diameter>
-                                <LocationX>0</LocationX>
-                                <LocationY>0</LocationY>
-                                <Layer>0</Layer>
-                                <ColorR>1</ColorR>
-                                <ColorG>1</ColorG>
-                                <ColorB>1</ColorB>
-                                <ColorA>1</ColorA>
-                              </Expression>
-                              <Expression xsi:type="Combinator">
-                                <Combinator xsi:type="rx:Last" />
-                              </Expression>
-                              <Expression xsi:type="ExternalizedMapping">
-                                <Property Name="DueTime" />
-                              </Expression>
-                              <Expression xsi:type="Combinator">
-                                <Combinator xsi:type="gl:Delay">
-                                  <gl:DueTime>PT0S</gl:DueTime>
-                                </Combinator>
-                              </Expression>
-                              <Expression xsi:type="WorkflowOutput" />
-                            </Nodes>
-                            <Edges>
-                              <Edge From="0" To="5" Label="Source1" />
-                              <Edge From="1" To="2" Label="Source1" />
-                              <Edge From="2" To="3" Label="Source1" />
-                              <Edge From="3" To="5" Label="Source2" />
-                              <Edge From="4" To="5" Label="Source3" />
-                              <Edge From="5" To="6" Label="Source1" />
-                              <Edge From="6" To="8" Label="Source1" />
-                              <Edge From="7" To="8" Label="Source2" />
-                              <Edge From="8" To="9" Label="Source1" />
-                            </Edges>
-                          </Workflow>
-                        </Expression>
-                        <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="rx:Take">
-                            <rx:Count>1</rx:Count>
-                          </Combinator>
-                        </Expression>
-                        <Expression xsi:type="WorkflowOutput" />
-                      </Nodes>
-                      <Edges>
-                        <Edge From="1" To="2" Label="Source1" />
-                        <Edge From="2" To="3" Label="Source1" />
-                        <Edge From="3" To="4" Label="Source1" />
-                        <Edge From="4" To="5" Label="Source1" />
-                      </Edges>
-                    </Workflow>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:SubscribeWhen" />
                   </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:Last" />
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="gl:Delay">
+                      <gl:DueTime>PT0S</gl:DueTime>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="IncludeWorkflow" Path="Extensions\TurnSyncOff.bonsai" />
+                  <Expression xsi:type="Unit" />
                   <Expression xsi:type="WorkflowOutput" />
                 </Nodes>
                 <Edges>
                   <Edge From="0" To="1" Label="Source1" />
                   <Edge From="1" To="2" Label="Source1" />
-                  <Edge From="2" To="3" Label="Source1" />
                   <Edge From="3" To="4" Label="Source1" />
-                  <Edge From="4" To="5" Label="Source1" />
+                  <Edge From="4" To="7" Label="Source1" />
+                  <Edge From="5" To="6" Label="Source1" />
+                  <Edge From="6" To="7" Label="Source2" />
+                  <Edge From="7" To="13" Label="Source1" />
+                  <Edge From="8" To="9" Label="Source1" />
+                  <Edge From="9" To="10" Label="Source1" />
+                  <Edge From="10" To="11" Label="Source1" />
+                  <Edge From="11" To="12" Label="Source1" />
+                  <Edge From="12" To="13" Label="Source2" />
+                  <Edge From="13" To="14" Label="Source1" />
+                  <Edge From="14" To="15" Label="Source1" />
+                  <Edge From="15" To="16" Label="Source1" />
+                  <Edge From="16" To="17" Label="Source1" />
+                  <Edge From="17" To="18" Label="Source1" />
                 </Edges>
               </Workflow>
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>Item2</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" DisplayName="TrialType" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>1</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="rx:CreateObservable">
+              <Name>DrawLoomingCircle</Name>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:Take">
+                      <rx:Count>1</rx:Count>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="rx:AsyncSubject">
+                    <Name>TrialSettings</Name>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>Draw</Name>
+                  </Expression>
+                  <Expression xsi:type="IncludeWorkflow" Path="Extensions\TurnSyncOn.bonsai" />
+                  <Expression xsi:type="IncludeWorkflow" Path="Extensions\LoomRangeAnimation.bonsai">
+                    <Duration>PT0S</Duration>
+                    <MaxRadius>25</MaxRadius>
+                    <MonitorDistance>18</MonitorDistance>
+                    <InitialRadius>0.5</InitialRadius>
+                    <InitialVirtualDistance>12.5</InitialVirtualDistance>
+                    <LinearApproachingVelocity>25</LinearApproachingVelocity>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="ExtentX" Selector="it" />
+                      <Property Name="ExtentY" Selector="it" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawImage.bonsai">
+                    <TextureName />
+                    <ExtentX>1</ExtentX>
+                    <ExtentY>1</ExtentY>
+                    <LocationX>0</LocationX>
+                    <LocationY>0</LocationY>
+                    <Layer>0</Layer>
+                    <Angle>0</Angle>
+                    <ScaleX>1</ScaleX>
+                    <ScaleY>1</ScaleY>
+                    <ShiftX>0</ShiftX>
+                    <ShiftY>0</ShiftY>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>TrialSettings</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>Item1</Selector>
+                  </Expression>
+                  <Expression xsi:type="scr:ExpressionTransform">
+                    <scr:Expression>TimeSpan.FromSeconds(it)</scr:Expression>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="DueTime" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="gl:Timer">
+                      <gl:DueTime>PT0S</gl:DueTime>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:SubscribeWhen" />
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:Last" />
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="gl:Delay">
+                      <gl:DueTime>PT0S</gl:DueTime>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="IncludeWorkflow" Path="Extensions\TurnSyncOff.bonsai" />
+                  <Expression xsi:type="Unit" />
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="2" Label="Source1" />
+                  <Edge From="3" To="4" Label="Source1" />
+                  <Edge From="4" To="7" Label="Source1" />
+                  <Edge From="5" To="6" Label="Source1" />
+                  <Edge From="6" To="7" Label="Source2" />
+                  <Edge From="7" To="13" Label="Source1" />
+                  <Edge From="8" To="9" Label="Source1" />
+                  <Edge From="9" To="10" Label="Source1" />
+                  <Edge From="10" To="11" Label="Source1" />
+                  <Edge From="11" To="12" Label="Source1" />
+                  <Edge From="12" To="13" Label="Source2" />
+                  <Edge From="13" To="14" Label="Source1" />
+                  <Edge From="14" To="15" Label="Source1" />
+                  <Edge From="15" To="16" Label="Source1" />
+                  <Edge From="16" To="17" Label="Source1" />
+                  <Edge From="17" To="18" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>Item2</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" DisplayName="TrialType" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>2</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="rx:CreateObservable">
+              <Name>DrawLoomingCircle</Name>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:Take">
+                      <rx:Count>1</rx:Count>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="rx:AsyncSubject">
+                    <Name>TrialSettings</Name>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>Draw</Name>
+                  </Expression>
+                  <Expression xsi:type="IncludeWorkflow" Path="Extensions\TurnSyncOn.bonsai" />
+                  <Expression xsi:type="IncludeWorkflow" Path="Extensions\LoomRangeAnimation.bonsai">
+                    <Duration>PT0S</Duration>
+                    <MaxRadius>25</MaxRadius>
+                    <MonitorDistance>18</MonitorDistance>
+                    <InitialRadius>0.5</InitialRadius>
+                    <InitialVirtualDistance>12.5</InitialVirtualDistance>
+                    <LinearApproachingVelocity>25</LinearApproachingVelocity>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="Diameter" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
+                    <Diameter>0.1</Diameter>
+                    <LocationX>0</LocationX>
+                    <LocationY>0</LocationY>
+                    <Layer>0</Layer>
+                    <ColorR>1</ColorR>
+                    <ColorG>1</ColorG>
+                    <ColorB>1</ColorB>
+                    <ColorA>1</ColorA>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>TrialSettings</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>Item1</Selector>
+                  </Expression>
+                  <Expression xsi:type="scr:ExpressionTransform">
+                    <scr:Expression>TimeSpan.FromSeconds(it)</scr:Expression>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="DueTime" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="gl:Timer">
+                      <gl:DueTime>PT0S</gl:DueTime>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:SubscribeWhen" />
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:Last" />
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="gl:Delay">
+                      <gl:DueTime>PT0S</gl:DueTime>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="IncludeWorkflow" Path="Extensions\TurnSyncOff.bonsai" />
+                  <Expression xsi:type="Unit" />
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="2" Label="Source1" />
+                  <Edge From="3" To="4" Label="Source1" />
+                  <Edge From="4" To="7" Label="Source1" />
+                  <Edge From="5" To="6" Label="Source1" />
+                  <Edge From="6" To="7" Label="Source2" />
+                  <Edge From="7" To="13" Label="Source1" />
+                  <Edge From="8" To="9" Label="Source1" />
+                  <Edge From="9" To="10" Label="Source1" />
+                  <Edge From="10" To="11" Label="Source1" />
+                  <Edge From="11" To="12" Label="Source1" />
+                  <Edge From="12" To="13" Label="Source2" />
+                  <Edge From="13" To="14" Label="Source1" />
+                  <Edge From="14" To="15" Label="Source1" />
+                  <Edge From="15" To="16" Label="Source1" />
+                  <Edge From="16" To="17" Label="Source1" />
+                  <Edge From="17" To="18" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Merge" />
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="rx:Concat" />
@@ -653,8 +924,16 @@ radius_on_the_screen = tan(theta/2) * MonitorDistance
           <Edges>
             <Edge From="0" To="1" Label="Source1" />
             <Edge From="1" To="2" Label="Source1" />
+            <Edge From="1" To="4" Label="Source1" />
+            <Edge From="1" To="6" Label="Source1" />
             <Edge From="2" To="3" Label="Source1" />
-            <Edge From="3" To="4" Label="Source1" />
+            <Edge From="3" To="8" Label="Source1" />
+            <Edge From="4" To="5" Label="Source1" />
+            <Edge From="5" To="8" Label="Source2" />
+            <Edge From="6" To="7" Label="Source1" />
+            <Edge From="7" To="8" Label="Source3" />
+            <Edge From="8" To="9" Label="Source1" />
+            <Edge From="9" To="10" Label="Source1" />
           </Edges>
         </Workflow>
       </Expression>
@@ -688,20 +967,26 @@ radius_on_the_screen = tan(theta/2) * MonitorDistance
     <Edges>
       <Edge From="0" To="1" Label="Source1" />
       <Edge From="1" To="2" Label="Source1" />
-      <Edge From="3" To="5" Label="Source1" />
-      <Edge From="4" To="5" Label="Source2" />
+      <Edge From="2" To="3" Label="Source1" />
+      <Edge From="4" To="5" Label="Source1" />
       <Edge From="5" To="6" Label="Source1" />
-      <Edge From="8" To="10" Label="Source1" />
-      <Edge From="9" To="10" Label="Source2" />
-      <Edge From="10" To="11" Label="Source1" />
+      <Edge From="6" To="7" Label="Source1" />
+      <Edge From="8" To="9" Label="Source1" />
+      <Edge From="10" To="14" Label="Source1" />
       <Edge From="11" To="12" Label="Source1" />
       <Edge From="12" To="13" Label="Source1" />
-      <Edge From="13" To="14" Label="Source1" />
-      <Edge From="14" To="15" Label="Source1" />
-      <Edge From="15" To="16" Label="Source1" />
-      <Edge From="17" To="18" Label="Source1" />
+      <Edge From="13" To="14" Label="Source2" />
+      <Edge From="16" To="18" Label="Source1" />
+      <Edge From="17" To="18" Label="Source2" />
       <Edge From="18" To="19" Label="Source1" />
+      <Edge From="19" To="20" Label="Source1" />
+      <Edge From="20" To="21" Label="Source1" />
+      <Edge From="21" To="22" Label="Source1" />
+      <Edge From="22" To="23" Label="Source1" />
       <Edge From="23" To="24" Label="Source1" />
+      <Edge From="25" To="26" Label="Source1" />
+      <Edge From="26" To="27" Label="Source1" />
+      <Edge From="31" To="32" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>
