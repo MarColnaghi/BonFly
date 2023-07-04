@@ -401,6 +401,9 @@ Item2 as Video
                     <Name>Source1</Name>
                   </Expression>
                   <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="cv:EqualizeHistogram" />
+                  </Expression>
+                  <Expression xsi:type="Combinator">
                     <Combinator xsi:type="cv:Threshold">
                       <cv:ThresholdValue>128</cv:ThresholdValue>
                       <cv:MaxValue>255</cv:MaxValue>
@@ -439,6 +442,7 @@ Item2 as Video
                   <Edge From="3" To="4" Label="Source1" />
                   <Edge From="4" To="5" Label="Source1" />
                   <Edge From="5" To="6" Label="Source1" />
+                  <Edge From="6" To="7" Label="Source1" />
                 </Edges>
               </Workflow>
             </Expression>
