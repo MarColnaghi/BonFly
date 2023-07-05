@@ -1187,20 +1187,6 @@ Item3 as NormalizedPose)</scr:Expression>
                     <Name>PixelChange</Name>
                     <Workflow>
                       <Nodes>
-                        <Expression xsi:type="Annotation">
-                          <Name>Append to make up for the first missing frame</Name>
-                          <Text><![CDATA[]]></Text>
-                        </Expression>
-                        <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="DoubleProperty">
-                            <Value>NaN</Value>
-                          </Combinator>
-                        </Expression>
-                        <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="rx:Take">
-                            <rx:Count>1</rx:Count>
-                          </Combinator>
-                        </Expression>
                         <Expression xsi:type="SubscribeSubject">
                           <Name>ArenaVideoStream</Name>
                         </Expression>
@@ -1208,31 +1194,34 @@ Item3 as NormalizedPose)</scr:Expression>
                           <Selector>BackgroundSubtractedFrame</Selector>
                         </Expression>
                         <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="cv:Threshold">
-                            <cv:ThresholdValue>70</cv:ThresholdValue>
-                            <cv:MaxValue>255</cv:MaxValue>
+                          <Combinator xsi:type="cv:BackgroundSubtraction">
+                            <cv:BackgroundFrames>1</cv:BackgroundFrames>
+                            <cv:AdaptationRate>1</cv:AdaptationRate>
+                            <cv:ThresholdValue>5</cv:ThresholdValue>
                             <cv:ThresholdType>Binary</cv:ThresholdType>
+                            <cv:SubtractionMethod>Dark</cv:SubtractionMethod>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="rx:Skip">
-                            <rx:Count>1</rx:Count>
+                          <Combinator xsi:type="cv:FindContours">
+                            <cv:Mode>External</cv:Mode>
+                            <cv:Method>ChainApproxNone</cv:Method>
+                            <cv:Offset>
+                              <cv:X>0</cv:X>
+                              <cv:Y>0</cv:Y>
+                            </cv:Offset>
+                            <cv:MinArea>3</cv:MinArea>
+                            <cv:MaxArea xsi:nil="true" />
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="rx:Zip" />
+                          <Combinator xsi:type="cv:DrawContours">
+                            <cv:MaxLevel>1</cv:MaxLevel>
+                            <cv:Thickness>-1</cv:Thickness>
+                          </Combinator>
                         </Expression>
                         <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="dsp:AbsoluteDifference" />
-                        </Expression>
-                        <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="dsp:Average" />
-                        </Expression>
-                        <Expression xsi:type="MemberSelector">
-                          <Selector>Val0</Selector>
-                        </Expression>
-                        <Expression xsi:type="Combinator">
-                          <Combinator xsi:type="rx:Merge" />
+                          <Combinator xsi:type="dsp:CountNonZero" />
                         </Expression>
                         <Expression xsi:type="rx:PublishSubject">
                           <Name>PixelChange</Name>
@@ -1242,18 +1231,11 @@ Item3 as NormalizedPose)</scr:Expression>
                       <Edges>
                         <Edge From="0" To="1" Label="Source1" />
                         <Edge From="1" To="2" Label="Source1" />
-                        <Edge From="2" To="11" Label="Source1" />
+                        <Edge From="2" To="3" Label="Source1" />
                         <Edge From="3" To="4" Label="Source1" />
                         <Edge From="4" To="5" Label="Source1" />
                         <Edge From="5" To="6" Label="Source1" />
-                        <Edge From="5" To="7" Label="Source2" />
                         <Edge From="6" To="7" Label="Source1" />
-                        <Edge From="7" To="8" Label="Source1" />
-                        <Edge From="8" To="9" Label="Source1" />
-                        <Edge From="9" To="10" Label="Source1" />
-                        <Edge From="10" To="11" Label="Source2" />
-                        <Edge From="11" To="12" Label="Source1" />
-                        <Edge From="12" To="13" Label="Source1" />
                       </Edges>
                     </Workflow>
                   </Expression>
