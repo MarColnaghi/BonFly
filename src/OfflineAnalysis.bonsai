@@ -1277,35 +1277,6 @@ Item3 as NormalizedPose)</scr:Expression>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="MemberSelector">
-                                <Selector>RawBackground</Selector>
-                              </Expression>
-                              <Expression xsi:type="SubscribeSubject">
-                                <Name>ThisArenaPath</Name>
-                              </Expression>
-                              <Expression xsi:type="Format">
-                                <Format>{0}/RawBackground.png</Format>
-                                <Selector>it</Selector>
-                              </Expression>
-                              <Expression xsi:type="PropertyMapping">
-                                <PropertyMappings>
-                                  <Property Name="FileName" />
-                                </PropertyMappings>
-                              </Expression>
-                              <Expression xsi:type="Combinator">
-                                <Combinator xsi:type="cv:SaveImage">
-                                  <cv:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\Test-05_25_2023 09_57_21/Arena3/RawBackground.png</cv:FileName>
-                                  <cv:Suffix>None</cv:Suffix>
-                                </Combinator>
-                              </Expression>
-                              <Expression xsi:type="SubscribeSubject">
-                                <Name>ArenaVideoStream</Name>
-                              </Expression>
-                              <Expression xsi:type="Combinator">
-                                <Combinator xsi:type="rx:Take">
-                                  <rx:Count>1</rx:Count>
-                                </Combinator>
-                              </Expression>
-                              <Expression xsi:type="MemberSelector">
                                 <Selector>ArenaCentroid</Selector>
                               </Expression>
                               <Expression xsi:type="SubscribeSubject">
@@ -1327,52 +1298,125 @@ Item3 as NormalizedPose)</scr:Expression>
                                 <io:Suffix>None</io:Suffix>
                                 <io:IncludeHeader>true</io:IncludeHeader>
                               </Expression>
-                              <Expression xsi:type="Disable">
-                                <Builder xsi:type="SubscribeSubject">
-                                  <Name>ArenaVideoStream</Name>
-                                </Builder>
+                              <Expression xsi:type="GroupWorkflow">
+                                <Name>SaveMaskedBackground</Name>
+                                <Workflow>
+                                  <Nodes>
+                                    <Expression xsi:type="SubscribeSubject">
+                                      <Name>ArenaVideoStream</Name>
+                                    </Expression>
+                                    <Expression xsi:type="Combinator">
+                                      <Combinator xsi:type="rx:Take">
+                                        <rx:Count>1</rx:Count>
+                                      </Combinator>
+                                    </Expression>
+                                    <Expression xsi:type="MemberSelector">
+                                      <Selector>ArenaCentroid</Selector>
+                                    </Expression>
+                                    <Expression xsi:type="MemberSelector">
+                                      <Selector>Item1</Selector>
+                                    </Expression>
+                                    <Expression xsi:type="MemberSelector">
+                                      <Selector>Size</Selector>
+                                    </Expression>
+                                    <Expression xsi:type="MemberSelector">
+                                      <Selector>Item2</Selector>
+                                    </Expression>
+                                    <Expression xsi:type="MemberSelector">
+                                      <Selector>Contour</Selector>
+                                    </Expression>
+                                    <Expression xsi:type="Combinator">
+                                      <Combinator xsi:type="cv:DrawContours">
+                                        <cv:MaxLevel>1</cv:MaxLevel>
+                                        <cv:Thickness>-1</cv:Thickness>
+                                      </Combinator>
+                                    </Expression>
+                                    <Expression xsi:type="MemberSelector">
+                                      <Selector>Rect</Selector>
+                                    </Expression>
+                                    <Expression xsi:type="Combinator">
+                                      <Combinator xsi:type="rx:Zip" />
+                                    </Expression>
+                                    <Expression xsi:type="scr:ExpressionTransform">
+                                      <scr:Expression>new(
+Item1 as OrginalImageSize,
+Item2 as ContourMask,
+Item3 as Rect)</scr:Expression>
+                                    </Expression>
+                                    <Expression xsi:type="InputMapping">
+                                      <PropertyMappings>
+                                        <Property Name="Size" Selector="OrginalImageSize" />
+                                        <Property Name="Offset" Selector="Rect.X,Rect.Y" />
+                                      </PropertyMappings>
+                                      <Selector>ContourMask</Selector>
+                                    </Expression>
+                                    <Expression xsi:type="Combinator">
+                                      <Combinator xsi:type="cv:ResizeCanvas">
+                                        <cv:Size>
+                                          <cv:Width>640</cv:Width>
+                                          <cv:Height>480</cv:Height>
+                                        </cv:Size>
+                                        <cv:BorderType>Constant</cv:BorderType>
+                                        <cv:FillValue>
+                                          <cv:Val0>0</cv:Val0>
+                                          <cv:Val1>0</cv:Val1>
+                                          <cv:Val2>0</cv:Val2>
+                                          <cv:Val3>0</cv:Val3>
+                                        </cv:FillValue>
+                                        <cv:Offset>
+                                          <cv:X>46</cv:X>
+                                          <cv:Y>228</cv:Y>
+                                        </cv:Offset>
+                                      </Combinator>
+                                    </Expression>
+                                    <Expression xsi:type="MemberSelector">
+                                      <Selector>Item1</Selector>
+                                    </Expression>
+                                    <Expression xsi:type="Combinator">
+                                      <Combinator xsi:type="rx:Zip" />
+                                    </Expression>
+                                    <Expression xsi:type="BitwiseAnd" />
+                                    <Expression xsi:type="WorkflowOutput" />
+                                  </Nodes>
+                                  <Edges>
+                                    <Edge From="0" To="1" Label="Source1" />
+                                    <Edge From="1" To="2" Label="Source1" />
+                                    <Edge From="2" To="3" Label="Source1" />
+                                    <Edge From="2" To="5" Label="Source1" />
+                                    <Edge From="2" To="13" Label="Source1" />
+                                    <Edge From="3" To="4" Label="Source1" />
+                                    <Edge From="4" To="9" Label="Source1" />
+                                    <Edge From="5" To="6" Label="Source1" />
+                                    <Edge From="6" To="7" Label="Source1" />
+                                    <Edge From="6" To="8" Label="Source1" />
+                                    <Edge From="7" To="9" Label="Source2" />
+                                    <Edge From="8" To="9" Label="Source3" />
+                                    <Edge From="9" To="10" Label="Source1" />
+                                    <Edge From="10" To="11" Label="Source1" />
+                                    <Edge From="11" To="12" Label="Source1" />
+                                    <Edge From="12" To="14" Label="Source1" />
+                                    <Edge From="13" To="14" Label="Source2" />
+                                    <Edge From="14" To="15" Label="Source1" />
+                                    <Edge From="15" To="16" Label="Source1" />
+                                  </Edges>
+                                </Workflow>
                               </Expression>
-                              <Expression xsi:type="Disable">
-                                <Builder xsi:type="Combinator">
-                                  <Combinator xsi:type="rx:Take">
-                                    <rx:Count>1</rx:Count>
-                                  </Combinator>
-                                </Builder>
+                              <Expression xsi:type="SubscribeSubject">
+                                <Name>ThisArenaPath</Name>
                               </Expression>
-                              <Expression xsi:type="Disable">
-                                <Builder xsi:type="MemberSelector">
-                                  <Selector>RawBackground</Selector>
-                                </Builder>
+                              <Expression xsi:type="Format">
+                                <Format>{0}/MaskedBackground.png</Format>
+                                <Selector>it</Selector>
                               </Expression>
-                              <Expression xsi:type="Disable">
-                                <Builder xsi:type="SubscribeSubject">
-                                  <Name>ArenaVideoStream</Name>
-                                </Builder>
+                              <Expression xsi:type="PropertyMapping">
+                                <PropertyMappings>
+                                  <Property Name="FileName" />
+                                </PropertyMappings>
                               </Expression>
-                              <Expression xsi:type="Disable">
-                                <Builder xsi:type="Combinator">
-                                  <Combinator xsi:type="rx:Take">
-                                    <rx:Count>1</rx:Count>
-                                  </Combinator>
-                                </Builder>
-                              </Expression>
-                              <Expression xsi:type="Disable">
-                                <Builder xsi:type="MemberSelector">
-                                  <Selector>ArenaCentroid.Item2</Selector>
-                                </Builder>
-                              </Expression>
-                              <Expression xsi:type="Disable">
-                                <Builder xsi:type="MemberSelector">
-                                  <Selector>Patch</Selector>
-                                </Builder>
-                              </Expression>
-                              <Expression xsi:type="Disable">
-                                <Builder xsi:type="Combinator">
-                                  <Combinator xsi:type="rx:WithLatestFrom" />
-                                </Builder>
-                              </Expression>
-                              <Expression xsi:type="Disable">
-                                <Builder xsi:type="BitwiseAnd" />
+                              <Expression xsi:type="Combinator">
+                                <Combinator xsi:type="cv:SaveImage">
+                                  <cv:Suffix>None</cv:Suffix>
+                                </Combinator>
                               </Expression>
                             </Nodes>
                             <Edges>
@@ -1382,20 +1426,10 @@ Item3 as NormalizedPose)</scr:Expression>
                               <Edge From="3" To="4" Label="Source1" />
                               <Edge From="4" To="5" Label="Source1" />
                               <Edge From="5" To="6" Label="Source2" />
-                              <Edge From="7" To="8" Label="Source1" />
+                              <Edge From="7" To="11" Label="Source1" />
                               <Edge From="8" To="9" Label="Source1" />
-                              <Edge From="9" To="13" Label="Source1" />
-                              <Edge From="10" To="11" Label="Source1" />
-                              <Edge From="11" To="12" Label="Source1" />
-                              <Edge From="12" To="13" Label="Source2" />
-                              <Edge From="14" To="15" Label="Source1" />
-                              <Edge From="15" To="16" Label="Source1" />
-                              <Edge From="16" To="21" Label="Source1" />
-                              <Edge From="17" To="18" Label="Source1" />
-                              <Edge From="18" To="19" Label="Source1" />
-                              <Edge From="19" To="20" Label="Source1" />
-                              <Edge From="20" To="21" Label="Source2" />
-                              <Edge From="21" To="22" Label="Source1" />
+                              <Edge From="9" To="10" Label="Source1" />
+                              <Edge From="10" To="11" Label="Source2" />
                             </Edges>
                           </Workflow>
                         </Expression>
@@ -1407,7 +1441,7 @@ Item3 as NormalizedPose)</scr:Expression>
                                 <Name>ArenaVideoStream</Name>
                               </Expression>
                               <Expression xsi:type="MemberSelector">
-                                <Selector>RawFrame</Selector>
+                                <Selector>BackgroundSubtractedFrame</Selector>
                               </Expression>
                               <Expression xsi:type="SubscribeSubject">
                                 <Name>ThisArenaPath</Name>
@@ -1598,102 +1632,6 @@ Item2 as Confidence)</scr:Expression>
                                   </Edges>
                                 </Workflow>
                               </Expression>
-                              <Expression xsi:type="SubscribeSubject">
-                                <Name>PoseStream</Name>
-                              </Expression>
-                              <Expression xsi:type="Combinator">
-                                <Combinator xsi:type="rx:Merge" />
-                              </Expression>
-                              <Expression xsi:type="rx:GroupBy">
-                                <rx:KeySelector>Name</rx:KeySelector>
-                              </Expression>
-                              <Expression xsi:type="rx:SelectMany">
-                                <Name>LogSleapDemux</Name>
-                                <Workflow>
-                                  <Nodes>
-                                    <Expression xsi:type="WorkflowInput">
-                                      <Name>Source1</Name>
-                                    </Expression>
-                                    <Expression xsi:type="rx:ReplaySubject">
-                                      <Name>Data</Name>
-                                      <rx:BufferSize xsi:nil="true" />
-                                    </Expression>
-                                    <Expression xsi:type="SubscribeSubject">
-                                      <Name>Data</Name>
-                                    </Expression>
-                                    <Expression xsi:type="MemberSelector">
-                                      <Selector>Key</Selector>
-                                    </Expression>
-                                    <Expression xsi:type="rx:AsyncSubject">
-                                      <Name>BodyPart</Name>
-                                    </Expression>
-                                    <Expression xsi:type="SubscribeSubject">
-                                      <Name>Data</Name>
-                                    </Expression>
-                                    <Expression xsi:type="Combinator">
-                                      <Combinator xsi:type="rx:Merge" />
-                                    </Expression>
-                                    <Expression xsi:type="MemberSelector">
-                                      <Selector>Position,Confidence</Selector>
-                                    </Expression>
-                                    <Expression xsi:type="scr:ExpressionTransform">
-                                      <scr:Name>Header</scr:Name>
-                                      <scr:Expression>new(
-Item1 as Position, 
-Item2 as Confidence)</scr:Expression>
-                                    </Expression>
-                                    <Expression xsi:type="SubscribeSubject">
-                                      <Name>ThisArenaPath</Name>
-                                    </Expression>
-                                    <Expression xsi:type="SubscribeSubject">
-                                      <Name>BodyPart</Name>
-                                    </Expression>
-                                    <Expression xsi:type="ExternalizedMapping">
-                                      <Property Name="Value" DisplayName="PrefixName" />
-                                    </Expression>
-                                    <Expression xsi:type="Combinator">
-                                      <Combinator xsi:type="StringProperty">
-                                        <Value>Sleap</Value>
-                                      </Combinator>
-                                    </Expression>
-                                    <Expression xsi:type="Combinator">
-                                      <Combinator xsi:type="rx:Zip" />
-                                    </Expression>
-                                    <Expression xsi:type="Format">
-                                      <Format>{0}/{2}_{1}.csv</Format>
-                                      <Selector>Item1,Item2,Item3</Selector>
-                                    </Expression>
-                                    <Expression xsi:type="PropertyMapping">
-                                      <PropertyMappings>
-                                        <Property Name="FileName" />
-                                      </PropertyMappings>
-                                    </Expression>
-                                    <Expression xsi:type="io:CsvWriter">
-                                      <io:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\Test-05_25_2023 09_57_21/Arena3/Sleap_B.csv</io:FileName>
-                                      <io:Append>false</io:Append>
-                                      <io:Overwrite>false</io:Overwrite>
-                                      <io:Suffix>None</io:Suffix>
-                                      <io:IncludeHeader>true</io:IncludeHeader>
-                                    </Expression>
-                                  </Nodes>
-                                  <Edges>
-                                    <Edge From="0" To="1" Label="Source1" />
-                                    <Edge From="2" To="3" Label="Source1" />
-                                    <Edge From="3" To="4" Label="Source1" />
-                                    <Edge From="5" To="6" Label="Source1" />
-                                    <Edge From="6" To="7" Label="Source1" />
-                                    <Edge From="7" To="8" Label="Source1" />
-                                    <Edge From="8" To="16" Label="Source1" />
-                                    <Edge From="9" To="13" Label="Source1" />
-                                    <Edge From="10" To="13" Label="Source2" />
-                                    <Edge From="11" To="12" Label="Source1" />
-                                    <Edge From="12" To="13" Label="Source3" />
-                                    <Edge From="13" To="14" Label="Source1" />
-                                    <Edge From="14" To="15" Label="Source1" />
-                                    <Edge From="15" To="16" Label="Source2" />
-                                  </Edges>
-                                </Workflow>
-                              </Expression>
                             </Nodes>
                             <Edges>
                               <Edge From="0" To="1" Label="Source1" />
@@ -1718,9 +1656,6 @@ Item2 as Confidence)</scr:Expression>
                               <Edge From="22" To="23" Label="Source1" />
                               <Edge From="23" To="24" Label="Source1" />
                               <Edge From="24" To="25" Label="Source1" />
-                              <Edge From="26" To="27" Label="Source1" />
-                              <Edge From="27" To="28" Label="Source1" />
-                              <Edge From="28" To="29" Label="Source1" />
                             </Edges>
                           </Workflow>
                         </Expression>
