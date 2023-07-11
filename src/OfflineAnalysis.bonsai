@@ -245,6 +245,11 @@ Item7 as FileName)</scr:Expression>
                 <Property Name="InputStimCsvPath" />
               </PropertyMappings>
             </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="ModelFileName" />
+              <Property Name="TrainingConfig" />
+              <Property Name="EnableSleap" />
+            </Expression>
             <Expression xsi:type="GroupWorkflow">
               <Name>Settings</Name>
               <Workflow>
@@ -339,6 +344,14 @@ Item7 as FileName)</scr:Expression>
                     <MemberName>PartMinConfidence</MemberName>
                     <Value xsi:nil="true" />
                   </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" DisplayName="EnableSleap" />
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="BooleanProperty">
+                      <Value>false</Value>
+                    </Combinator>
+                  </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="rx:Zip" />
                   </Expression>
@@ -348,7 +361,8 @@ Item1 as ModelFileName,
 Item2 as TrainingConfig,
 Item3 as ColorConversion,
 Item4 as ScaleFactor,
-Item5 as PartMinConfience)</scr:Expression>
+Item5 as PartMinConfience,
+Item6 as EnableSleap)</scr:Expression>
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="rx:Take">
@@ -373,15 +387,17 @@ Item5 as PartMinConfience)</scr:Expression>
                   <Edge From="13" To="14" Label="Source1" />
                   <Edge From="14" To="15" Label="Source1" />
                   <Edge From="16" To="17" Label="Source1" />
-                  <Edge From="17" To="23" Label="Source1" />
+                  <Edge From="17" To="25" Label="Source1" />
                   <Edge From="18" To="19" Label="Source1" />
-                  <Edge From="19" To="23" Label="Source2" />
-                  <Edge From="20" To="23" Label="Source3" />
-                  <Edge From="21" To="23" Label="Source4" />
-                  <Edge From="22" To="23" Label="Source5" />
+                  <Edge From="19" To="25" Label="Source2" />
+                  <Edge From="20" To="25" Label="Source3" />
+                  <Edge From="21" To="25" Label="Source4" />
+                  <Edge From="22" To="25" Label="Source5" />
                   <Edge From="23" To="24" Label="Source1" />
-                  <Edge From="24" To="25" Label="Source1" />
+                  <Edge From="24" To="25" Label="Source6" />
                   <Edge From="25" To="26" Label="Source1" />
+                  <Edge From="26" To="27" Label="Source1" />
+                  <Edge From="27" To="28" Label="Source1" />
                 </Edges>
               </Workflow>
             </Expression>
@@ -1327,6 +1343,28 @@ Item3 as NormalizedPose)</scr:Expression>
                           </Workflow>
                         </Expression>
                         <Expression xsi:type="SubscribeSubject">
+                          <Name>SleapModelConfiguration</Name>
+                        </Expression>
+                        <Expression xsi:type="MemberSelector">
+                          <Selector>EnableSleap</Selector>
+                        </Expression>
+                        <Expression xsi:type="rx:Condition">
+                          <Workflow>
+                            <Nodes>
+                              <Expression xsi:type="WorkflowInput">
+                                <Name>Source1</Name>
+                              </Expression>
+                              <Expression xsi:type="WorkflowOutput" />
+                            </Nodes>
+                            <Edges>
+                              <Edge From="0" To="1" Label="Source1" />
+                            </Edges>
+                          </Workflow>
+                        </Expression>
+                        <Expression xsi:type="Combinator">
+                          <Combinator xsi:type="rx:SubscribeWhen" />
+                        </Expression>
+                        <Expression xsi:type="SubscribeSubject">
                           <Name>ArenaIndex</Name>
                         </Expression>
                         <Expression xsi:type="GroupWorkflow">
@@ -1719,121 +1757,158 @@ Item3 as Rect)</scr:Expression>
                                 <io:Suffix>None</io:Suffix>
                                 <io:IncludeHeader>true</io:IncludeHeader>
                               </Expression>
+                              <Expression xsi:type="GroupWorkflow">
+                                <Name>SleapLogger</Name>
+                                <Workflow>
+                                  <Nodes>
+                                    <Expression xsi:type="SubscribeSubject">
+                                      <Name>NormalizedPoseStream</Name>
+                                    </Expression>
+                                    <Expression xsi:type="MemberSelector">
+                                      <Selector>Normalized</Selector>
+                                    </Expression>
+                                    <Expression xsi:type="Combinator">
+                                      <Combinator xsi:type="rx:Merge" />
+                                    </Expression>
+                                    <Expression xsi:type="rx:GroupBy">
+                                      <rx:KeySelector>Name</rx:KeySelector>
+                                    </Expression>
+                                    <Expression xsi:type="rx:SelectMany">
+                                      <Name>LogSleapDemux</Name>
+                                      <Workflow>
+                                        <Nodes>
+                                          <Expression xsi:type="WorkflowInput">
+                                            <Name>Source1</Name>
+                                          </Expression>
+                                          <Expression xsi:type="rx:ReplaySubject">
+                                            <Name>Data</Name>
+                                            <rx:BufferSize xsi:nil="true" />
+                                          </Expression>
+                                          <Expression xsi:type="SubscribeSubject">
+                                            <Name>Data</Name>
+                                          </Expression>
+                                          <Expression xsi:type="MemberSelector">
+                                            <Selector>Key</Selector>
+                                          </Expression>
+                                          <Expression xsi:type="rx:AsyncSubject">
+                                            <Name>BodyPart</Name>
+                                          </Expression>
+                                          <Expression xsi:type="SubscribeSubject">
+                                            <Name>Data</Name>
+                                          </Expression>
+                                          <Expression xsi:type="Combinator">
+                                            <Combinator xsi:type="rx:Merge" />
+                                          </Expression>
+                                          <Expression xsi:type="MemberSelector">
+                                            <Selector>Position,Confidence</Selector>
+                                          </Expression>
+                                          <Expression xsi:type="scr:ExpressionTransform">
+                                            <scr:Name>Header</scr:Name>
+                                            <scr:Expression>new(
+Item1 as Position, 
+Item2 as Confidence)</scr:Expression>
+                                          </Expression>
+                                          <Expression xsi:type="SubscribeSubject">
+                                            <Name>ThisSessionPaths</Name>
+                                          </Expression>
+                                          <Expression xsi:type="MemberSelector">
+                                            <Selector>PostProcessingTracking</Selector>
+                                          </Expression>
+                                          <Expression xsi:type="SubscribeSubject">
+                                            <Name>ThisSessionPaths</Name>
+                                          </Expression>
+                                          <Expression xsi:type="MemberSelector">
+                                            <Selector>FileName</Selector>
+                                          </Expression>
+                                          <Expression xsi:type="SubscribeSubject">
+                                            <Name>ArenaIndex</Name>
+                                          </Expression>
+                                          <Expression xsi:type="SubscribeSubject">
+                                            <Name>BodyPart</Name>
+                                          </Expression>
+                                          <Expression xsi:type="ExternalizedMapping">
+                                            <Property Name="Value" DisplayName="PrefixName" />
+                                          </Expression>
+                                          <Expression xsi:type="Combinator">
+                                            <Combinator xsi:type="StringProperty">
+                                              <Value>NormalizedSleap</Value>
+                                            </Combinator>
+                                          </Expression>
+                                          <Expression xsi:type="Combinator">
+                                            <Combinator xsi:type="rx:Zip" />
+                                          </Expression>
+                                          <Expression xsi:type="Format">
+                                            <Format>{0}/{1}_fly{2}_{4}_{3}.csv</Format>
+                                            <Selector>Item1,Item2,Item3,Item4,Item5</Selector>
+                                          </Expression>
+                                          <Expression xsi:type="PropertyMapping">
+                                            <PropertyMappings>
+                                              <Property Name="FileName" />
+                                            </PropertyMappings>
+                                          </Expression>
+                                          <Expression xsi:type="io:CsvWriter">
+                                            <io:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\Test-05_25_2023 09_57_21/Arena3/NormalizedSleap_B.csv</io:FileName>
+                                            <io:Append>false</io:Append>
+                                            <io:Overwrite>false</io:Overwrite>
+                                            <io:Suffix>None</io:Suffix>
+                                            <io:IncludeHeader>true</io:IncludeHeader>
+                                          </Expression>
+                                        </Nodes>
+                                        <Edges>
+                                          <Edge From="0" To="1" Label="Source1" />
+                                          <Edge From="2" To="3" Label="Source1" />
+                                          <Edge From="3" To="4" Label="Source1" />
+                                          <Edge From="5" To="6" Label="Source1" />
+                                          <Edge From="6" To="7" Label="Source1" />
+                                          <Edge From="7" To="8" Label="Source1" />
+                                          <Edge From="8" To="20" Label="Source1" />
+                                          <Edge From="9" To="10" Label="Source1" />
+                                          <Edge From="10" To="17" Label="Source1" />
+                                          <Edge From="11" To="12" Label="Source1" />
+                                          <Edge From="12" To="17" Label="Source2" />
+                                          <Edge From="13" To="17" Label="Source3" />
+                                          <Edge From="14" To="16" Label="Source2" />
+                                          <Edge From="14" To="17" Label="Source4" />
+                                          <Edge From="15" To="16" Label="Source1" />
+                                          <Edge From="16" To="17" Label="Source5" />
+                                          <Edge From="17" To="18" Label="Source1" />
+                                          <Edge From="18" To="19" Label="Source1" />
+                                          <Edge From="19" To="20" Label="Source2" />
+                                        </Edges>
+                                      </Workflow>
+                                    </Expression>
+                                    <Expression xsi:type="WorkflowOutput" />
+                                  </Nodes>
+                                  <Edges>
+                                    <Edge From="0" To="1" Label="Source1" />
+                                    <Edge From="1" To="2" Label="Source1" />
+                                    <Edge From="2" To="3" Label="Source1" />
+                                    <Edge From="3" To="4" Label="Source1" />
+                                    <Edge From="4" To="5" Label="Source1" />
+                                  </Edges>
+                                </Workflow>
+                              </Expression>
                               <Expression xsi:type="SubscribeSubject">
-                                <Name>NormalizedPoseStream</Name>
+                                <Name>SleapModelConfiguration</Name>
                               </Expression>
                               <Expression xsi:type="MemberSelector">
-                                <Selector>Normalized</Selector>
+                                <Selector>EnableSleap</Selector>
                               </Expression>
-                              <Expression xsi:type="Combinator">
-                                <Combinator xsi:type="rx:Merge" />
-                              </Expression>
-                              <Expression xsi:type="rx:GroupBy">
-                                <rx:KeySelector>Name</rx:KeySelector>
-                              </Expression>
-                              <Expression xsi:type="rx:SelectMany">
-                                <Name>LogSleapDemux</Name>
+                              <Expression xsi:type="rx:Condition">
                                 <Workflow>
                                   <Nodes>
                                     <Expression xsi:type="WorkflowInput">
                                       <Name>Source1</Name>
                                     </Expression>
-                                    <Expression xsi:type="rx:ReplaySubject">
-                                      <Name>Data</Name>
-                                      <rx:BufferSize xsi:nil="true" />
-                                    </Expression>
-                                    <Expression xsi:type="SubscribeSubject">
-                                      <Name>Data</Name>
-                                    </Expression>
-                                    <Expression xsi:type="MemberSelector">
-                                      <Selector>Key</Selector>
-                                    </Expression>
-                                    <Expression xsi:type="rx:AsyncSubject">
-                                      <Name>BodyPart</Name>
-                                    </Expression>
-                                    <Expression xsi:type="SubscribeSubject">
-                                      <Name>Data</Name>
-                                    </Expression>
-                                    <Expression xsi:type="Combinator">
-                                      <Combinator xsi:type="rx:Merge" />
-                                    </Expression>
-                                    <Expression xsi:type="MemberSelector">
-                                      <Selector>Position,Confidence</Selector>
-                                    </Expression>
-                                    <Expression xsi:type="scr:ExpressionTransform">
-                                      <scr:Name>Header</scr:Name>
-                                      <scr:Expression>new(
-Item1 as Position, 
-Item2 as Confidence)</scr:Expression>
-                                    </Expression>
-                                    <Expression xsi:type="SubscribeSubject">
-                                      <Name>ThisSessionPaths</Name>
-                                    </Expression>
-                                    <Expression xsi:type="MemberSelector">
-                                      <Selector>PostProcessingTracking</Selector>
-                                    </Expression>
-                                    <Expression xsi:type="SubscribeSubject">
-                                      <Name>ThisSessionPaths</Name>
-                                    </Expression>
-                                    <Expression xsi:type="MemberSelector">
-                                      <Selector>FileName</Selector>
-                                    </Expression>
-                                    <Expression xsi:type="SubscribeSubject">
-                                      <Name>ArenaIndex</Name>
-                                    </Expression>
-                                    <Expression xsi:type="SubscribeSubject">
-                                      <Name>BodyPart</Name>
-                                    </Expression>
-                                    <Expression xsi:type="ExternalizedMapping">
-                                      <Property Name="Value" DisplayName="PrefixName" />
-                                    </Expression>
-                                    <Expression xsi:type="Combinator">
-                                      <Combinator xsi:type="StringProperty">
-                                        <Value>NormalizedSleap</Value>
-                                      </Combinator>
-                                    </Expression>
-                                    <Expression xsi:type="Combinator">
-                                      <Combinator xsi:type="rx:Zip" />
-                                    </Expression>
-                                    <Expression xsi:type="Format">
-                                      <Format>{0}/{1}_fly{2}_{4}_{3}.csv</Format>
-                                      <Selector>Item1,Item2,Item3,Item4,Item5</Selector>
-                                    </Expression>
-                                    <Expression xsi:type="PropertyMapping">
-                                      <PropertyMappings>
-                                        <Property Name="FileName" />
-                                      </PropertyMappings>
-                                    </Expression>
-                                    <Expression xsi:type="io:CsvWriter">
-                                      <io:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\Test-05_25_2023 09_57_21/Arena3/NormalizedSleap_B.csv</io:FileName>
-                                      <io:Append>false</io:Append>
-                                      <io:Overwrite>false</io:Overwrite>
-                                      <io:Suffix>None</io:Suffix>
-                                      <io:IncludeHeader>true</io:IncludeHeader>
-                                    </Expression>
+                                    <Expression xsi:type="WorkflowOutput" />
                                   </Nodes>
                                   <Edges>
                                     <Edge From="0" To="1" Label="Source1" />
-                                    <Edge From="2" To="3" Label="Source1" />
-                                    <Edge From="3" To="4" Label="Source1" />
-                                    <Edge From="5" To="6" Label="Source1" />
-                                    <Edge From="6" To="7" Label="Source1" />
-                                    <Edge From="7" To="8" Label="Source1" />
-                                    <Edge From="8" To="20" Label="Source1" />
-                                    <Edge From="9" To="10" Label="Source1" />
-                                    <Edge From="10" To="17" Label="Source1" />
-                                    <Edge From="11" To="12" Label="Source1" />
-                                    <Edge From="12" To="17" Label="Source2" />
-                                    <Edge From="13" To="17" Label="Source3" />
-                                    <Edge From="14" To="16" Label="Source2" />
-                                    <Edge From="14" To="17" Label="Source4" />
-                                    <Edge From="15" To="16" Label="Source1" />
-                                    <Edge From="16" To="17" Label="Source5" />
-                                    <Edge From="17" To="18" Label="Source1" />
-                                    <Edge From="18" To="19" Label="Source1" />
-                                    <Edge From="19" To="20" Label="Source2" />
                                   </Edges>
                                 </Workflow>
+                              </Expression>
+                              <Expression xsi:type="Combinator">
+                                <Combinator xsi:type="rx:SubscribeWhen" />
                               </Expression>
                             </Nodes>
                             <Edges>
@@ -1878,10 +1953,10 @@ Item2 as Confidence)</scr:Expression>
                               <Edge From="41" To="42" Label="Source1" />
                               <Edge From="42" To="43" Label="Source1" />
                               <Edge From="43" To="44" Label="Source2" />
-                              <Edge From="45" To="46" Label="Source1" />
+                              <Edge From="45" To="49" Label="Source1" />
                               <Edge From="46" To="47" Label="Source1" />
                               <Edge From="47" To="48" Label="Source1" />
-                              <Edge From="48" To="49" Label="Source1" />
+                              <Edge From="48" To="49" Label="Source2" />
                             </Edges>
                           </Workflow>
                         </Expression>
@@ -1895,9 +1970,13 @@ Item2 as Confidence)</scr:Expression>
                         <Edge From="7" To="8" Label="Source1" />
                         <Edge From="8" To="9" Label="Source1" />
                         <Edge From="11" To="12" Label="Source1" />
-                        <Edge From="14" To="16" Label="Source1" />
-                        <Edge From="15" To="16" Label="Source2" />
-                        <Edge From="16" To="17" Label="Source1" />
+                        <Edge From="13" To="17" Label="Source1" />
+                        <Edge From="14" To="15" Label="Source1" />
+                        <Edge From="15" To="16" Label="Source1" />
+                        <Edge From="16" To="17" Label="Source2" />
+                        <Edge From="18" To="20" Label="Source1" />
+                        <Edge From="19" To="20" Label="Source2" />
+                        <Edge From="20" To="21" Label="Source1" />
                       </Edges>
                     </Workflow>
                   </Expression>
@@ -2029,12 +2108,13 @@ Item2 as Confidence)</scr:Expression>
             <Edge From="1" To="2" Label="Source1" />
             <Edge From="3" To="4" Label="Source1" />
             <Edge From="4" To="5" Label="Source1" />
-            <Edge From="5" To="9" Label="Source1" />
+            <Edge From="5" To="10" Label="Source1" />
             <Edge From="6" To="7" Label="Source1" />
             <Edge From="7" To="8" Label="Source1" />
-            <Edge From="8" To="9" Label="Source2" />
-            <Edge From="11" To="12" Label="Source1" />
-            <Edge From="13" To="14" Label="Source1" />
+            <Edge From="8" To="10" Label="Source2" />
+            <Edge From="9" To="10" Label="Source3" />
+            <Edge From="12" To="13" Label="Source1" />
+            <Edge From="14" To="15" Label="Source1" />
           </Edges>
         </Workflow>
       </Expression>
