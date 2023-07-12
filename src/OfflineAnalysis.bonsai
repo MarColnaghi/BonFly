@@ -873,10 +873,10 @@ Item2 as Video
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="cv:Crop">
                                         <cv:RegionOfInterest>
-                                          <cv:X>201</cv:X>
-                                          <cv:Y>527</cv:Y>
-                                          <cv:Width>407</cv:Width>
-                                          <cv:Height>410</cv:Height>
+                                          <cv:X>690</cv:X>
+                                          <cv:Y>522</cv:Y>
+                                          <cv:Width>414</cv:Width>
+                                          <cv:Height>413</cv:Height>
                                         </cv:RegionOfInterest>
                                       </Combinator>
                                     </Expression>
@@ -1175,8 +1175,8 @@ Item1.Y / Item2.Height as Y
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="cv:CreatePoint2f">
-                                  <cv:X>0.220218837</cv:X>
-                                  <cv:Y>0.146762833</cv:Y>
+                                  <cv:X>0.8008406</cv:X>
+                                  <cv:Y>0.132610172</cv:Y>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="rx:PublishSubject">
@@ -1282,8 +1282,8 @@ Item1.Y / Item2.Height as Y
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="p2:NormalizeSleapOutput">
                                   <p2:CropSize>
-                                    <p2:Width>412</p2:Width>
-                                    <p2:Height>407</p2:Height>
+                                    <p2:Width>414</p2:Width>
+                                    <p2:Height>413</p2:Height>
                                   </p2:CropSize>
                                   <p2:ScalingFactor>1</p2:ScalingFactor>
                                 </Combinator>
@@ -1525,37 +1525,8 @@ Item3 as NormalizedPose)</scr:Expression>
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="rx:Zip" />
                                     </Expression>
-                                    <Expression xsi:type="scr:ExpressionTransform">
-                                      <scr:Expression>new(
-Item1 as OrginalImageSize,
-Item2 as ContourMask,
-Item3 as Rect)</scr:Expression>
-                                    </Expression>
-                                    <Expression xsi:type="InputMapping">
-                                      <PropertyMappings>
-                                        <Property Name="Size" Selector="OrginalImageSize" />
-                                        <Property Name="Offset" Selector="Rect.X,Rect.Y" />
-                                      </PropertyMappings>
-                                      <Selector>ContourMask</Selector>
-                                    </Expression>
-                                    <Expression xsi:type="Combinator">
-                                      <Combinator xsi:type="cv:ResizeCanvas">
-                                        <cv:Size>
-                                          <cv:Width>414</cv:Width>
-                                          <cv:Height>413</cv:Height>
-                                        </cv:Size>
-                                        <cv:BorderType>Constant</cv:BorderType>
-                                        <cv:FillValue>
-                                          <cv:Val0>0</cv:Val0>
-                                          <cv:Val1>0</cv:Val1>
-                                          <cv:Val2>0</cv:Val2>
-                                          <cv:Val3>0</cv:Val3>
-                                        </cv:FillValue>
-                                        <cv:Offset>
-                                          <cv:X>690</cv:X>
-                                          <cv:Y>522</cv:Y>
-                                        </cv:Offset>
-                                      </Combinator>
+                                    <Expression xsi:type="MemberSelector">
+                                      <Selector>Item2</Selector>
                                     </Expression>
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="rx:Take">
@@ -1592,14 +1563,12 @@ Item3 as Rect)</scr:Expression>
                                     <Edge From="7" To="8" Label="Source3" />
                                     <Edge From="8" To="9" Label="Source1" />
                                     <Edge From="9" To="10" Label="Source1" />
-                                    <Edge From="10" To="11" Label="Source1" />
+                                    <Edge From="10" To="14" Label="Source1" />
                                     <Edge From="11" To="12" Label="Source1" />
-                                    <Edge From="12" To="16" Label="Source1" />
-                                    <Edge From="13" To="14" Label="Source1" />
+                                    <Edge From="12" To="13" Label="Source1" />
+                                    <Edge From="13" To="14" Label="Source2" />
                                     <Edge From="14" To="15" Label="Source1" />
-                                    <Edge From="15" To="16" Label="Source2" />
-                                    <Edge From="16" To="17" Label="Source1" />
-                                    <Edge From="17" To="18" Label="Source1" />
+                                    <Edge From="15" To="16" Label="Source1" />
                                   </Edges>
                                 </Workflow>
                               </Expression>
@@ -1668,14 +1637,10 @@ Item3 as Rect)</scr:Expression>
                                 <Format>{0}/{1}_fly{2}.avi</Format>
                                 <Selector>Item1,Item2,Item3</Selector>
                               </Expression>
-                              <Expression xsi:type="Combinator">
-                                <Combinator xsi:type="rx:WithLatestFrom" />
-                              </Expression>
-                              <Expression xsi:type="InputMapping">
+                              <Expression xsi:type="PropertyMapping">
                                 <PropertyMappings>
-                                  <Property Name="FileName" Selector="Item2" />
+                                  <Property Name="FileName" />
                                 </PropertyMappings>
-                                <Selector>Item1</Selector>
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="cv:VideoWriter">
@@ -1946,42 +1911,41 @@ Item2 as Confidence)</scr:Expression>
                               <Edge From="8" To="9" Label="Source1" />
                               <Edge From="9" To="10" Label="Source1" />
                               <Edge From="11" To="12" Label="Source1" />
-                              <Edge From="12" To="20" Label="Source1" />
+                              <Edge From="12" To="21" Label="Source1" />
                               <Edge From="13" To="14" Label="Source1" />
                               <Edge From="14" To="18" Label="Source1" />
                               <Edge From="15" To="16" Label="Source1" />
                               <Edge From="16" To="18" Label="Source2" />
                               <Edge From="17" To="18" Label="Source3" />
                               <Edge From="18" To="19" Label="Source1" />
-                              <Edge From="19" To="20" Label="Source2" />
-                              <Edge From="20" To="21" Label="Source1" />
-                              <Edge From="21" To="22" Label="Source1" />
-                              <Edge From="23" To="25" Label="Source1" />
-                              <Edge From="24" To="25" Label="Source2" />
-                              <Edge From="25" To="26" Label="Source1" />
-                              <Edge From="26" To="35" Label="Source1" />
-                              <Edge From="27" To="28" Label="Source1" />
-                              <Edge From="28" To="32" Label="Source1" />
-                              <Edge From="29" To="30" Label="Source1" />
-                              <Edge From="30" To="32" Label="Source2" />
-                              <Edge From="31" To="32" Label="Source3" />
+                              <Edge From="19" To="20" Label="Source1" />
+                              <Edge From="20" To="21" Label="Source2" />
+                              <Edge From="22" To="24" Label="Source1" />
+                              <Edge From="23" To="24" Label="Source2" />
+                              <Edge From="24" To="25" Label="Source1" />
+                              <Edge From="25" To="34" Label="Source1" />
+                              <Edge From="26" To="27" Label="Source1" />
+                              <Edge From="27" To="31" Label="Source1" />
+                              <Edge From="28" To="29" Label="Source1" />
+                              <Edge From="29" To="31" Label="Source2" />
+                              <Edge From="30" To="31" Label="Source3" />
+                              <Edge From="31" To="32" Label="Source1" />
                               <Edge From="32" To="33" Label="Source1" />
-                              <Edge From="33" To="34" Label="Source1" />
-                              <Edge From="34" To="35" Label="Source2" />
-                              <Edge From="36" To="37" Label="Source1" />
-                              <Edge From="37" To="46" Label="Source1" />
-                              <Edge From="38" To="39" Label="Source1" />
-                              <Edge From="39" To="43" Label="Source1" />
-                              <Edge From="40" To="41" Label="Source1" />
-                              <Edge From="41" To="43" Label="Source2" />
-                              <Edge From="42" To="43" Label="Source3" />
+                              <Edge From="33" To="34" Label="Source2" />
+                              <Edge From="35" To="36" Label="Source1" />
+                              <Edge From="36" To="45" Label="Source1" />
+                              <Edge From="37" To="38" Label="Source1" />
+                              <Edge From="38" To="42" Label="Source1" />
+                              <Edge From="39" To="40" Label="Source1" />
+                              <Edge From="40" To="42" Label="Source2" />
+                              <Edge From="41" To="42" Label="Source3" />
+                              <Edge From="42" To="43" Label="Source1" />
                               <Edge From="43" To="44" Label="Source1" />
-                              <Edge From="44" To="45" Label="Source1" />
-                              <Edge From="45" To="46" Label="Source2" />
-                              <Edge From="47" To="51" Label="Source1" />
+                              <Edge From="44" To="45" Label="Source2" />
+                              <Edge From="46" To="50" Label="Source1" />
+                              <Edge From="47" To="48" Label="Source1" />
                               <Edge From="48" To="49" Label="Source1" />
-                              <Edge From="49" To="50" Label="Source1" />
-                              <Edge From="50" To="51" Label="Source2" />
+                              <Edge From="49" To="50" Label="Source2" />
                             </Edges>
                           </Workflow>
                         </Expression>
