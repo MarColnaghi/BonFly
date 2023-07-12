@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.8.0-alpha015"
+<WorkflowBuilder Version="2.8.0-rc1"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:io="clr-namespace:Bonsai.IO;assembly=Bonsai.System"
                  xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -873,10 +873,10 @@ Item2 as Video
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="cv:Crop">
                                         <cv:RegionOfInterest>
-                                          <cv:X>690</cv:X>
-                                          <cv:Y>522</cv:Y>
-                                          <cv:Width>414</cv:Width>
-                                          <cv:Height>413</cv:Height>
+                                          <cv:X>201</cv:X>
+                                          <cv:Y>527</cv:Y>
+                                          <cv:Width>407</cv:Width>
+                                          <cv:Height>410</cv:Height>
                                         </cv:RegionOfInterest>
                                       </Combinator>
                                     </Expression>
@@ -1175,8 +1175,8 @@ Item1.Y / Item2.Height as Y
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="cv:CreatePoint2f">
-                                  <cv:X>0.8008406</cv:X>
-                                  <cv:Y>0.132610172</cv:Y>
+                                  <cv:X>0.0253392663</cv:X>
+                                  <cv:Y>0.430949032</cv:Y>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="rx:PublishSubject">
@@ -1984,112 +1984,6 @@ Item2 as Confidence)</scr:Expression>
                 </Edges>
               </Workflow>
             </Expression>
-            <Expression xsi:type="GroupWorkflow">
-              <Name>Visualizers</Name>
-              <Workflow>
-                <Nodes>
-                  <Expression xsi:type="SubscribeSubject">
-                    <Name>ArenaFeeds</Name>
-                  </Expression>
-                  <Expression xsi:type="Index">
-                    <Operand xsi:type="IntProperty">
-                      <Value>0</Value>
-                    </Operand>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="rx:Merge" />
-                  </Expression>
-                  <Expression xsi:type="MemberSelector">
-                    <Selector>BackgroundSubtractedFrame</Selector>
-                  </Expression>
-                  <Expression xsi:type="VisualizerMapping">
-                    <VisualizerType xsi:type="TypeMapping" TypeArguments="p3:IplImageVisualizer" />
-                  </Expression>
-                  <Expression xsi:type="SubscribeSubject">
-                    <Name>ArenaFeeds</Name>
-                  </Expression>
-                  <Expression xsi:type="Index">
-                    <Operand xsi:type="IntProperty">
-                      <Value>1</Value>
-                    </Operand>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="rx:Merge" />
-                  </Expression>
-                  <Expression xsi:type="MemberSelector">
-                    <Selector>BackgroundSubtractedFrame</Selector>
-                  </Expression>
-                  <Expression xsi:type="VisualizerMapping">
-                    <VisualizerType xsi:type="TypeMapping" TypeArguments="p3:IplImageVisualizer" />
-                  </Expression>
-                  <Expression xsi:type="SubscribeSubject">
-                    <Name>ArenaFeeds</Name>
-                  </Expression>
-                  <Expression xsi:type="Index">
-                    <Operand xsi:type="IntProperty">
-                      <Value>2</Value>
-                    </Operand>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="rx:Merge" />
-                  </Expression>
-                  <Expression xsi:type="MemberSelector">
-                    <Selector>BackgroundSubtractedFrame</Selector>
-                  </Expression>
-                  <Expression xsi:type="VisualizerMapping">
-                    <VisualizerType xsi:type="TypeMapping" TypeArguments="p3:IplImageVisualizer" />
-                  </Expression>
-                  <Expression xsi:type="SubscribeSubject">
-                    <Name>ArenaFeeds</Name>
-                  </Expression>
-                  <Expression xsi:type="Index">
-                    <Operand xsi:type="IntProperty">
-                      <Value>3</Value>
-                    </Operand>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="rx:Merge" />
-                  </Expression>
-                  <Expression xsi:type="MemberSelector">
-                    <Selector>BackgroundSubtractedFrame</Selector>
-                  </Expression>
-                  <Expression xsi:type="VisualizerMapping">
-                    <VisualizerType xsi:type="TypeMapping" TypeArguments="p3:IplImageVisualizer" />
-                  </Expression>
-                  <Expression xsi:type="viz:TableLayoutPanelBuilder">
-                    <viz:ColumnCount>2</viz:ColumnCount>
-                    <viz:RowCount>2</viz:RowCount>
-                    <viz:ColumnStyles />
-                    <viz:RowStyles />
-                    <viz:CellSpans />
-                  </Expression>
-                  <Expression xsi:type="WorkflowOutput" />
-                </Nodes>
-                <Edges>
-                  <Edge From="0" To="1" Label="Source1" />
-                  <Edge From="1" To="2" Label="Source1" />
-                  <Edge From="2" To="3" Label="Source1" />
-                  <Edge From="3" To="4" Label="Source1" />
-                  <Edge From="4" To="20" Label="Source1" />
-                  <Edge From="5" To="6" Label="Source1" />
-                  <Edge From="6" To="7" Label="Source1" />
-                  <Edge From="7" To="8" Label="Source1" />
-                  <Edge From="8" To="9" Label="Source1" />
-                  <Edge From="9" To="20" Label="Source2" />
-                  <Edge From="10" To="11" Label="Source1" />
-                  <Edge From="11" To="12" Label="Source1" />
-                  <Edge From="12" To="13" Label="Source1" />
-                  <Edge From="13" To="14" Label="Source1" />
-                  <Edge From="14" To="20" Label="Source3" />
-                  <Edge From="15" To="16" Label="Source1" />
-                  <Edge From="16" To="17" Label="Source1" />
-                  <Edge From="17" To="18" Label="Source1" />
-                  <Edge From="18" To="19" Label="Source1" />
-                  <Edge From="19" To="20" Label="Source4" />
-                  <Edge From="20" To="21" Label="Source1" />
-                </Edges>
-              </Workflow>
-            </Expression>
             <Expression xsi:type="WorkflowOutput" />
           </Nodes>
           <Edges>
@@ -2103,12 +1997,107 @@ Item2 as Confidence)</scr:Expression>
             <Edge From="8" To="10" Label="Source2" />
             <Edge From="9" To="10" Label="Source3" />
             <Edge From="12" To="13" Label="Source1" />
-            <Edge From="14" To="15" Label="Source1" />
+            <Edge From="13" To="14" Label="Source1" />
           </Edges>
         </Workflow>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="rx:Concat" />
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="GroupWorkflow">
+          <Name>Visualizers</Name>
+          <Workflow>
+            <Nodes>
+              <Expression xsi:type="WorkflowInput">
+                <Name>Source1</Name>
+              </Expression>
+              <Expression xsi:type="Index" />
+              <Expression xsi:type="Combinator">
+                <Combinator xsi:type="rx:Merge" />
+              </Expression>
+              <Expression xsi:type="MemberSelector">
+                <Selector>BackgroundSubtractedFrame</Selector>
+              </Expression>
+              <Expression xsi:type="VisualizerMapping">
+                <VisualizerType xsi:type="TypeMapping" TypeArguments="p3:IplImageVisualizer" />
+              </Expression>
+              <Expression xsi:type="Index">
+                <Operand xsi:type="IntProperty">
+                  <Value>1</Value>
+                </Operand>
+              </Expression>
+              <Expression xsi:type="Combinator">
+                <Combinator xsi:type="rx:Merge" />
+              </Expression>
+              <Expression xsi:type="MemberSelector">
+                <Selector>BackgroundSubtractedFrame</Selector>
+              </Expression>
+              <Expression xsi:type="VisualizerMapping">
+                <VisualizerType xsi:type="TypeMapping" TypeArguments="p3:IplImageVisualizer" />
+              </Expression>
+              <Expression xsi:type="Index">
+                <Operand xsi:type="IntProperty">
+                  <Value>2</Value>
+                </Operand>
+              </Expression>
+              <Expression xsi:type="Combinator">
+                <Combinator xsi:type="rx:Merge" />
+              </Expression>
+              <Expression xsi:type="MemberSelector">
+                <Selector>BackgroundSubtractedFrame</Selector>
+              </Expression>
+              <Expression xsi:type="VisualizerMapping">
+                <VisualizerType xsi:type="TypeMapping" TypeArguments="p3:IplImageVisualizer" />
+              </Expression>
+              <Expression xsi:type="Index">
+                <Operand xsi:type="IntProperty">
+                  <Value>3</Value>
+                </Operand>
+              </Expression>
+              <Expression xsi:type="Combinator">
+                <Combinator xsi:type="rx:Merge" />
+              </Expression>
+              <Expression xsi:type="MemberSelector">
+                <Selector>BackgroundSubtractedFrame</Selector>
+              </Expression>
+              <Expression xsi:type="VisualizerMapping">
+                <VisualizerType xsi:type="TypeMapping" TypeArguments="p3:IplImageVisualizer" />
+              </Expression>
+              <Expression xsi:type="viz:TableLayoutPanelBuilder">
+                <viz:ColumnCount>2</viz:ColumnCount>
+                <viz:RowCount>2</viz:RowCount>
+                <viz:ColumnStyles />
+                <viz:RowStyles />
+                <viz:CellSpans />
+              </Expression>
+              <Expression xsi:type="WorkflowOutput" />
+            </Nodes>
+            <Edges>
+              <Edge From="0" To="1" Label="Source1" />
+              <Edge From="0" To="5" Label="Source1" />
+              <Edge From="0" To="9" Label="Source1" />
+              <Edge From="0" To="13" Label="Source1" />
+              <Edge From="1" To="2" Label="Source1" />
+              <Edge From="2" To="3" Label="Source1" />
+              <Edge From="3" To="4" Label="Source1" />
+              <Edge From="4" To="17" Label="Source1" />
+              <Edge From="5" To="6" Label="Source1" />
+              <Edge From="6" To="7" Label="Source1" />
+              <Edge From="7" To="8" Label="Source1" />
+              <Edge From="8" To="17" Label="Source2" />
+              <Edge From="9" To="10" Label="Source1" />
+              <Edge From="10" To="11" Label="Source1" />
+              <Edge From="11" To="12" Label="Source1" />
+              <Edge From="12" To="17" Label="Source3" />
+              <Edge From="13" To="14" Label="Source1" />
+              <Edge From="14" To="15" Label="Source1" />
+              <Edge From="15" To="16" Label="Source1" />
+              <Edge From="16" To="17" Label="Source4" />
+              <Edge From="17" To="18" Label="Source1" />
+            </Edges>
+          </Workflow>
+        </Builder>
       </Expression>
     </Nodes>
     <Edges>
@@ -2120,6 +2109,7 @@ Item2 as Confidence)</scr:Expression>
       <Edge From="5" To="6" Label="Source1" />
       <Edge From="6" To="7" Label="Source1" />
       <Edge From="7" To="8" Label="Source1" />
+      <Edge From="8" To="9" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>
