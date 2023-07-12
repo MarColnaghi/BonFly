@@ -293,7 +293,7 @@ Item7 as FileName)</scr:Expression>
                   </Expression>
                   <Expression xsi:type="PropertySource" TypeArguments="cv:FileCapture,sys:String">
                     <MemberName>FileName</MemberName>
-                    <Value>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\FH0a.avi</Value>
+                    <Value>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\BonflyExperimentDirectory\RawData\FH1\MC-Fem_CS_Low_Freezer-20Loom-2days-FH1-2023-06-06T14_35_30.avi</Value>
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="rx:Take">
@@ -308,7 +308,7 @@ Item7 as FileName)</scr:Expression>
                   </Expression>
                   <Expression xsi:type="PropertySource" TypeArguments="cv:FileCapture,sys:String">
                     <MemberName>FileName</MemberName>
-                    <Value>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\FH0a.csv</Value>
+                    <Value>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\BonflyExperimentDirectory\RawData\FH1\MC-Fem_CS_Low_Freezer-20Loom-2days-FH1-2023-06-06T14_35_30.csv</Value>
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="rx:Take">
@@ -349,7 +349,7 @@ Item7 as FileName)</scr:Expression>
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="BooleanProperty">
-                      <Value>false</Value>
+                      <Value>true</Value>
                     </Combinator>
                   </Expression>
                   <Expression xsi:type="Combinator">
@@ -423,7 +423,7 @@ Item6 as EnableSleap)</scr:Expression>
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="cv:FileCapture">
-                      <cv:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\FH0a.avi</cv:FileName>
+                      <cv:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\BonflyExperimentDirectory\RawData\FH1\MC-Fem_CS_Low_Freezer-20Loom-2days-FH1-2023-06-06T14_35_30.avi</cv:FileName>
                       <cv:PlaybackRate>99999999</cv:PlaybackRate>
                       <cv:StartPosition>0</cv:StartPosition>
                       <cv:PositionUnits>Frames</cv:PositionUnits>
@@ -432,7 +432,7 @@ Item6 as EnableSleap)</scr:Expression>
                     </Combinator>
                   </Expression>
                   <Expression xsi:type="io:CsvReader">
-                    <io:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\FH0a.csv</io:FileName>
+                    <io:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\BonflyExperimentDirectory\RawData\FH1\MC-Fem_CS_Low_Freezer-20Loom-2days-FH1-2023-06-06T14_35_30.csv</io:FileName>
                     <io:ScanPattern>%i %i %i %L %L </io:ScanPattern>
                     <io:SkipRows>0</io:SkipRows>
                   </Expression>
@@ -515,7 +515,7 @@ Item2 as Video
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="StringProperty">
-                                  <Value>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\FH0a.avi</Value>
+                                  <Value>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\BonflyExperimentDirectory\RawData\FH1\MC-Fem_CS_Low_Freezer-20Loom-2days-FH1-2023-06-06T14_35_30.avi</Value>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="Combinator">
@@ -536,7 +536,7 @@ Item2 as Video
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="cv:FileCapture">
-                                  <cv:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\FH0a.avi</cv:FileName>
+                                  <cv:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\BonflyExperimentDirectory\RawData\FH1\MC-Fem_CS_Low_Freezer-20Loom-2days-FH1-2023-06-06T14_35_30.avi</cv:FileName>
                                   <cv:PlaybackRate>99999999</cv:PlaybackRate>
                                   <cv:StartPosition>0</cv:StartPosition>
                                   <cv:PositionUnits>Frames</cv:PositionUnits>
@@ -624,9 +624,13 @@ Item2 as Video
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="cv:EqualizeHistogram" />
                         </Expression>
+                        <Expression xsi:type="ExternalizedMapping">
+                          <Property Name="ThresholdValue" />
+                          <Property Name="ThresholdType" />
+                        </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="cv:Threshold">
-                            <cv:ThresholdValue>128</cv:ThresholdValue>
+                            <cv:ThresholdValue>96</cv:ThresholdValue>
                             <cv:MaxValue>255</cv:MaxValue>
                             <cv:ThresholdType>Binary</cv:ThresholdType>
                           </Combinator>
@@ -658,12 +662,13 @@ Item2 as Video
                       </Nodes>
                       <Edges>
                         <Edge From="0" To="1" Label="Source1" />
-                        <Edge From="1" To="2" Label="Source1" />
-                        <Edge From="2" To="3" Label="Source1" />
+                        <Edge From="1" To="3" Label="Source1" />
+                        <Edge From="2" To="3" Label="Source2" />
                         <Edge From="3" To="4" Label="Source1" />
                         <Edge From="4" To="5" Label="Source1" />
                         <Edge From="5" To="6" Label="Source1" />
                         <Edge From="6" To="7" Label="Source1" />
+                        <Edge From="7" To="8" Label="Source1" />
                       </Edges>
                     </Workflow>
                   </Expression>
@@ -717,10 +722,10 @@ Item2 as Video
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="cv:Crop">
                                   <cv:RegionOfInterest>
-                                    <cv:X>682</cv:X>
-                                    <cv:Y>28</cv:Y>
-                                    <cv:Width>447</cv:Width>
-                                    <cv:Height>445</cv:Height>
+                                    <cv:X>690</cv:X>
+                                    <cv:Y>522</cv:Y>
+                                    <cv:Width>414</cv:Width>
+                                    <cv:Height>413</cv:Height>
                                   </cv:RegionOfInterest>
                                 </Combinator>
                               </Expression>
@@ -789,7 +794,7 @@ Item2 as Video
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="StringProperty">
-                                  <Value>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\FH0a.avi</Value>
+                                  <Value>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\BonflyExperimentDirectory\RawData\FH1\MC-Fem_CS_Low_Freezer-20Loom-2days-FH1-2023-06-06T14_35_30.avi</Value>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="Combinator">
@@ -868,10 +873,10 @@ Item2 as Video
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="cv:Crop">
                                         <cv:RegionOfInterest>
-                                          <cv:X>676</cv:X>
-                                          <cv:Y>563</cv:Y>
-                                          <cv:Width>449</cv:Width>
-                                          <cv:Height>443</cv:Height>
+                                          <cv:X>201</cv:X>
+                                          <cv:Y>527</cv:Y>
+                                          <cv:Width>407</cv:Width>
+                                          <cv:Height>410</cv:Height>
                                         </cv:RegionOfInterest>
                                       </Combinator>
                                     </Expression>
@@ -1170,8 +1175,8 @@ Item1.Y / Item2.Height as Y
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="cv:CreatePoint2f">
-                                  <cv:X>0.605113268</cv:X>
-                                  <cv:Y>0.932660043</cv:Y>
+                                  <cv:X>0.220218837</cv:X>
+                                  <cv:Y>0.146762833</cv:Y>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="rx:PublishSubject">
@@ -1277,8 +1282,8 @@ Item1.Y / Item2.Height as Y
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="p2:NormalizeSleapOutput">
                                   <p2:CropSize>
-                                    <p2:Width>449</p2:Width>
-                                    <p2:Height>443</p2:Height>
+                                    <p2:Width>412</p2:Width>
+                                    <p2:Height>407</p2:Height>
                                   </p2:CropSize>
                                   <p2:ScalingFactor>1</p2:ScalingFactor>
                                 </Combinator>
@@ -1493,11 +1498,6 @@ Item3 as NormalizedPose)</scr:Expression>
                                     <Expression xsi:type="SubscribeSubject">
                                       <Name>ArenaVideoStream</Name>
                                     </Expression>
-                                    <Expression xsi:type="Combinator">
-                                      <Combinator xsi:type="rx:Take">
-                                        <rx:Count>1</rx:Count>
-                                      </Combinator>
-                                    </Expression>
                                     <Expression xsi:type="MemberSelector">
                                       <Selector>ArenaCentroid</Selector>
                                     </Expression>
@@ -1541,8 +1541,8 @@ Item3 as Rect)</scr:Expression>
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="cv:ResizeCanvas">
                                         <cv:Size>
-                                          <cv:Width>640</cv:Width>
-                                          <cv:Height>480</cv:Height>
+                                          <cv:Width>414</cv:Width>
+                                          <cv:Height>413</cv:Height>
                                         </cv:Size>
                                         <cv:BorderType>Constant</cv:BorderType>
                                         <cv:FillValue>
@@ -1552,13 +1552,26 @@ Item3 as Rect)</scr:Expression>
                                           <cv:Val3>0</cv:Val3>
                                         </cv:FillValue>
                                         <cv:Offset>
-                                          <cv:X>46</cv:X>
-                                          <cv:Y>228</cv:Y>
+                                          <cv:X>690</cv:X>
+                                          <cv:Y>522</cv:Y>
                                         </cv:Offset>
                                       </Combinator>
                                     </Expression>
+                                    <Expression xsi:type="Combinator">
+                                      <Combinator xsi:type="rx:Take">
+                                        <rx:Count>1</rx:Count>
+                                      </Combinator>
+                                    </Expression>
+                                    <Expression xsi:type="SubscribeSubject">
+                                      <Name>ArenaVideoStream</Name>
+                                    </Expression>
                                     <Expression xsi:type="MemberSelector">
-                                      <Selector>Item1</Selector>
+                                      <Selector>RawBackground</Selector>
+                                    </Expression>
+                                    <Expression xsi:type="Combinator">
+                                      <Combinator xsi:type="rx:Take">
+                                        <rx:Count>1</rx:Count>
+                                      </Combinator>
                                     </Expression>
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="rx:Zip" />
@@ -1569,23 +1582,24 @@ Item3 as Rect)</scr:Expression>
                                   <Edges>
                                     <Edge From="0" To="1" Label="Source1" />
                                     <Edge From="1" To="2" Label="Source1" />
+                                    <Edge From="1" To="4" Label="Source1" />
                                     <Edge From="2" To="3" Label="Source1" />
-                                    <Edge From="2" To="5" Label="Source1" />
-                                    <Edge From="2" To="13" Label="Source1" />
-                                    <Edge From="3" To="4" Label="Source1" />
-                                    <Edge From="4" To="9" Label="Source1" />
+                                    <Edge From="3" To="8" Label="Source1" />
+                                    <Edge From="4" To="5" Label="Source1" />
                                     <Edge From="5" To="6" Label="Source1" />
-                                    <Edge From="6" To="7" Label="Source1" />
-                                    <Edge From="6" To="8" Label="Source1" />
-                                    <Edge From="7" To="9" Label="Source2" />
-                                    <Edge From="8" To="9" Label="Source3" />
+                                    <Edge From="5" To="7" Label="Source1" />
+                                    <Edge From="6" To="8" Label="Source2" />
+                                    <Edge From="7" To="8" Label="Source3" />
+                                    <Edge From="8" To="9" Label="Source1" />
                                     <Edge From="9" To="10" Label="Source1" />
                                     <Edge From="10" To="11" Label="Source1" />
                                     <Edge From="11" To="12" Label="Source1" />
-                                    <Edge From="12" To="14" Label="Source1" />
-                                    <Edge From="13" To="14" Label="Source2" />
+                                    <Edge From="12" To="16" Label="Source1" />
+                                    <Edge From="13" To="14" Label="Source1" />
                                     <Edge From="14" To="15" Label="Source1" />
-                                    <Edge From="15" To="16" Label="Source1" />
+                                    <Edge From="15" To="16" Label="Source2" />
+                                    <Edge From="16" To="17" Label="Source1" />
+                                    <Edge From="17" To="18" Label="Source1" />
                                   </Edges>
                                 </Workflow>
                               </Expression>
@@ -1611,13 +1625,18 @@ Item3 as Rect)</scr:Expression>
                                 <Format>{0}/{1}_fly{2}.png</Format>
                                 <Selector>Item1,Item2,Item3</Selector>
                               </Expression>
-                              <Expression xsi:type="PropertyMapping">
+                              <Expression xsi:type="Combinator">
+                                <Combinator xsi:type="rx:WithLatestFrom" />
+                              </Expression>
+                              <Expression xsi:type="InputMapping">
                                 <PropertyMappings>
-                                  <Property Name="FileName" />
+                                  <Property Name="FileName" Selector="Item2" />
                                 </PropertyMappings>
+                                <Selector>Item1</Selector>
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="cv:SaveImage">
+                                  <cv:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\BonflyExperimentDirectory\PostProcessing\FH1\Videos/MC-Fem_CS_Low_Freezer-20Loom-2days-FH1-2023-06-06T14_35_30_fly3.png</cv:FileName>
                                   <cv:Suffix>None</cv:Suffix>
                                 </Combinator>
                               </Expression>
@@ -1649,14 +1668,18 @@ Item3 as Rect)</scr:Expression>
                                 <Format>{0}/{1}_fly{2}.avi</Format>
                                 <Selector>Item1,Item2,Item3</Selector>
                               </Expression>
-                              <Expression xsi:type="PropertyMapping">
+                              <Expression xsi:type="Combinator">
+                                <Combinator xsi:type="rx:WithLatestFrom" />
+                              </Expression>
+                              <Expression xsi:type="InputMapping">
                                 <PropertyMappings>
-                                  <Property Name="FileName" />
+                                  <Property Name="FileName" Selector="Item2" />
                                 </PropertyMappings>
+                                <Selector>Item1</Selector>
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="cv:VideoWriter">
-                                  <cv:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\Test-05_25_2023 09_57_21/Arena3/RawVideo.avi</cv:FileName>
+                                  <cv:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\BonflyExperimentDirectory\PostProcessing\FH1\Videos/MC-Fem_CS_Low_Freezer-20Loom-2days-FH1-2023-06-06T14_35_30_fly3.avi</cv:FileName>
                                   <cv:Suffix>None</cv:Suffix>
                                   <cv:Buffered>true</cv:Buffered>
                                   <cv:Overwrite>false</cv:Overwrite>
@@ -1710,7 +1733,7 @@ Item3 as Rect)</scr:Expression>
                                 </PropertyMappings>
                               </Expression>
                               <Expression xsi:type="io:CsvWriter">
-                                <io:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\Test-05_25_2023 09_57_21/Arena3/BestCentroid.csv</io:FileName>
+                                <io:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\BonflyExperimentDirectory\PostProcessing\FH1\Tracking/MC-Fem_CS_Low_Freezer-20Loom-2days-FH1-2023-06-06T14_35_30_fly3_centroid.csv</io:FileName>
                                 <io:Append>false</io:Append>
                                 <io:Overwrite>false</io:Overwrite>
                                 <io:Suffix>None</io:Suffix>
@@ -1751,7 +1774,7 @@ Item3 as Rect)</scr:Expression>
                                 </PropertyMappings>
                               </Expression>
                               <Expression xsi:type="io:CsvWriter">
-                                <io:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\Test-05_25_2023 09_57_21/Arena3/PixelChange.csv</io:FileName>
+                                <io:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\BonflyExperimentDirectory\PostProcessing\FH1\Tracking/MC-Fem_CS_Low_Freezer-20Loom-2days-FH1-2023-06-06T14_35_30_fly3_pixelChange.csv</io:FileName>
                                 <io:Append>false</io:Append>
                                 <io:Overwrite>false</io:Overwrite>
                                 <io:Suffix>None</io:Suffix>
@@ -1847,7 +1870,7 @@ Item2 as Confidence)</scr:Expression>
                                             </PropertyMappings>
                                           </Expression>
                                           <Expression xsi:type="io:CsvWriter">
-                                            <io:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\Test-05_25_2023 09_57_21/Arena3/NormalizedSleap_B.csv</io:FileName>
+                                            <io:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\BonflyExperimentDirectory\PostProcessing\FH1\Tracking/MC-Fem_CS_Low_Freezer-20Loom-2days-FH1-2023-06-06T14_35_30_fly3_NormalizedSleap_B.csv</io:FileName>
                                             <io:Append>false</io:Append>
                                             <io:Overwrite>false</io:Overwrite>
                                             <io:Suffix>None</io:Suffix>
@@ -1912,51 +1935,53 @@ Item2 as Confidence)</scr:Expression>
                               </Expression>
                             </Nodes>
                             <Edges>
-                              <Edge From="0" To="9" Label="Source1" />
+                              <Edge From="0" To="8" Label="Source1" />
                               <Edge From="1" To="2" Label="Source1" />
                               <Edge From="2" To="6" Label="Source1" />
                               <Edge From="3" To="4" Label="Source1" />
                               <Edge From="4" To="6" Label="Source2" />
                               <Edge From="5" To="6" Label="Source3" />
                               <Edge From="6" To="7" Label="Source1" />
-                              <Edge From="7" To="8" Label="Source1" />
-                              <Edge From="8" To="9" Label="Source2" />
-                              <Edge From="10" To="11" Label="Source1" />
-                              <Edge From="11" To="20" Label="Source1" />
-                              <Edge From="12" To="13" Label="Source1" />
-                              <Edge From="13" To="17" Label="Source1" />
-                              <Edge From="14" To="15" Label="Source1" />
-                              <Edge From="15" To="17" Label="Source2" />
-                              <Edge From="16" To="17" Label="Source3" />
-                              <Edge From="17" To="18" Label="Source1" />
+                              <Edge From="7" To="8" Label="Source2" />
+                              <Edge From="8" To="9" Label="Source1" />
+                              <Edge From="9" To="10" Label="Source1" />
+                              <Edge From="11" To="12" Label="Source1" />
+                              <Edge From="12" To="20" Label="Source1" />
+                              <Edge From="13" To="14" Label="Source1" />
+                              <Edge From="14" To="18" Label="Source1" />
+                              <Edge From="15" To="16" Label="Source1" />
+                              <Edge From="16" To="18" Label="Source2" />
+                              <Edge From="17" To="18" Label="Source3" />
                               <Edge From="18" To="19" Label="Source1" />
                               <Edge From="19" To="20" Label="Source2" />
-                              <Edge From="21" To="23" Label="Source1" />
-                              <Edge From="22" To="23" Label="Source2" />
-                              <Edge From="23" To="24" Label="Source1" />
-                              <Edge From="24" To="33" Label="Source1" />
+                              <Edge From="20" To="21" Label="Source1" />
+                              <Edge From="21" To="22" Label="Source1" />
+                              <Edge From="23" To="25" Label="Source1" />
+                              <Edge From="24" To="25" Label="Source2" />
                               <Edge From="25" To="26" Label="Source1" />
-                              <Edge From="26" To="30" Label="Source1" />
+                              <Edge From="26" To="35" Label="Source1" />
                               <Edge From="27" To="28" Label="Source1" />
-                              <Edge From="28" To="30" Label="Source2" />
-                              <Edge From="29" To="30" Label="Source3" />
-                              <Edge From="30" To="31" Label="Source1" />
-                              <Edge From="31" To="32" Label="Source1" />
-                              <Edge From="32" To="33" Label="Source2" />
-                              <Edge From="34" To="35" Label="Source1" />
-                              <Edge From="35" To="44" Label="Source1" />
+                              <Edge From="28" To="32" Label="Source1" />
+                              <Edge From="29" To="30" Label="Source1" />
+                              <Edge From="30" To="32" Label="Source2" />
+                              <Edge From="31" To="32" Label="Source3" />
+                              <Edge From="32" To="33" Label="Source1" />
+                              <Edge From="33" To="34" Label="Source1" />
+                              <Edge From="34" To="35" Label="Source2" />
                               <Edge From="36" To="37" Label="Source1" />
-                              <Edge From="37" To="41" Label="Source1" />
+                              <Edge From="37" To="46" Label="Source1" />
                               <Edge From="38" To="39" Label="Source1" />
-                              <Edge From="39" To="41" Label="Source2" />
-                              <Edge From="40" To="41" Label="Source3" />
-                              <Edge From="41" To="42" Label="Source1" />
-                              <Edge From="42" To="43" Label="Source1" />
-                              <Edge From="43" To="44" Label="Source2" />
-                              <Edge From="45" To="49" Label="Source1" />
-                              <Edge From="46" To="47" Label="Source1" />
-                              <Edge From="47" To="48" Label="Source1" />
-                              <Edge From="48" To="49" Label="Source2" />
+                              <Edge From="39" To="43" Label="Source1" />
+                              <Edge From="40" To="41" Label="Source1" />
+                              <Edge From="41" To="43" Label="Source2" />
+                              <Edge From="42" To="43" Label="Source3" />
+                              <Edge From="43" To="44" Label="Source1" />
+                              <Edge From="44" To="45" Label="Source1" />
+                              <Edge From="45" To="46" Label="Source2" />
+                              <Edge From="47" To="51" Label="Source1" />
+                              <Edge From="48" To="49" Label="Source1" />
+                              <Edge From="49" To="50" Label="Source1" />
+                              <Edge From="50" To="51" Label="Source2" />
                             </Edges>
                           </Workflow>
                         </Expression>
