@@ -873,10 +873,10 @@ Item2 as Video
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="cv:Crop">
                                         <cv:RegionOfInterest>
-                                          <cv:X>201</cv:X>
-                                          <cv:Y>527</cv:Y>
-                                          <cv:Width>407</cv:Width>
-                                          <cv:Height>410</cv:Height>
+                                          <cv:X>690</cv:X>
+                                          <cv:Y>522</cv:Y>
+                                          <cv:Width>414</cv:Width>
+                                          <cv:Height>413</cv:Height>
                                         </cv:RegionOfInterest>
                                       </Combinator>
                                     </Expression>
@@ -1175,8 +1175,8 @@ Item1.Y / Item2.Height as Y
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="cv:CreatePoint2f">
-                                  <cv:X>0.0253392663</cv:X>
-                                  <cv:Y>0.430949032</cv:Y>
+                                  <cv:X>0.222468868</cv:X>
+                                  <cv:Y>0.124182127</cv:Y>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="rx:PublishSubject">
@@ -1282,8 +1282,8 @@ Item1.Y / Item2.Height as Y
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="p2:NormalizeSleapOutput">
                                   <p2:CropSize>
-                                    <p2:Width>414</p2:Width>
-                                    <p2:Height>413</p2:Height>
+                                    <p2:Width>412</p2:Width>
+                                    <p2:Height>410</p2:Height>
                                   </p2:CropSize>
                                   <p2:ScalingFactor>1</p2:ScalingFactor>
                                 </Combinator>
@@ -1698,7 +1698,7 @@ Item3 as NormalizedPose)</scr:Expression>
                                 </PropertyMappings>
                               </Expression>
                               <Expression xsi:type="io:CsvWriter">
-                                <io:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\BonflyExperimentDirectory\PostProcessing\FH1\Tracking/MC-Fem_CS_Low_Freezer-20Loom-2days-FH1-2023-06-06T14_35_30_fly3_centroid.csv</io:FileName>
+                                <io:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\BonflyExperimentDirectory\PostProcessing\FH1\Tracking/MC-Fem_CS_Low_Freezer-20Loom-2days-FH1-2023-06-06T14_35_30_fly3/centroid.csv</io:FileName>
                                 <io:Append>false</io:Append>
                                 <io:Overwrite>false</io:Overwrite>
                                 <io:Suffix>None</io:Suffix>
@@ -1739,7 +1739,7 @@ Item3 as NormalizedPose)</scr:Expression>
                                 </PropertyMappings>
                               </Expression>
                               <Expression xsi:type="io:CsvWriter">
-                                <io:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\BonflyExperimentDirectory\PostProcessing\FH1\Tracking/MC-Fem_CS_Low_Freezer-20Loom-2days-FH1-2023-06-06T14_35_30_fly3_pixelChange.csv</io:FileName>
+                                <io:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\BonflyExperimentDirectory\PostProcessing\FH1\Tracking/MC-Fem_CS_Low_Freezer-20Loom-2days-FH1-2023-06-06T14_35_30_fly3/pixelChange.csv</io:FileName>
                                 <io:Append>false</io:Append>
                                 <io:Overwrite>false</io:Overwrite>
                                 <io:Suffix>None</io:Suffix>
@@ -1835,7 +1835,7 @@ Item2 as Confidence)</scr:Expression>
                                             </PropertyMappings>
                                           </Expression>
                                           <Expression xsi:type="io:CsvWriter">
-                                            <io:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\BonflyExperimentDirectory\PostProcessing\FH1\Tracking/MC-Fem_CS_Low_Freezer-20Loom-2days-FH1-2023-06-06T14_35_30_fly3_NormalizedSleap_B.csv</io:FileName>
+                                            <io:FileName>C:\Users\neurogears\Documents\git\MoitaLab\BonFly\Data\BonflyExperimentDirectory\PostProcessing\FH1\Tracking/MC-Fem_CS_Low_Freezer-20Loom-2days-FH1-2023-06-06T14_35_30_fly3/NormalizedSleap_B.csv</io:FileName>
                                             <io:Append>false</io:Append>
                                             <io:Overwrite>false</io:Overwrite>
                                             <io:Suffix>None</io:Suffix>
@@ -2004,100 +2004,174 @@ Item2 as Confidence)</scr:Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="rx:Concat" />
       </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="GroupWorkflow">
-          <Name>Visualizers</Name>
-          <Workflow>
-            <Nodes>
-              <Expression xsi:type="WorkflowInput">
-                <Name>Source1</Name>
-              </Expression>
-              <Expression xsi:type="Index" />
-              <Expression xsi:type="Combinator">
-                <Combinator xsi:type="rx:Merge" />
-              </Expression>
-              <Expression xsi:type="MemberSelector">
-                <Selector>BackgroundSubtractedFrame</Selector>
-              </Expression>
-              <Expression xsi:type="VisualizerMapping">
-                <VisualizerType xsi:type="TypeMapping" TypeArguments="p3:IplImageVisualizer" />
-              </Expression>
-              <Expression xsi:type="Index">
-                <Operand xsi:type="IntProperty">
-                  <Value>1</Value>
-                </Operand>
-              </Expression>
-              <Expression xsi:type="Combinator">
-                <Combinator xsi:type="rx:Merge" />
-              </Expression>
-              <Expression xsi:type="MemberSelector">
-                <Selector>BackgroundSubtractedFrame</Selector>
-              </Expression>
-              <Expression xsi:type="VisualizerMapping">
-                <VisualizerType xsi:type="TypeMapping" TypeArguments="p3:IplImageVisualizer" />
-              </Expression>
-              <Expression xsi:type="Index">
-                <Operand xsi:type="IntProperty">
-                  <Value>2</Value>
-                </Operand>
-              </Expression>
-              <Expression xsi:type="Combinator">
-                <Combinator xsi:type="rx:Merge" />
-              </Expression>
-              <Expression xsi:type="MemberSelector">
-                <Selector>BackgroundSubtractedFrame</Selector>
-              </Expression>
-              <Expression xsi:type="VisualizerMapping">
-                <VisualizerType xsi:type="TypeMapping" TypeArguments="p3:IplImageVisualizer" />
-              </Expression>
-              <Expression xsi:type="Index">
-                <Operand xsi:type="IntProperty">
-                  <Value>3</Value>
-                </Operand>
-              </Expression>
-              <Expression xsi:type="Combinator">
-                <Combinator xsi:type="rx:Merge" />
-              </Expression>
-              <Expression xsi:type="MemberSelector">
-                <Selector>BackgroundSubtractedFrame</Selector>
-              </Expression>
-              <Expression xsi:type="VisualizerMapping">
-                <VisualizerType xsi:type="TypeMapping" TypeArguments="p3:IplImageVisualizer" />
-              </Expression>
-              <Expression xsi:type="viz:TableLayoutPanelBuilder">
-                <viz:ColumnCount>2</viz:ColumnCount>
-                <viz:RowCount>2</viz:RowCount>
-                <viz:ColumnStyles />
-                <viz:RowStyles />
-                <viz:CellSpans />
-              </Expression>
-              <Expression xsi:type="WorkflowOutput" />
-            </Nodes>
-            <Edges>
-              <Edge From="0" To="1" Label="Source1" />
-              <Edge From="0" To="5" Label="Source1" />
-              <Edge From="0" To="9" Label="Source1" />
-              <Edge From="0" To="13" Label="Source1" />
-              <Edge From="1" To="2" Label="Source1" />
-              <Edge From="2" To="3" Label="Source1" />
-              <Edge From="3" To="4" Label="Source1" />
-              <Edge From="4" To="17" Label="Source1" />
-              <Edge From="5" To="6" Label="Source1" />
-              <Edge From="6" To="7" Label="Source1" />
-              <Edge From="7" To="8" Label="Source1" />
-              <Edge From="8" To="17" Label="Source2" />
-              <Edge From="9" To="10" Label="Source1" />
-              <Edge From="10" To="11" Label="Source1" />
-              <Edge From="11" To="12" Label="Source1" />
-              <Edge From="12" To="17" Label="Source3" />
-              <Edge From="13" To="14" Label="Source1" />
-              <Edge From="14" To="15" Label="Source1" />
-              <Edge From="15" To="16" Label="Source1" />
-              <Edge From="16" To="17" Label="Source4" />
-              <Edge From="17" To="18" Label="Source1" />
-            </Edges>
-          </Workflow>
-        </Builder>
+      <Expression xsi:type="GroupWorkflow">
+        <Name>Visualizers</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>Item1</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>0</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Item2</Selector>
+            </Expression>
+            <Expression xsi:type="VisualizerMapping">
+              <VisualizerType xsi:type="TypeMapping" TypeArguments="p3:IplImageVisualizer" />
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>Item1</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>1</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Item2</Selector>
+            </Expression>
+            <Expression xsi:type="VisualizerMapping">
+              <VisualizerType xsi:type="TypeMapping" TypeArguments="p3:IplImageVisualizer" />
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>Item1</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>2</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Item2</Selector>
+            </Expression>
+            <Expression xsi:type="VisualizerMapping">
+              <VisualizerType xsi:type="TypeMapping" TypeArguments="p3:IplImageVisualizer" />
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>Item1</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>3</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Item2</Selector>
+            </Expression>
+            <Expression xsi:type="VisualizerMapping">
+              <VisualizerType xsi:type="TypeMapping" TypeArguments="p3:IplImageVisualizer" />
+            </Expression>
+            <Expression xsi:type="viz:TableLayoutPanelBuilder">
+              <viz:ColumnCount>2</viz:ColumnCount>
+              <viz:RowCount>2</viz:RowCount>
+              <viz:ColumnStyles />
+              <viz:RowStyles />
+              <viz:CellSpans />
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="0" To="4" Label="Source1" />
+            <Edge From="0" To="7" Label="Source1" />
+            <Edge From="0" To="10" Label="Source1" />
+            <Edge From="1" To="2" Label="Source1" />
+            <Edge From="2" To="3" Label="Source1" />
+            <Edge From="3" To="13" Label="Source1" />
+            <Edge From="4" To="5" Label="Source1" />
+            <Edge From="5" To="6" Label="Source1" />
+            <Edge From="6" To="13" Label="Source2" />
+            <Edge From="7" To="8" Label="Source1" />
+            <Edge From="8" To="9" Label="Source1" />
+            <Edge From="9" To="13" Label="Source3" />
+            <Edge From="10" To="11" Label="Source1" />
+            <Edge From="11" To="12" Label="Source1" />
+            <Edge From="12" To="13" Label="Source4" />
+            <Edge From="13" To="14" Label="Source1" />
+          </Edges>
+        </Workflow>
       </Expression>
     </Nodes>
     <Edges>
