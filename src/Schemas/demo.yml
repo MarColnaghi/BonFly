@@ -1,0 +1,26 @@
+%YAML 1.1
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/neurogears/BonFly/main/src/Schemas/StimuliSpecification.json
+
+trials:
+  [
+    &loomingCircleTrial {
+      loomingCircleStimuli:
+        {
+          animationSettings:
+            {
+              duration: 2,
+              initialRadius: 0.5,
+              initialVirtualDistance: 12.5,
+              linearApproachingVelocity: 25,
+              maxRadius: 25,
+              monitorDistance: 25,
+            },
+          delayOffset: 0,
+          delayOnset: 0,
+          backgroundColor: { a: 1, b: 0, g: 0, r: 0 },
+          color: { a: 1, b: 1, g: 0.6, r: 0.5 },
+        }
+    },
+    { <<: *loomingCircleTrial },
+  ]
