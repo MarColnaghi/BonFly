@@ -1689,7 +1689,7 @@ Item3 as NormalizedPose)</scr:Expression>
                                 <Combinator xsi:type="rx:Zip" />
                               </Expression>
                               <Expression xsi:type="Format">
-                                <Format>{0}/{1}_fly{2}_centroid.csv</Format>
+                                <Format>{0}/{1}_fly{2}/centroid.csv</Format>
                                 <Selector>Item1,Item2,Item3</Selector>
                               </Expression>
                               <Expression xsi:type="PropertyMapping">
@@ -1730,7 +1730,7 @@ Item3 as NormalizedPose)</scr:Expression>
                                 <Combinator xsi:type="rx:Zip" />
                               </Expression>
                               <Expression xsi:type="Format">
-                                <Format>{0}/{1}_fly{2}_pixelChange.csv</Format>
+                                <Format>{0}/{1}_fly{2}/pixelChange.csv</Format>
                                 <Selector>Item1,Item2,Item3</Selector>
                               </Expression>
                               <Expression xsi:type="PropertyMapping">
@@ -1826,7 +1826,7 @@ Item2 as Confidence)</scr:Expression>
                                             <Combinator xsi:type="rx:Zip" />
                                           </Expression>
                                           <Expression xsi:type="Format">
-                                            <Format>{0}/{1}_fly{2}_{4}_{3}.csv</Format>
+                                            <Format>{0}/{1}_fly{2}/{4}_{3}.csv</Format>
                                             <Selector>Item1,Item2,Item3,Item4,Item5</Selector>
                                           </Expression>
                                           <Expression xsi:type="PropertyMapping">
