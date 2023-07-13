@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.8.0-alpha015"
+<WorkflowBuilder Version="2.8.0-rc1"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns="https://bonsai-rx.org/2018/workflow">
@@ -17,7 +17,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="BooleanProperty">
-                <Value>true</Value>
+                <Value>false</Value>
               </Combinator>
             </Expression>
             <Expression xsi:type="MulticastSubject">

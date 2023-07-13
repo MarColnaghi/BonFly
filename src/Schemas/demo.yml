@@ -16,11 +16,32 @@ trials:
               maxRadius: 25,
               monitorDistance: 25,
             },
-          delayOffset: 0,
-          delayOnset: 0,
-          backgroundColor: { a: 1, b: 0, g: 0, r: 0 },
+          delayOffset: 1,
+          delayOnset: 1.5,
+          backgroundColor: { a: 1, b: 0, g: 1, r: 0 },
           color: { a: 1, b: 1, g: 0.6, r: 0.5 },
         }
     },
+    &controlTrial {
+      controlNoisyStimuli:
+        {
+          animationSettings:
+            {
+              duration: 2,
+              initialRadius: 0.5,
+              initialVirtualDistance: 12.5,
+              linearApproachingVelocity: 25,
+              maxRadius: 25,
+              monitorDistance: 25,
+            },
+          delayOffset: 1,
+          delayOnset: 1.5,
+          backgroundColor: { a: 1, b: 0, g: 1, r: 0 },
+          diameter: 25,
+          offColor: { a: 1, b: 1, g: 0.6, r: 0.5 },
+          onColor: { a: 1, b: 0.2, g: 0.1, r: 0.9 },
+        }
+    },
     { <<: *loomingCircleTrial },
+    { <<: *controlTrial },
   ]
