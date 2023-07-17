@@ -42,6 +42,9 @@ trials:
           onColor: { a: 1, b: 0.2, g: 0.1, r: 0.9 },
         }
     },
+    &optoTrial {
+      optogeneticsStimuli: {amplitude: 1, duration: 1, dutyCycle: 50, frequency: 10, ledTarget: Both, mode: Pulsed}
+    },
     { <<: *loomingCircleTrial },
     { <<: *controlTrial },
   ]

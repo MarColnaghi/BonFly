@@ -2,6 +2,19 @@
     "$id": "h...",
     "$schema": "https://json-schema.org/draft-07/schema",
     "definitions": {
+        "point": {
+            "properties": {
+                "x": {
+                    "default": 0,
+                    "type": "number"
+                },
+                "y": {
+                    "default": 0,
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
         "animationSettings": {
             "properties": {
                 "duration": {
@@ -169,6 +182,43 @@
                 "null"
             ]
         },
+        "movingCircleStimuli": {
+            "default": null,
+            "properties": {
+                "startPosition": {
+                    "$ref": "#/definitions/point"
+                },
+                "endPosition": {
+                    "$ref": "#/definitions/point"
+                },
+                "backgroundColor": {
+                    "$ref": "#/definitions/color"
+                },
+                "color": {
+                    "$ref": "#/definitions/color"
+                },
+                "delayOffset": {
+                    "$ref": "#/definitions/delayOffset"
+                },
+                "delayOnset": {
+                    "$ref": "#/definitions/delayOnset"
+                },
+                "radius": {
+                    "default": 1,
+                    "minimum": 0,
+                    "type": "number"
+                },
+                "duration": {
+                    "default": 1,
+                    "minimum": 0,
+                    "type": "number"
+                }
+            },
+            "type": [
+                "object",
+                "null"
+            ]
+        },
         "optogeneticsStimuli": {
             "default": null,
             "properties": {
@@ -230,6 +280,9 @@
                 },
                 "optogeneticsStimuli": {
                     "$ref": "#/definitions/optogeneticsStimuli"
+                },
+                "movingCircleStimuli": {
+                    "$ref": "#/definitions/movingCircleStimuli"
                 }
             },
             "type": "object"

@@ -9,6 +9,34 @@ namespace AutomaticGenerators
 {
     #pragma warning disable // Disable all warnings
 
+    public partial class Point
+    {
+		private double x = 0D;
+		public double X
+		{
+			get { return x; }
+			set { x = value; }
+		}
+
+		private double y = 0D;
+		public double Y
+		{
+			get { return y; }
+			set { y = value; }
+		}
+
+
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
     public partial class AnimationSettings
     {
 		private double duration = 2D;
@@ -152,13 +180,6 @@ namespace AutomaticGenerators
 
         public double DelayOnset { get; set; }
 
-		private double diameter = 0.1D;
-		public double Diameter
-		{
-			get { return diameter; }
-			set { diameter = value; }
-		}
-
 
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
@@ -200,6 +221,46 @@ namespace AutomaticGenerators
 		{
 			get { return textureName; }
 			set { textureName = value; }
+		}
+
+
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
+
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
+            set { _additionalProperties = value; }
+        }
+
+    }
+
+    public partial class MovingCircleStimuli
+    {
+        public Point StartPosition { get; set; }
+
+        public Point EndPosition { get; set; }
+
+        public Color BackgroundColor { get; set; }
+
+        public Color Color { get; set; }
+
+        public double DelayOffset { get; set; }
+
+        public double DelayOnset { get; set; }
+
+		private double radius = 1D;
+		public double Radius
+		{
+			get { return radius; }
+			set { radius = value; }
+		}
+
+		private double duration = 1D;
+		public double Duration
+		{
+			get { return duration; }
+			set { duration = value; }
 		}
 
 
@@ -279,6 +340,8 @@ namespace AutomaticGenerators
         public LoomingImageStimuli LoomingImageStimuli { get; set; }
 
         public OptogeneticsStimuli OptogeneticsStimuli { get; set; }
+
+        public MovingCircleStimuli MovingCircleStimuli { get; set; }
 
 
 

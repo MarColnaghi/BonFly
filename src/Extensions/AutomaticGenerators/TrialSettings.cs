@@ -28,6 +28,7 @@ namespace AutomaticGenerators
 					LoomingCircleStimuli = LoomingCircleStimuli,
 					LoomingImageStimuli = LoomingImageStimuli,
 					OptogeneticsStimuli = OptogeneticsStimuli,
+					MovingCircleStimuli = MovingCircleStimuli,
 					AdditionalProperties = AdditionalProperties,
 
                 };

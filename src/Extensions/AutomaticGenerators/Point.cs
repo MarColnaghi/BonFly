@@ -16,19 +16,16 @@ namespace AutomaticGenerators
     [Combinator]
     [Description("Constructor.")]
     [WorkflowElementCategory(ElementCategory.Source)]
-    public partial class LoomingCircleStimuli
+    public partial class Point
     {
-        public IObservable<LoomingCircleStimuli> Process()
+        public IObservable<Point> Process()
         {
             return Observable.Defer(() =>
             {
-                var value = new LoomingCircleStimuli
+                var value = new Point
                 {
-					AnimationSettings = AnimationSettings,
-					BackgroundColor = BackgroundColor,
-					Color = Color,
-					DelayOffset = DelayOffset,
-					DelayOnset = DelayOnset,
+					X = X,
+					Y = Y,
 					AdditionalProperties = AdditionalProperties,
 
                 };
