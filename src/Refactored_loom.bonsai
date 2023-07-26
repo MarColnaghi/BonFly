@@ -916,7 +916,7 @@
               <Selector>ControlNoisyStimuli</Selector>
             </Expression>
             <Expression xsi:type="rx:Condition">
-              <Name>IsNotNull</Name>
+              <Name>Exists?</Name>
               <Workflow>
                 <Nodes>
                   <Expression xsi:type="WorkflowInput">
