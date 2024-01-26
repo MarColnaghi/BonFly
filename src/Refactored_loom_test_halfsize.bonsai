@@ -13,7 +13,9 @@
                  xmlns:sys="clr-namespace:System;assembly=mscorlib"
                  xmlns:cv="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
-                 xmlns:p2="clr-namespace:AutomaticGenerators;assembly=Extensions"
+                 xmlns:num="clr-namespace:Bonsai.Numerics;assembly=Bonsai.Numerics"
+                 xmlns:p2="clr-namespace:Bonsai.Numerics.Distributions;assembly=Bonsai.Numerics"
+                 xmlns:p3="clr-namespace:AutomaticGenerators;assembly=Extensions"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -39,56 +41,58 @@
           </Edges>
         </Workflow>
       </Expression>
-      <Expression xsi:type="GroupWorkflow">
-        <Name>Camera</Name>
-        <Workflow>
-          <Nodes>
-            <Expression xsi:type="ExternalizedMapping">
-              <Property Name="SerialNumber" DisplayName="Camera2" />
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="spk:SpinnakerCapture">
-                <spk:Index xsi:nil="true" />
-                <spk:ColorProcessing>Default</spk:ColorProcessing>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="ExternalizedMapping">
-              <Property Name="SerialNumber" DisplayName="Camera3" />
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="spk:SpinnakerCapture">
-                <spk:Index xsi:nil="true" />
-                <spk:ColorProcessing>Default</spk:ColorProcessing>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="ExternalizedMapping">
-              <Property Name="SerialNumber" DisplayName="Camera1" />
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="spk:SpinnakerCapture">
-                <spk:Index xsi:nil="true" />
-                <spk:ColorProcessing>Default</spk:ColorProcessing>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="rx:Zip" />
-            </Expression>
-            <Expression xsi:type="rx:PublishSubject">
-              <Name>Camera</Name>
-            </Expression>
-            <Expression xsi:type="WorkflowOutput" />
-          </Nodes>
-          <Edges>
-            <Edge From="0" To="1" Label="Source1" />
-            <Edge From="1" To="6" Label="Source1" />
-            <Edge From="2" To="3" Label="Source1" />
-            <Edge From="3" To="6" Label="Source2" />
-            <Edge From="4" To="5" Label="Source1" />
-            <Edge From="5" To="6" Label="Source3" />
-            <Edge From="6" To="7" Label="Source1" />
-            <Edge From="7" To="8" Label="Source1" />
-          </Edges>
-        </Workflow>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="GroupWorkflow">
+          <Name>Camera</Name>
+          <Workflow>
+            <Nodes>
+              <Expression xsi:type="ExternalizedMapping">
+                <Property Name="SerialNumber" DisplayName="Camera2" />
+              </Expression>
+              <Expression xsi:type="Combinator">
+                <Combinator xsi:type="spk:SpinnakerCapture">
+                  <spk:Index xsi:nil="true" />
+                  <spk:ColorProcessing>Default</spk:ColorProcessing>
+                </Combinator>
+              </Expression>
+              <Expression xsi:type="ExternalizedMapping">
+                <Property Name="SerialNumber" DisplayName="Camera3" />
+              </Expression>
+              <Expression xsi:type="Combinator">
+                <Combinator xsi:type="spk:SpinnakerCapture">
+                  <spk:Index xsi:nil="true" />
+                  <spk:ColorProcessing>Default</spk:ColorProcessing>
+                </Combinator>
+              </Expression>
+              <Expression xsi:type="ExternalizedMapping">
+                <Property Name="SerialNumber" DisplayName="Camera1" />
+              </Expression>
+              <Expression xsi:type="Combinator">
+                <Combinator xsi:type="spk:SpinnakerCapture">
+                  <spk:Index xsi:nil="true" />
+                  <spk:ColorProcessing>Default</spk:ColorProcessing>
+                </Combinator>
+              </Expression>
+              <Expression xsi:type="Combinator">
+                <Combinator xsi:type="rx:Zip" />
+              </Expression>
+              <Expression xsi:type="rx:PublishSubject">
+                <Name>Camera</Name>
+              </Expression>
+              <Expression xsi:type="WorkflowOutput" />
+            </Nodes>
+            <Edges>
+              <Edge From="0" To="1" Label="Source1" />
+              <Edge From="1" To="6" Label="Source1" />
+              <Edge From="2" To="3" Label="Source1" />
+              <Edge From="3" To="6" Label="Source2" />
+              <Edge From="4" To="5" Label="Source1" />
+              <Edge From="5" To="6" Label="Source3" />
+              <Edge From="6" To="7" Label="Source1" />
+              <Edge From="7" To="8" Label="Source1" />
+            </Edges>
+          </Workflow>
+        </Builder>
       </Expression>
       <Expression xsi:type="Disable">
         <Builder xsi:type="GroupWorkflow">
@@ -138,8 +142,8 @@
                 <gl:Location xsi:nil="true" />
                 <gl:WindowBorder>Resizable</gl:WindowBorder>
                 <gl:WindowState>Normal</gl:WindowState>
-                <gl:DisplayDevice>Primary</gl:DisplayDevice>
-                <gl:TargetRenderFrequency>60</gl:TargetRenderFrequency>
+                <gl:DisplayDevice>First</gl:DisplayDevice>
+                <gl:TargetRenderFrequency>240</gl:TargetRenderFrequency>
                 <gl:TargetUpdateFrequency xsi:nil="true" />
                 <gl:RenderState />
                 <gl:GraphicsMode>
@@ -233,10 +237,10 @@
               <LocationY>15</LocationY>
               <Layer>0</Layer>
               <Angle>0</Angle>
-              <ColorR>0</ColorR>
-              <ColorG>0</ColorG>
-              <ColorB>0</ColorB>
-              <ColorA>0</ColorA>
+              <ColorR>1</ColorR>
+              <ColorG>1</ColorG>
+              <ColorB>1</ColorB>
+              <ColorA>1</ColorA>
             </Expression>
           </Nodes>
           <Edges>
@@ -349,57 +353,59 @@
           </Edges>
         </Workflow>
       </Expression>
-      <Expression xsi:type="GroupWorkflow">
-        <Name>EndExperimentRoutine</Name>
-        <Workflow>
-          <Nodes>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>EndExperiment</Name>
-            </Expression>
-            <Expression xsi:type="Disable">
-              <Builder xsi:type="rx:SelectMany">
-                <Name>IR LEDs</Name>
-                <Workflow>
-                  <Nodes>
-                    <Expression xsi:type="harp:CreateMessage">
-                      <harp:MessageType>Write</harp:MessageType>
-                      <harp:Payload xsi:type="harp:CreateMessagePayload">
-                        <harp:Address>61</harp:Address>
-                        <harp:PayloadType>U8</harp:PayloadType>
-                        <harp:Value>8</harp:Value>
-                      </harp:Payload>
-                    </Expression>
-                    <Expression xsi:type="Combinator">
-                      <Combinator xsi:type="rx:Take">
-                        <rx:Count>1</rx:Count>
-                      </Combinator>
-                    </Expression>
-                    <Expression xsi:type="Combinator">
-                      <Combinator xsi:type="gl:Delay">
-                        <gl:DueTime>PT0.1S</gl:DueTime>
-                      </Combinator>
-                    </Expression>
-                    <Expression xsi:type="MulticastSubject">
-                      <Name>LedBoardCommands</Name>
-                    </Expression>
-                    <Expression xsi:type="WorkflowOutput" />
-                  </Nodes>
-                  <Edges>
-                    <Edge From="0" To="1" Label="Source1" />
-                    <Edge From="1" To="2" Label="Source1" />
-                    <Edge From="2" To="3" Label="Source1" />
-                    <Edge From="3" To="4" Label="Source1" />
-                  </Edges>
-                </Workflow>
-              </Builder>
-            </Expression>
-            <Expression xsi:type="WorkflowOutput" />
-          </Nodes>
-          <Edges>
-            <Edge From="0" To="1" Label="Source1" />
-            <Edge From="1" To="2" Label="Source1" />
-          </Edges>
-        </Workflow>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="GroupWorkflow">
+          <Name>EndExperimentRoutine</Name>
+          <Workflow>
+            <Nodes>
+              <Expression xsi:type="SubscribeSubject">
+                <Name>EndExperiment</Name>
+              </Expression>
+              <Expression xsi:type="Disable">
+                <Builder xsi:type="rx:SelectMany">
+                  <Name>IR LEDs</Name>
+                  <Workflow>
+                    <Nodes>
+                      <Expression xsi:type="harp:CreateMessage">
+                        <harp:MessageType>Write</harp:MessageType>
+                        <harp:Payload xsi:type="harp:CreateMessagePayload">
+                          <harp:Address>61</harp:Address>
+                          <harp:PayloadType>U8</harp:PayloadType>
+                          <harp:Value>8</harp:Value>
+                        </harp:Payload>
+                      </Expression>
+                      <Expression xsi:type="Combinator">
+                        <Combinator xsi:type="rx:Take">
+                          <rx:Count>1</rx:Count>
+                        </Combinator>
+                      </Expression>
+                      <Expression xsi:type="Combinator">
+                        <Combinator xsi:type="gl:Delay">
+                          <gl:DueTime>PT0.1S</gl:DueTime>
+                        </Combinator>
+                      </Expression>
+                      <Expression xsi:type="MulticastSubject">
+                        <Name>LedBoardCommands</Name>
+                      </Expression>
+                      <Expression xsi:type="WorkflowOutput" />
+                    </Nodes>
+                    <Edges>
+                      <Edge From="0" To="1" Label="Source1" />
+                      <Edge From="1" To="2" Label="Source1" />
+                      <Edge From="2" To="3" Label="Source1" />
+                      <Edge From="3" To="4" Label="Source1" />
+                    </Edges>
+                  </Workflow>
+                </Builder>
+              </Expression>
+              <Expression xsi:type="WorkflowOutput" />
+            </Nodes>
+            <Edges>
+              <Edge From="0" To="1" Label="Source1" />
+              <Edge From="1" To="2" Label="Source1" />
+            </Edges>
+          </Workflow>
+        </Builder>
       </Expression>
       <Expression xsi:type="Disable">
         <Builder xsi:type="GroupWorkflow">
@@ -1481,13 +1487,173 @@
                       <Property Name="Duration" />
                     </PropertyMappings>
                   </Expression>
-                  <Expression xsi:type="IncludeWorkflow" Path="Extensions\LoomRangeAnimation.bonsai">
-                    <Duration>PT2S</Duration>
-                    <MaxRadius>25</MaxRadius>
-                    <MonitorDistance>25</MonitorDistance>
-                    <InitialRadius>0.5</InitialRadius>
-                    <InitialVirtualDistance>12.5</InitialVirtualDistance>
-                    <LinearApproachingVelocity>25</LinearApproachingVelocity>
+                  <Expression xsi:type="GroupWorkflow">
+                    <Name>LoomRangeAnimation</Name>
+                    <Workflow>
+                      <Nodes>
+                        <Expression xsi:type="ExternalizedMapping">
+                          <Property Name="Duration" />
+                          <Property Name="MaxRadius" />
+                          <Property Name="MonitorDistance" />
+                          <Property Name="InitialRadius" />
+                          <Property Name="InitialVirtualDistance" />
+                          <Property Name="LinearApproachingVelocity" />
+                        </Expression>
+                        <Expression xsi:type="rx:Defer">
+                          <Name>LoomRangeAnimation</Name>
+                          <Workflow>
+                            <Nodes>
+                              <Expression xsi:type="ExternalizedMapping">
+                                <Property Name="Value" DisplayName="Duration" />
+                              </Expression>
+                              <Expression xsi:type="Combinator">
+                                <Combinator xsi:type="TimeSpanProperty">
+                                  <Value>PT0.5S</Value>
+                                </Combinator>
+                              </Expression>
+                              <Expression xsi:type="Combinator">
+                                <Combinator xsi:type="rx:Take">
+                                  <rx:Count>1</rx:Count>
+                                </Combinator>
+                              </Expression>
+                              <Expression xsi:type="rx:AsyncSubject">
+                                <Name>Duration</Name>
+                              </Expression>
+                              <Expression xsi:type="SubscribeSubject">
+                                <Name>Duration</Name>
+                              </Expression>
+                              <Expression xsi:type="MemberSelector">
+                                <Selector>TotalSeconds</Selector>
+                              </Expression>
+                              <Expression xsi:type="Multiply">
+                                <Operand xsi:type="DoubleProperty">
+                                  <Value>-1</Value>
+                                </Operand>
+                              </Expression>
+                              <Expression xsi:type="PropertyMapping">
+                                <PropertyMappings>
+                                  <Property Name="RangeEnd" />
+                                </PropertyMappings>
+                              </Expression>
+                              <Expression xsi:type="SubscribeSubject">
+                                <Name>Duration</Name>
+                              </Expression>
+                              <Expression xsi:type="MemberSelector">
+                                <Selector>TotalSeconds</Selector>
+                              </Expression>
+                              <Expression xsi:type="Multiply">
+                                <Operand xsi:type="DoubleProperty">
+                                  <Value>-1</Value>
+                                </Operand>
+                              </Expression>
+                              <Expression xsi:type="PropertyMapping">
+                                <PropertyMappings>
+                                  <Property Name="RangeBegin" />
+                                </PropertyMappings>
+                              </Expression>
+                              <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.RangeAnimation.bonsai">
+                                <Duration>3</Duration>
+                                <RangeBegin>0</RangeBegin>
+                                <RangeEnd>-0.5</RangeEnd>
+                              </Expression>
+                              <Expression xsi:type="ExternalizedMapping">
+                                <Property Name="MaxRadius" />
+                                <Property Name="MonitorDistance" />
+                                <Property Name="InitialRadius" />
+                                <Property Name="InitialVirtualDistance" />
+                                <Property Name="LinearApproachingVelocity" />
+                              </Expression>
+                              <Expression xsi:type="Combinator">
+                                <Combinator xsi:type="p1:CalculateLoomRadius">
+                                  <p1:MaxRadius>25</p1:MaxRadius>
+                                  <p1:MonitorDistance>18</p1:MonitorDistance>
+                                  <p1:InitialRadius>0.5</p1:InitialRadius>
+                                  <p1:InitialVirtualDistance>12.5</p1:InitialVirtualDistance>
+                                  <p1:LinearApproachingVelocity>25</p1:LinearApproachingVelocity>
+                                </Combinator>
+                              </Expression>
+                              <Expression xsi:type="SubscribeSubject">
+                                <Name>Duration</Name>
+                              </Expression>
+                              <Expression xsi:type="MemberSelector">
+                                <Selector>TotalSeconds</Selector>
+                              </Expression>
+                              <Expression xsi:type="PropertyMapping">
+                                <PropertyMappings>
+                                  <Property Name="Duration" />
+                                </PropertyMappings>
+                              </Expression>
+                              <Expression xsi:type="SubscribeSubject">
+                                <Name>Duration</Name>
+                              </Expression>
+                              <Expression xsi:type="MemberSelector">
+                                <Selector>TotalSeconds</Selector>
+                              </Expression>
+                              <Expression xsi:type="Multiply">
+                                <Operand xsi:type="DoubleProperty">
+                                  <Value>-1</Value>
+                                </Operand>
+                              </Expression>
+                              <Expression xsi:type="PropertyMapping">
+                                <PropertyMappings>
+                                  <Property Name="RangeBegin" />
+                                </PropertyMappings>
+                              </Expression>
+                              <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.RangeAnimation.bonsai">
+                                <Duration>0.5</Duration>
+                                <RangeBegin>-0.5</RangeBegin>
+                                <RangeEnd>0</RangeEnd>
+                              </Expression>
+                              <Expression xsi:type="Combinator">
+                                <Combinator xsi:type="p1:CalculateLoomRadius">
+                                  <p1:MaxRadius>25</p1:MaxRadius>
+                                  <p1:MonitorDistance>18</p1:MonitorDistance>
+                                  <p1:InitialRadius>0.5</p1:InitialRadius>
+                                  <p1:InitialVirtualDistance>12.5</p1:InitialVirtualDistance>
+                                  <p1:LinearApproachingVelocity>25</p1:LinearApproachingVelocity>
+                                </Combinator>
+                              </Expression>
+                              <Expression xsi:type="Combinator">
+                                <Combinator xsi:type="rx:Concat" />
+                              </Expression>
+                              <Expression xsi:type="WorkflowOutput" />
+                            </Nodes>
+                            <Edges>
+                              <Edge From="0" To="1" Label="Source1" />
+                              <Edge From="1" To="2" Label="Source1" />
+                              <Edge From="2" To="3" Label="Source1" />
+                              <Edge From="4" To="5" Label="Source1" />
+                              <Edge From="5" To="6" Label="Source1" />
+                              <Edge From="6" To="7" Label="Source1" />
+                              <Edge From="7" To="12" Label="Source1" />
+                              <Edge From="8" To="9" Label="Source1" />
+                              <Edge From="9" To="10" Label="Source1" />
+                              <Edge From="10" To="11" Label="Source1" />
+                              <Edge From="11" To="12" Label="Source2" />
+                              <Edge From="12" To="14" Label="Source1" />
+                              <Edge From="13" To="14" Label="Source2" />
+                              <Edge From="13" To="23" Label="Source2" />
+                              <Edge From="14" To="24" Label="Source1" />
+                              <Edge From="15" To="16" Label="Source1" />
+                              <Edge From="16" To="17" Label="Source1" />
+                              <Edge From="17" To="22" Label="Source1" />
+                              <Edge From="18" To="19" Label="Source1" />
+                              <Edge From="19" To="20" Label="Source1" />
+                              <Edge From="20" To="21" Label="Source1" />
+                              <Edge From="21" To="22" Label="Source2" />
+                              <Edge From="22" To="23" Label="Source1" />
+                              <Edge From="23" To="24" Label="Source2" />
+                              <Edge From="24" To="25" Label="Source1" />
+                            </Edges>
+                          </Workflow>
+                        </Expression>
+                        <Expression xsi:type="WorkflowOutput" />
+                      </Nodes>
+                      <Edges>
+                        <Edge From="0" To="1" Label="Source1" />
+                        <Edge From="1" To="2" Label="Source1" />
+                      </Edges>
+                    </Workflow>
                   </Expression>
                   <Expression xsi:type="rx:PublishSubject">
                     <Name>Animation</Name>
@@ -1508,14 +1674,72 @@
                       <Property Name="ColorA" Selector="Color.A" />
                     </PropertyMappings>
                   </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="gl:SampleOnRenderFrame" />
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="num:CreateRandom">
+                      <num:Seed xsi:nil="true" />
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="p2:CreateNormal">
+                      <p2:Mean>0</p2:Mean>
+                      <p2:StdDev>70</p2:StdDev>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="p2:SampleMany">
+                      <p2:Count>1</p2:Count>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="dsp:FrequencyFilter">
+                      <dsp:SampleRate>960</dsp:SampleRate>
+                      <dsp:Cutoff1>0.5</dsp:Cutoff1>
+                      <dsp:Cutoff2>4</dsp:Cutoff2>
+                      <dsp:KernelLength>240</dsp:KernelLength>
+                      <dsp:FilterType>BandPass</dsp:FilterType>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="rx:BehaviorSubject">
+                    <Name>posX</Name>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="LocationX" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="p2:SampleMany">
+                      <p2:Count>1</p2:Count>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="dsp:FrequencyFilter">
+                      <dsp:SampleRate>960</dsp:SampleRate>
+                      <dsp:Cutoff1>0.5</dsp:Cutoff1>
+                      <dsp:Cutoff2>4</dsp:Cutoff2>
+                      <dsp:KernelLength>240</dsp:KernelLength>
+                      <dsp:FilterType>BandPass</dsp:FilterType>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="rx:BehaviorSubject">
+                    <Name>posY</Name>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="LocationY" />
+                    </PropertyMappings>
+                  </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
                     <Diameter>25</Diameter>
-                    <LocationX>0</LocationX>
-                    <LocationY>0</LocationY>
+                    <LocationX>-1.42284046E-06</LocationX>
+                    <LocationY>2.04178777E-05</LocationY>
                     <Layer>0</Layer>
-                    <ColorR>0.5</ColorR>
-                    <ColorG>0.6</ColorG>
-                    <ColorB>1</ColorB>
+                    <ColorR>0</ColorR>
+                    <ColorG>0</ColorG>
+                    <ColorB>0</ColorB>
                     <ColorA>1</ColorA>
                   </Expression>
                   <Expression xsi:type="SubscribeSubject">
@@ -1535,7 +1759,7 @@
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="gl:Timer">
-                      <gl:DueTime>PT1.5S</gl:DueTime>
+                      <gl:DueTime>PT3S</gl:DueTime>
                     </Combinator>
                   </Expression>
                   <Expression xsi:type="Combinator">
@@ -1564,7 +1788,7 @@
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="gl:Delay">
-                      <gl:DueTime>PT1S</gl:DueTime>
+                      <gl:DueTime>PT0.1S</gl:DueTime>
                     </Combinator>
                   </Expression>
                   <Expression xsi:type="Combinator">
@@ -1581,7 +1805,8 @@
                   <Edge From="0" To="1" Label="Source1" />
                   <Edge From="1" To="2" Label="Source1" />
                   <Edge From="4" To="5" Label="Source1" />
-                  <Edge From="5" To="19" Label="Source1" />
+                  <Edge From="4" To="19" Label="Source1" />
+                  <Edge From="5" To="30" Label="Source1" />
                   <Edge From="6" To="7" Label="Source1" />
                   <Edge From="7" To="8" Label="Source1" />
                   <Edge From="8" To="14" Label="Source1" />
@@ -1592,27 +1817,39 @@
                   <Edge From="13" To="14" Label="Source2" />
                   <Edge From="14" To="15" Label="Source1" />
                   <Edge From="15" To="16" Label="Source1" />
-                  <Edge From="16" To="19" Label="Source2" />
+                  <Edge From="16" To="30" Label="Source2" />
                   <Edge From="17" To="18" Label="Source1" />
-                  <Edge From="18" To="19" Label="Source3" />
-                  <Edge From="19" To="25" Label="Source1" />
+                  <Edge From="18" To="30" Label="Source3" />
+                  <Edge From="19" To="20" Label="Source1" />
                   <Edge From="20" To="21" Label="Source1" />
                   <Edge From="21" To="22" Label="Source1" />
+                  <Edge From="21" To="26" Label="Source1" />
                   <Edge From="22" To="23" Label="Source1" />
                   <Edge From="23" To="24" Label="Source1" />
-                  <Edge From="24" To="25" Label="Source2" />
-                  <Edge From="25" To="33" Label="Source1" />
+                  <Edge From="24" To="25" Label="Source1" />
+                  <Edge From="25" To="30" Label="Source4" />
                   <Edge From="26" To="27" Label="Source1" />
-                  <Edge From="27" To="32" Label="Source1" />
+                  <Edge From="27" To="28" Label="Source1" />
                   <Edge From="28" To="29" Label="Source1" />
-                  <Edge From="29" To="30" Label="Source1" />
-                  <Edge From="30" To="31" Label="Source1" />
-                  <Edge From="31" To="32" Label="Source2" />
-                  <Edge From="32" To="33" Label="Source2" />
+                  <Edge From="29" To="30" Label="Source5" />
+                  <Edge From="30" To="36" Label="Source1" />
+                  <Edge From="31" To="32" Label="Source1" />
+                  <Edge From="32" To="33" Label="Source1" />
                   <Edge From="33" To="34" Label="Source1" />
                   <Edge From="34" To="35" Label="Source1" />
-                  <Edge From="35" To="36" Label="Source1" />
-                  <Edge From="36" To="37" Label="Source1" />
+                  <Edge From="35" To="36" Label="Source2" />
+                  <Edge From="36" To="44" Label="Source1" />
+                  <Edge From="37" To="38" Label="Source1" />
+                  <Edge From="38" To="43" Label="Source1" />
+                  <Edge From="39" To="40" Label="Source1" />
+                  <Edge From="40" To="41" Label="Source1" />
+                  <Edge From="41" To="42" Label="Source1" />
+                  <Edge From="42" To="43" Label="Source2" />
+                  <Edge From="43" To="44" Label="Source2" />
+                  <Edge From="44" To="45" Label="Source1" />
+                  <Edge From="45" To="46" Label="Source1" />
+                  <Edge From="46" To="47" Label="Source1" />
+                  <Edge From="47" To="48" Label="Source1" />
                 </Edges>
               </Workflow>
             </Expression>
@@ -1913,7 +2150,7 @@
                                   <Selector>LedTarget</Selector>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>None</Value>
                                   </Operand>
                                 </Expression>
@@ -1923,7 +2160,7 @@
                                   </Combinator>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Led0</Value>
                                   </Operand>
                                 </Expression>
@@ -1933,7 +2170,7 @@
                                   </Combinator>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Led1</Value>
                                   </Operand>
                                 </Expression>
@@ -1943,7 +2180,7 @@
                                   </Combinator>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Both</Value>
                                   </Operand>
                                 </Expression>
@@ -2032,7 +2269,7 @@
                             <Selector>Mode</Selector>
                           </Expression>
                           <Expression xsi:type="Equal">
-                            <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliMode">
+                            <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliMode">
                               <Value>Continuous</Value>
                             </Operand>
                           </Expression>
@@ -2088,7 +2325,7 @@
                                   <Selector>LedTarget</Selector>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Led0</Value>
                                   </Operand>
                                 </Expression>
@@ -2132,7 +2369,7 @@
                                   <Selector>LedTarget</Selector>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Led1</Value>
                                   </Operand>
                                 </Expression>
@@ -2176,7 +2413,7 @@
                                   <Selector>LedTarget</Selector>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Both</Value>
                                   </Operand>
                                 </Expression>
@@ -2296,7 +2533,7 @@
                             <Selector>Mode</Selector>
                           </Expression>
                           <Expression xsi:type="Equal">
-                            <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliMode">
+                            <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliMode">
                               <Value>Pulsed</Value>
                             </Operand>
                           </Expression>
@@ -2352,7 +2589,7 @@
                                   <Selector>LedTarget</Selector>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Led0</Value>
                                   </Operand>
                                 </Expression>
@@ -2396,7 +2633,7 @@
                                   <Selector>LedTarget</Selector>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Led1</Value>
                                   </Operand>
                                 </Expression>
@@ -2440,7 +2677,7 @@
                                   <Selector>LedTarget</Selector>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Both</Value>
                                   </Operand>
                                 </Expression>
@@ -2573,7 +2810,7 @@
                                   <Selector>LedTarget</Selector>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Led0</Value>
                                   </Operand>
                                 </Expression>
@@ -2617,7 +2854,7 @@
                                   <Selector>LedTarget</Selector>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Led1</Value>
                                   </Operand>
                                 </Expression>
@@ -2661,7 +2898,7 @@
                                   <Selector>LedTarget</Selector>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Both</Value>
                                   </Operand>
                                 </Expression>
@@ -2794,7 +3031,7 @@
                                   <Selector>LedTarget</Selector>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Led0</Value>
                                   </Operand>
                                 </Expression>
@@ -2838,7 +3075,7 @@
                                   <Selector>LedTarget</Selector>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Led1</Value>
                                   </Operand>
                                 </Expression>
@@ -2882,7 +3119,7 @@
                                   <Selector>LedTarget</Selector>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Both</Value>
                                   </Operand>
                                 </Expression>
@@ -3022,7 +3259,7 @@
                                   <Selector>LedTarget</Selector>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>None</Value>
                                   </Operand>
                                 </Expression>
@@ -3032,7 +3269,7 @@
                                   </Combinator>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Led0</Value>
                                   </Operand>
                                 </Expression>
@@ -3042,7 +3279,7 @@
                                   </Combinator>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Led1</Value>
                                   </Operand>
                                 </Expression>
@@ -3052,7 +3289,7 @@
                                   </Combinator>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Both</Value>
                                   </Operand>
                                 </Expression>
@@ -3161,7 +3398,7 @@
                                   <Selector>LedTarget</Selector>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>None</Value>
                                   </Operand>
                                 </Expression>
@@ -3171,7 +3408,7 @@
                                   </Combinator>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Led0</Value>
                                   </Operand>
                                 </Expression>
@@ -3181,7 +3418,7 @@
                                   </Combinator>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Led1</Value>
                                   </Operand>
                                 </Expression>
@@ -3191,7 +3428,7 @@
                                   </Combinator>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Both</Value>
                                   </Operand>
                                 </Expression>
@@ -3300,7 +3537,7 @@
                                   <Selector>LedTarget</Selector>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>None</Value>
                                   </Operand>
                                 </Expression>
@@ -3310,7 +3547,7 @@
                                   </Combinator>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Led0</Value>
                                   </Operand>
                                 </Expression>
@@ -3320,7 +3557,7 @@
                                   </Combinator>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Led1</Value>
                                   </Operand>
                                 </Expression>
@@ -3330,7 +3567,7 @@
                                   </Combinator>
                                 </Expression>
                                 <Expression xsi:type="Equal">
-                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p2:OptogeneticsStimuliLedTarget">
+                                  <Operand xsi:type="WorkflowProperty" TypeArguments="p3:OptogeneticsStimuliLedTarget">
                                     <Value>Both</Value>
                                   </Operand>
                                 </Expression>
