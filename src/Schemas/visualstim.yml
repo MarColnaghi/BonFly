@@ -16,15 +16,12 @@ trials:
               maxRadius: 25,
               monitorDistance: 18,
             },
-          delayOffset: .1,
-          delayOnset: 3,
+          delayOffset: 0,
+          delayOnset: 25,
           backgroundColor: { a: 1, b: 1, g: 1, r: 1 },
           color: { a: 1, b: 0, g: 0, r: 0 },
         }
-    },
-    &optoTrial {
-      optogeneticsContinuousStimuli: {amplitude: 8, duration: 4, delayOnset: 0, ledTarget: Both}
-    },    
+    },   
     &loomingCircleTrial {
       loomingCircleStimuli:
         {
@@ -37,15 +34,12 @@ trials:
               maxRadius: 25,
               monitorDistance: 18,
             },
-          delayOffset: .1,
-          delayOnset: 3,
+          delayOffset: 0,
+          delayOnset: 10,
           backgroundColor: { a: 1, b: 1, g: 1, r: 1 },
           color: { a: 1, b: 0, g: 0, r: 0 },
         }
     },
-      &optoTrial {
-      optogeneticsContinuousStimuli: {amplitude: 25, duration: 3, delayOnset: 0, ledTarget: Led1}
-    },    
     &loomingCircleTrial {
       loomingCircleStimuli:
         {
@@ -58,16 +52,13 @@ trials:
               maxRadius: 25,
               monitorDistance: 18,
             },
-          delayOffset: .1,
-          delayOnset: 3,
+          delayOffset: 0,
+          delayOnset: 15,
           backgroundColor: { a: 1, b: 1, g: 1, r: 1 },
           color: { a: 1, b: 0, g: 0, r: 0 },
         }
     },
-      &optoTrial {
-      optogeneticsPulsedStimuli: {amplitude: 3, duration: 5, frequency: 2, dutyCycle: 50, delayOnset: 0, ledTarget: Led1}
-    },
-        &loomingCircleTrial {
+    &loomingCircleTrial {
       loomingCircleStimuli:
         {
           animationSettings:
@@ -79,16 +70,13 @@ trials:
               maxRadius: 25,
               monitorDistance: 18,
             },
-          delayOffset: .1,
-          delayOnset: 3,
+          delayOffset: 0,
+          delayOnset: 10,
           backgroundColor: { a: 1, b: 1, g: 1, r: 1 },
           color: { a: 1, b: 0, g: 0, r: 0 },
         }
     },      
-    &optoTrial {
-      optogeneticsPulsedStimuli: {amplitude: 20, duration: 6, frequency: 5, dutyCycle: 50, delayOnset: 0, ledTarget: Led1}
-    },
-        &loomingCircleTrial {
+    &loomingCircleTrial {
       loomingCircleStimuli:
         {
           animationSettings:
@@ -101,15 +89,12 @@ trials:
               monitorDistance: 18,
             },
           delayOffset: .1,
-          delayOnset: 3,
+          delayOnset: 15,
           backgroundColor: { a: 1, b: 1, g: 1, r: 1 },
           color: { a: 1, b: 0, g: 0, r: 0 },
         }
     },
-    &optoTrial {
-      optogeneticsContinuousStimuli: {amplitude: 12, duration: 3, delayOnset: 0, ledTarget: Led1}
-    },
-        &loomingCircleTrial {
+    &loomingCircleTrial {
       loomingCircleStimuli:
         {
           animationSettings:
@@ -122,16 +107,9 @@ trials:
               monitorDistance: 18,
             },
           delayOffset: 0.1,
-          delayOnset: 3,
+          delayOnset: 10,
           backgroundColor: { a: 1, b: 1, g: 1, r: 1 },
           color: { a: 1, b: 0, g: 0, r: 0 },
         }
     },
-    &optoTrial {
-      optogeneticsContinuousStimuli: {amplitude: 12, duration: 3, delayOnset: 0, ledTarget: Led1}
-    },    
-    &optoTrial {
-      optogeneticsContinuousStimuli: {amplitude: 12, duration: 3, delayOnset: 0, ledTarget: Led1}
-    }
-
   ]
