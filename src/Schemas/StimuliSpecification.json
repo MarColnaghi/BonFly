@@ -243,6 +243,9 @@
                     "minimum": 1,
                     "type": "number"
                 },
+                "delayOnset": {
+                    "$ref": "#/definitions/delayOnset"
+                },
                 "ledTarget": {
                     "default": "None",
                     "enum": [

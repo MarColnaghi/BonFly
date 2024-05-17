@@ -16,6 +16,7 @@
                  xmlns:num="clr-namespace:Bonsai.Numerics;assembly=Bonsai.Numerics"
                  xmlns:p2="clr-namespace:Bonsai.Numerics.Distributions;assembly=Bonsai.Numerics"
                  xmlns:p3="clr-namespace:AutomaticGenerators;assembly=Extensions"
+                 xmlns:vid="clr-namespace:Bonsai.Video;assembly=Bonsai.Video"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -140,8 +141,8 @@
                 <gl:ClearMask>DepthBufferBit ColorBufferBit</gl:ClearMask>
                 <gl:CursorVisible>true</gl:CursorVisible>
                 <gl:Location xsi:nil="true" />
-                <gl:WindowBorder>Resizable</gl:WindowBorder>
-                <gl:WindowState>Normal</gl:WindowState>
+                <gl:WindowBorder>Hidden</gl:WindowBorder>
+                <gl:WindowState>Maximized</gl:WindowState>
                 <gl:DisplayDevice>First</gl:DisplayDevice>
                 <gl:TargetRenderFrequency>240</gl:TargetRenderFrequency>
                 <gl:TargetUpdateFrequency xsi:nil="true" />
@@ -237,10 +238,10 @@
               <LocationY>15</LocationY>
               <Layer>0</Layer>
               <Angle>0</Angle>
-              <ColorR>1</ColorR>
-              <ColorG>1</ColorG>
-              <ColorB>1</ColorB>
-              <ColorA>1</ColorA>
+              <ColorR>0</ColorR>
+              <ColorG>0</ColorG>
+              <ColorB>0</ColorB>
+              <ColorA>0</ColorA>
             </Expression>
           </Nodes>
           <Edges>
@@ -1508,7 +1509,7 @@
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="TimeSpanProperty">
-                                  <Value>PT0.5S</Value>
+                                  <Value>PT1S</Value>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="Combinator">
@@ -1553,8 +1554,8 @@
                               </Expression>
                               <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.RangeAnimation.bonsai">
                                 <Duration>3</Duration>
-                                <RangeBegin>0</RangeBegin>
-                                <RangeEnd>-0.5</RangeEnd>
+                                <RangeBegin>-1</RangeBegin>
+                                <RangeEnd>-1</RangeEnd>
                               </Expression>
                               <Expression xsi:type="ExternalizedMapping">
                                 <Property Name="MaxRadius" />
@@ -1569,7 +1570,7 @@
                                   <p1:MonitorDistance>18</p1:MonitorDistance>
                                   <p1:InitialRadius>0.5</p1:InitialRadius>
                                   <p1:InitialVirtualDistance>12.5</p1:InitialVirtualDistance>
-                                  <p1:LinearApproachingVelocity>25</p1:LinearApproachingVelocity>
+                                  <p1:LinearApproachingVelocity>12.5</p1:LinearApproachingVelocity>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="SubscribeSubject">
@@ -1600,8 +1601,8 @@
                                 </PropertyMappings>
                               </Expression>
                               <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.RangeAnimation.bonsai">
-                                <Duration>0.5</Duration>
-                                <RangeBegin>-0.5</RangeBegin>
+                                <Duration>1</Duration>
+                                <RangeBegin>-1</RangeBegin>
                                 <RangeEnd>0</RangeEnd>
                               </Expression>
                               <Expression xsi:type="Combinator">
@@ -1610,7 +1611,7 @@
                                   <p1:MonitorDistance>18</p1:MonitorDistance>
                                   <p1:InitialRadius>0.5</p1:InitialRadius>
                                   <p1:InitialVirtualDistance>12.5</p1:InitialVirtualDistance>
-                                  <p1:LinearApproachingVelocity>25</p1:LinearApproachingVelocity>
+                                  <p1:LinearApproachingVelocity>12.5</p1:LinearApproachingVelocity>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="Combinator">
@@ -1685,7 +1686,7 @@
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="p2:CreateNormal">
                       <p2:Mean>0</p2:Mean>
-                      <p2:StdDev>70</p2:StdDev>
+                      <p2:StdDev>8</p2:StdDev>
                     </Combinator>
                   </Expression>
                   <Expression xsi:type="Combinator">
@@ -1734,8 +1735,8 @@
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
                     <Diameter>25</Diameter>
-                    <LocationX>-1.42284046E-06</LocationX>
-                    <LocationY>2.04178777E-05</LocationY>
+                    <LocationX>-0.160429791</LocationX>
+                    <LocationY>-0.229293033</LocationY>
                     <Layer>0</Layer>
                     <ColorR>0</ColorR>
                     <ColorG>0</ColorG>
@@ -1800,6 +1801,11 @@
                   <Expression xsi:type="IncludeWorkflow" Path="Extensions\TurnSyncOff.bonsai" />
                   <Expression xsi:type="Unit" />
                   <Expression xsi:type="WorkflowOutput" />
+                  <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.RangeAnimation.bonsai">
+                    <Duration>3</Duration>
+                    <RangeBegin>0</RangeBegin>
+                    <RangeEnd>1</RangeEnd>
+                  </Expression>
                 </Nodes>
                 <Edges>
                   <Edge From="0" To="1" Label="Source1" />
@@ -3715,6 +3721,18 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="rx:Concat" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="vid:ScreenCaptureStream">
+          <vid:HideCursor>false</vid:HideCursor>
+          <vid:CaptureRegion>
+            <vid:X>0</vid:X>
+            <vid:Y>0</vid:Y>
+            <vid:Width>0</vid:Width>
+            <vid:Height>0</vid:Height>
+          </vid:CaptureRegion>
+          <vid:FrameInterval>0</vid:FrameInterval>
+        </Combinator>
       </Expression>
     </Nodes>
     <Edges>

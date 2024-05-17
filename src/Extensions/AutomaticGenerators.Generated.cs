@@ -763,7 +763,9 @@ namespace AutomaticGenerators
         private int _dutyCycle = 50;
     
         private double _frequency = 10D;
-    
+
+        private double _delayOnset = 2D;
+
         private OptogeneticsStimuliLedTarget _ledTarget = AutomaticGenerators.OptogeneticsStimuliLedTarget.None;
     
         private OptogeneticsStimuliMode _mode = AutomaticGenerators.OptogeneticsStimuliMode.Continuous;
@@ -819,7 +821,20 @@ namespace AutomaticGenerators
                 _frequency = value;
             }
         }
-    
+
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="delayOnset")]
+        public double DelayOnset
+        {
+            get
+            {
+                return _delayOnset;
+            }
+            set
+            {
+                _delayOnset = value;
+            }
+        }
+
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         [YamlDotNet.Serialization.YamlMemberAttribute(Alias="ledTarget")]
         public OptogeneticsStimuliLedTarget LedTarget
@@ -857,6 +872,7 @@ namespace AutomaticGenerators
                     Duration = _duration,
                     DutyCycle = _dutyCycle,
                     Frequency = _frequency,
+                    DelayOnset = _delayOnset,
                     LedTarget = _ledTarget,
                     Mode = _mode
                 }));
