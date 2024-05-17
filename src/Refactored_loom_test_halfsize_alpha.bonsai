@@ -240,10 +240,10 @@
               <LocationY>15</LocationY>
               <Layer>0</Layer>
               <Angle>0</Angle>
-              <ColorR>1</ColorR>
-              <ColorG>1</ColorG>
-              <ColorB>1</ColorB>
-              <ColorA>1</ColorA>
+              <ColorR>0</ColorR>
+              <ColorG>0</ColorG>
+              <ColorB>0</ColorB>
+              <ColorA>0</ColorA>
             </Expression>
           </Nodes>
           <Edges>
@@ -1511,7 +1511,7 @@
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="TimeSpanProperty">
-                                  <Value>PT0.5S</Value>
+                                  <Value>PT0.25S</Value>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="Combinator">
@@ -1556,8 +1556,8 @@
                               </Expression>
                               <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.RangeAnimation.bonsai">
                                 <Duration>3</Duration>
-                                <RangeBegin>-0.5</RangeBegin>
-                                <RangeEnd>-0.5</RangeEnd>
+                                <RangeBegin>-0.25</RangeBegin>
+                                <RangeEnd>-0.25</RangeEnd>
                               </Expression>
                               <Expression xsi:type="ExternalizedMapping">
                                 <Property Name="MaxRadius" />
@@ -1572,7 +1572,7 @@
                                   <p1:MonitorDistance>18</p1:MonitorDistance>
                                   <p1:InitialRadius>0.5</p1:InitialRadius>
                                   <p1:InitialVirtualDistance>12.5</p1:InitialVirtualDistance>
-                                  <p1:LinearApproachingVelocity>25</p1:LinearApproachingVelocity>
+                                  <p1:LinearApproachingVelocity>50</p1:LinearApproachingVelocity>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="SubscribeSubject">
@@ -1603,8 +1603,8 @@
                                 </PropertyMappings>
                               </Expression>
                               <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.RangeAnimation.bonsai">
-                                <Duration>0.5</Duration>
-                                <RangeBegin>-0.5</RangeBegin>
+                                <Duration>0.25</Duration>
+                                <RangeBegin>-0.25</RangeBegin>
                                 <RangeEnd>0</RangeEnd>
                               </Expression>
                               <Expression xsi:type="Combinator">
@@ -1613,7 +1613,7 @@
                                   <p1:MonitorDistance>18</p1:MonitorDistance>
                                   <p1:InitialRadius>0.5</p1:InitialRadius>
                                   <p1:InitialVirtualDistance>12.5</p1:InitialVirtualDistance>
-                                  <p1:LinearApproachingVelocity>25</p1:LinearApproachingVelocity>
+                                  <p1:LinearApproachingVelocity>50</p1:LinearApproachingVelocity>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="Combinator">
@@ -1696,7 +1696,7 @@
                   </Expression>
                   <Expression xsi:type="Add">
                     <Operand xsi:type="FloatProperty">
-                      <Value>-0.00455342</Value>
+                      <Value>-0.0105092106</Value>
                     </Operand>
                   </Expression>
                   <Expression xsi:type="PropertyMapping">
@@ -1765,14 +1765,14 @@
                     </PropertyMappings>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                    <Diameter>0.715446532</Diameter>
-                    <LocationX>-0.0169904158</LocationX>
-                    <LocationY>-0.162404567</LocationY>
+                    <Diameter>24.9878559</Diameter>
+                    <LocationX>0.3596903</LocationX>
+                    <LocationY>-0.0404605269</LocationY>
                     <Layer>0</Layer>
                     <ColorR>0</ColorR>
                     <ColorG>0</ColorG>
                     <ColorB>0</ColorB>
-                    <ColorA>0.2625</ColorA>
+                    <ColorA>1</ColorA>
                   </Expression>
                   <Expression xsi:type="SubscribeSubject">
                     <Name>StimulusSettings</Name>
@@ -2155,20 +2155,26 @@
                     <Name>EnablePower</Name>
                     <Workflow>
                       <Nodes>
-                        <Expression xsi:type="Annotation">
-                          <Name>TurnAuxOn</Name>
-                          <Text><![CDATA[]]></Text>
+                        <Expression xsi:type="Disable">
+                          <Builder xsi:type="Annotation">
+                            <Name>TurnAuxOn</Name>
+                            <Text><![CDATA[]]></Text>
+                          </Builder>
                         </Expression>
-                        <Expression xsi:type="harp:CreateMessage">
-                          <harp:MessageType>Write</harp:MessageType>
-                          <harp:Payload xsi:type="harp:CreateMessagePayload">
-                            <harp:Address>61</harp:Address>
-                            <harp:PayloadType>U8</harp:PayloadType>
-                            <harp:Value>2</harp:Value>
-                          </harp:Payload>
+                        <Expression xsi:type="Disable">
+                          <Builder xsi:type="harp:CreateMessage">
+                            <harp:MessageType>Write</harp:MessageType>
+                            <harp:Payload xsi:type="harp:CreateMessagePayload">
+                              <harp:Address>61</harp:Address>
+                              <harp:PayloadType>U8</harp:PayloadType>
+                              <harp:Value>2</harp:Value>
+                            </harp:Payload>
+                          </Builder>
                         </Expression>
-                        <Expression xsi:type="MulticastSubject">
-                          <Name>LedBoardCommands</Name>
+                        <Expression xsi:type="Disable">
+                          <Builder xsi:type="MulticastSubject">
+                            <Name>LedBoardCommands</Name>
+                          </Builder>
                         </Expression>
                         <Expression xsi:type="GroupWorkflow">
                           <Name>REG_POWER_EN</Name>
@@ -3706,7 +3712,7 @@
                           </Workflow>
                         </Expression>
                         <Expression xsi:type="LeftShift">
-                          <Value>0</Value>
+                          <Value>2</Value>
                         </Expression>
                         <Expression xsi:type="PropertyMapping">
                           <PropertyMappings>
@@ -3715,7 +3721,7 @@
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="IntProperty">
-                            <Value>2</Value>
+                            <Value>12</Value>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="SubscribeSubject">
@@ -3823,20 +3829,26 @@
                     <Name>DisablePower</Name>
                     <Workflow>
                       <Nodes>
-                        <Expression xsi:type="Annotation">
-                          <Name>TurnAuxOff</Name>
-                          <Text><![CDATA[]]></Text>
+                        <Expression xsi:type="Disable">
+                          <Builder xsi:type="Annotation">
+                            <Name>TurnAuxOff</Name>
+                            <Text><![CDATA[]]></Text>
+                          </Builder>
                         </Expression>
-                        <Expression xsi:type="harp:CreateMessage">
-                          <harp:MessageType>Write</harp:MessageType>
-                          <harp:Payload xsi:type="harp:CreateMessagePayload">
-                            <harp:Address>61</harp:Address>
-                            <harp:PayloadType>U8</harp:PayloadType>
-                            <harp:Value>8</harp:Value>
-                          </harp:Payload>
+                        <Expression xsi:type="Disable">
+                          <Builder xsi:type="harp:CreateMessage">
+                            <harp:MessageType>Write</harp:MessageType>
+                            <harp:Payload xsi:type="harp:CreateMessagePayload">
+                              <harp:Address>61</harp:Address>
+                              <harp:PayloadType>U8</harp:PayloadType>
+                              <harp:Value>8</harp:Value>
+                            </harp:Payload>
+                          </Builder>
                         </Expression>
-                        <Expression xsi:type="MulticastSubject">
-                          <Name>LedBoardCommands</Name>
+                        <Expression xsi:type="Disable">
+                          <Builder xsi:type="MulticastSubject">
+                            <Name>LedBoardCommands</Name>
+                          </Builder>
                         </Expression>
                         <Expression xsi:type="GroupWorkflow">
                           <Name>REG_POWER_EN</Name>

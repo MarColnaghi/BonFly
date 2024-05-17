@@ -65,7 +65,7 @@ trials:
         }
     },
       &optoTrial {
-      optogeneticsStimuli: {amplitude: 3, duration: 5, dutyCycle: 50, frequency: 1, delayOnset: 0, ledTarget: Led1, mode: Pulsed}
+      optogeneticsStimuli: {amplitude: 3, duration: 5, dutyCycle: 50, frequency: 1, delayOnset: 0, ledTarget: Both, mode: Pulsed}
     },
         &loomingCircleTrial {
       loomingCircleStimuli:
