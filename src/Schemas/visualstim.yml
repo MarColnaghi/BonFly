@@ -14,28 +14,10 @@ trials:
               linearApproachingVelocity: 25,
               duration: 0.5,
               maxRadius: 25,
-              monitorDistance: 18,
+              monitorDistance: 19,
             },
           delayOffset: 0,
-          delayOnset: 25,
-          backgroundColor: { a: 1, b: 1, g: 1, r: 1 },
-          color: { a: 1, b: 0, g: 0, r: 0 },
-        }
-    },   
-    &loomingCircleTrial {
-      loomingCircleStimuli:
-        {
-          animationSettings:
-            {
-              duration: 0.25,
-              initialRadius: 0.5,
-              initialVirtualDistance: 12.5,
-              linearApproachingVelocity: 50,
-              maxRadius: 25,
-              monitorDistance: 18,
-            },
-          delayOffset: 0,
-          delayOnset: 10,
+          delayOnset: 3,
           backgroundColor: { a: 1, b: 1, g: 1, r: 1 },
           color: { a: 1, b: 0, g: 0, r: 0 },
         }
@@ -45,71 +27,17 @@ trials:
         {
           animationSettings:
             {
-              duration: 0.25,
-              initialRadius: 0.5,
-              initialVirtualDistance: 12.5,
-              linearApproachingVelocity: 50,
-              maxRadius: 25,
-              monitorDistance: 18,
-            },
-          delayOffset: 0,
-          delayOnset: 15,
-          backgroundColor: { a: 1, b: 1, g: 1, r: 1 },
-          color: { a: 1, b: 0, g: 0, r: 0 },
-        }
-    },
-    &loomingCircleTrial {
-      loomingCircleStimuli:
-        {
-          animationSettings:
-            {
-              duration: 0.5,
-              initialRadius: 0.5,
+              initialRadius: 0.25,
               initialVirtualDistance: 12.5,
               linearApproachingVelocity: 25,
+              duration: 0.5,
               maxRadius: 25,
-              monitorDistance: 18,
+              monitorDistance: 19,
             },
           delayOffset: 0,
-          delayOnset: 10,
+          delayOnset: 3,
           backgroundColor: { a: 1, b: 1, g: 1, r: 1 },
           color: { a: 1, b: 0, g: 0, r: 0 },
         }
-    },      
-    &loomingCircleTrial {
-      loomingCircleStimuli:
-        {
-          animationSettings:
-            {
-              duration: 0.5,
-              initialRadius: 0.5,
-              initialVirtualDistance: 12.5,
-              linearApproachingVelocity: 25,
-              maxRadius: 25,
-              monitorDistance: 18,
-            },
-          delayOffset: .1,
-          delayOnset: 15,
-          backgroundColor: { a: 1, b: 1, g: 1, r: 1 },
-          color: { a: 1, b: 0, g: 0, r: 0 },
-        }
-    },
-    &loomingCircleTrial {
-      loomingCircleStimuli:
-        {
-          animationSettings:
-            {
-              duration: 1,
-              initialRadius: 0.5,
-              initialVirtualDistance: 12.5,
-              linearApproachingVelocity: 12.5,
-              maxRadius: 25,
-              monitorDistance: 18,
-            },
-          delayOffset: 0.1,
-          delayOnset: 10,
-          backgroundColor: { a: 1, b: 1, g: 1, r: 1 },
-          color: { a: 1, b: 0, g: 0, r: 0 },
-        }
-    },
+    }
   ]
