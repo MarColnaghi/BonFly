@@ -1525,7 +1525,7 @@
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="TimeSpanProperty">
-                                  <Value>PT0.25S</Value>
+                                  <Value>PT0.5S</Value>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="Combinator">
@@ -1602,10 +1602,10 @@
                                 <Builder xsi:type="Combinator">
                                   <Combinator xsi:type="p1:CalculateLoomRadius">
                                     <p1:MaxRadius>25</p1:MaxRadius>
-                                    <p1:MonitorDistance>18</p1:MonitorDistance>
-                                    <p1:InitialRadius>0.5</p1:InitialRadius>
+                                    <p1:MonitorDistance>19</p1:MonitorDistance>
+                                    <p1:InitialRadius>0.25</p1:InitialRadius>
                                     <p1:InitialVirtualDistance>12.5</p1:InitialVirtualDistance>
-                                    <p1:LinearApproachingVelocity>50</p1:LinearApproachingVelocity>
+                                    <p1:LinearApproachingVelocity>25</p1:LinearApproachingVelocity>
                                   </Combinator>
                                 </Builder>
                               </Expression>
@@ -1637,17 +1637,17 @@
                                 </PropertyMappings>
                               </Expression>
                               <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.RangeAnimation.bonsai">
-                                <Duration>0.25</Duration>
-                                <RangeBegin>-0.25</RangeBegin>
+                                <Duration>0.5</Duration>
+                                <RangeBegin>-0.5</RangeBegin>
                                 <RangeEnd>0</RangeEnd>
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="p1:CalculateLoomRadius">
                                   <p1:MaxRadius>25</p1:MaxRadius>
-                                  <p1:MonitorDistance>18</p1:MonitorDistance>
-                                  <p1:InitialRadius>0.5</p1:InitialRadius>
+                                  <p1:MonitorDistance>19</p1:MonitorDistance>
+                                  <p1:InitialRadius>0.25</p1:InitialRadius>
                                   <p1:InitialVirtualDistance>12.5</p1:InitialVirtualDistance>
-                                  <p1:LinearApproachingVelocity>50</p1:LinearApproachingVelocity>
+                                  <p1:LinearApproachingVelocity>25</p1:LinearApproachingVelocity>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="Disable">
@@ -1847,7 +1847,7 @@
                     <ColorR>0</ColorR>
                     <ColorG>0</ColorG>
                     <ColorB>0</ColorB>
-                    <ColorA>1</ColorA>
+                    <ColorA>0.166666672</ColorA>
                   </Expression>
                   <Expression xsi:type="SubscribeSubject">
                     <Name>StimulusSettings</Name>
@@ -1866,7 +1866,7 @@
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="gl:Timer">
-                      <gl:DueTime>PT15S</gl:DueTime>
+                      <gl:DueTime>PT3S</gl:DueTime>
                     </Combinator>
                   </Expression>
                   <Expression xsi:type="Combinator">
