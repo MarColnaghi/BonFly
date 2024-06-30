@@ -1603,7 +1603,7 @@
                                   <Combinator xsi:type="p1:CalculateLoomRadius">
                                     <p1:MaxRadius>25</p1:MaxRadius>
                                     <p1:MonitorDistance>19</p1:MonitorDistance>
-                                    <p1:InitialRadius>0.25</p1:InitialRadius>
+                                    <p1:InitialRadius>1</p1:InitialRadius>
                                     <p1:InitialVirtualDistance>12.5</p1:InitialVirtualDistance>
                                     <p1:LinearApproachingVelocity>25</p1:LinearApproachingVelocity>
                                   </Combinator>
@@ -1645,7 +1645,7 @@
                                 <Combinator xsi:type="p1:CalculateLoomRadius">
                                   <p1:MaxRadius>25</p1:MaxRadius>
                                   <p1:MonitorDistance>19</p1:MonitorDistance>
-                                  <p1:InitialRadius>0.25</p1:InitialRadius>
+                                  <p1:InitialRadius>1</p1:InitialRadius>
                                   <p1:InitialVirtualDistance>12.5</p1:InitialVirtualDistance>
                                   <p1:LinearApproachingVelocity>25</p1:LinearApproachingVelocity>
                                 </Combinator>
