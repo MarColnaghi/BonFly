@@ -58,7 +58,7 @@ public class CalculateLoomRadius
     {
         return source.Select(value => {
             var t = value > -Single.Epsilon ? -Single.Epsilon : value;
-            var theta = 2 * Math.Atan(InitialRadius / (-LinearApproachingVelocity * t));
+            var theta = 2 * Math.Atan((InitialRadius / 2) / (-LinearApproachingVelocity * t));
             var radius = Math.Tan(theta/2) * MonitorDistance;
             radius = radius > MaxRadius ? MaxRadius : radius;
             return (float) radius;
