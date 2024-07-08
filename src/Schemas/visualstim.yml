@@ -9,7 +9,7 @@ trials:
         {
           animationSettings:
             {
-              initialRadius: 1,
+              initialRadius: 0.5,
               initialVirtualDistance: 12.5,
               linearApproachingVelocity: 25,
               duration: 0.5,
@@ -27,7 +27,7 @@ trials:
         {
           animationSettings:
             {
-              initialRadius: 1,
+              initialRadius: 0.5,
               initialVirtualDistance: 12.5,
               linearApproachingVelocity: 25,
               duration: 0.5,
@@ -44,7 +44,7 @@ trials:
         {
           animationSettings:
             {
-              initialRadius: 1,
+              initialRadius: 0.5,
               initialVirtualDistance: 12.5,
               linearApproachingVelocity: 25,
               duration: 0.5,
