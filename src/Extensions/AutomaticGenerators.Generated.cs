@@ -941,6 +941,100 @@ namespace AutomaticGenerators
         }
     }
 
+    [Bonsai.CombinatorAttribute()]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    public partial class OptogeneticsRampedStimuli
+    {
+    
+        private double _amplitude = 1D;
+    
+        private double _durationSteady = 1D;
+    
+        private double _durationRamp = 1D;
+    
+        private double _delayOnset = 2D;
+
+        private OptogeneticsRampedStimuliLedTarget _ledTarget = AutomaticGenerators.OptogeneticsRampedStimuliLedTarget.None;
+        
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="amplitude")]
+        public double Amplitude
+        {
+            get
+            {
+                return _amplitude;
+            }
+            set
+            {
+                _amplitude = value;
+            }
+        }
+    
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="durationSteady")]
+        public double DurationSteady
+        {
+            get
+            {
+                return _durationSteady;
+            }
+            set
+            {
+                _durationSteady = value;
+            }
+        }
+
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="durationRamp")]
+        public double DurationRamp
+        {
+            get
+            {
+                return _durationRamp;
+            }
+            set
+            {
+                _durationRamp = value;
+            }
+        }
+
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="delayOnset")]
+        public double DelayOnset
+        {
+            get
+            {
+                return _delayOnset;
+            }
+            set
+            {
+                _delayOnset = value;
+            }
+        }
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="ledTarget")]
+        public OptogeneticsRampedStimuliLedTarget LedTarget
+        {
+            get
+            {
+                return _ledTarget;
+            }
+            set
+            {
+                _ledTarget = value;
+            }
+        }
+    
+        public System.IObservable<OptogeneticsRampedStimuli> Process()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(
+                new OptogeneticsRampedStimuli
+                {
+                    Amplitude = _amplitude,
+                    DurationSteady = _durationSteady,
+                    DurationRamp = _durationRamp,
+                    DelayOnset = _delayOnset,
+                    LedTarget = _ledTarget
+                }));
+        }
+    }
 
     [Bonsai.CombinatorAttribute()]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
@@ -956,6 +1050,7 @@ namespace AutomaticGenerators
         private OptogeneticsContinuousStimuli _optogeneticsContinuousStimuli;
     
         private OptogeneticsPulsedStimuli _optogeneticsPulsedStimuli;
+        private OptogeneticsRampedStimuli _optogeneticsRampedStimuli;
 
         private MovingCircleStimuli _movingCircleStimuli;
     
@@ -1029,6 +1124,19 @@ namespace AutomaticGenerators
             }
         }
 
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="optogeneticsRampedStimuli")]
+        public OptogeneticsRampedStimuli OptogeneticsRampedStimuli
+        {
+            get
+            {
+                return _optogeneticsRampedStimuli;
+            }
+            set
+            {
+                _optogeneticsRampedStimuli = value;
+            }
+        }
     
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         [YamlDotNet.Serialization.YamlMemberAttribute(Alias="movingCircleStimuli")]
@@ -1054,6 +1162,7 @@ namespace AutomaticGenerators
                     LoomingImageStimuli = _loomingImageStimuli,
                     OptogeneticsContinuousStimuli = _optogeneticsContinuousStimuli,
                     OptogeneticsPulsedStimuli = _optogeneticsPulsedStimuli,
+                    OptogeneticsRampedStimuli = _optogeneticsRampedStimuli,
                     MovingCircleStimuli = _movingCircleStimuli
                 }));
         }
@@ -1108,6 +1217,21 @@ namespace AutomaticGenerators
         Both = 3,
     }
     public enum OptogeneticsPulsedStimuliLedTarget
+    {
+    
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="None")]
+        None = 0,
+    
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="Led0")]
+        Led0 = 1,
+    
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="Led1")]
+        Led1 = 2,
+    
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="Both")]
+        Both = 3,
+    }
+    public enum OptogeneticsRampedStimuliLedTarget
     {
     
         [YamlDotNet.Serialization.YamlMemberAttribute(Alias="None")]
@@ -1184,7 +1308,10 @@ namespace AutomaticGenerators
         {
             return Process<OptogeneticsPulsedStimuli>(source);
         }
-
+        public System.IObservable<string> Process(System.IObservable<OptogeneticsRampedStimuli> source)
+        {
+            return Process<OptogeneticsRampedStimuli>(source);
+        }
         public System.IObservable<string> Process(System.IObservable<TrialSettings> source)
         {
             return Process<TrialSettings>(source);
@@ -1211,6 +1338,7 @@ namespace AutomaticGenerators
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<MovingCircleStimuli>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<OptogeneticsContinuousStimuli>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<OptogeneticsPulsedStimuli>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<OptogeneticsRampedStimuli>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<TrialSettings>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<BonFlyStimuli>))]
     [System.ComponentModel.DescriptionAttribute("Deserializes a sequence of YAML strings into data model objects.")]
