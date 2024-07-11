@@ -8,7 +8,7 @@ trials:
       optogeneticsContinuousStimuli: {amplitude: 10, duration: 2, delayOnset: 5, ledTarget: Led1}
     },    
     &optoTrial {
-      optogeneticsRampedStimuli: {amplitude: 20, durationSteady: 4.5, durationRamp: 0.5, delayOnset: 5, ledTarget: Led1}
+      optogeneticsRampedStimuli: {amplitude: 20, durationSteady: 4.5, durationRamp: 1.0, delayOnset: 5, ledTarget: Led1}
     },    
     &optoTrial {
       optogeneticsPulsedStimuli: {amplitude: 1, duration: 3, frequency: 2, dutyCycle: 50, delayOnset: 15, ledTarget: Led1}
