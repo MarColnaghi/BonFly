@@ -42,7 +42,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="p1:LoadSettings">
-                <p1:Path>Schemas\optostim.yml</p1:Path>
+                <p1:Path>Schemas\tutorial_optostim_short.yml</p1:Path>
               </Combinator>
             </Expression>
             <Expression xsi:type="rx:AsyncSubject">
@@ -53,7 +53,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="p1:LoadSettings">
-                <p1:Path>Schemas\optostimempty.yml</p1:Path>
+                <p1:Path>Schemas\tutorial_empty.yml</p1:Path>
               </Combinator>
             </Expression>
             <Expression xsi:type="rx:AsyncSubject">
@@ -244,10 +244,12 @@
         </Workflow>
       </Expression>
       <Expression xsi:type="ExternalizedMapping">
-        <Property Name="2.b. RefreshRate" />
-        <Property Name="2.a. DisplayDevice" />
-        <Property Name="2.c. MonitorWidth" />
-        <Property Name="2.d. MonitorHeight" />
+        <Property Name="2.b. RefreshRate" Category="Monitor" />
+        <Property Name="2.a. DisplayDevice" Category="Monitor" />
+        <Property Name="2.c. MonitorWidth" Category="Monitor" />
+        <Property Name="2.d. MonitorHeight" Category="Monitor" />
+        <Property Name="SquareX" Category="Monitor" />
+        <Property Name="SquareY" Category="Monitor" />
       </Expression>
       <Expression xsi:type="GroupWorkflow">
         <Name>Screen</Name>
@@ -358,11 +360,42 @@
                 <Property Name="ColorB" />
               </PropertyMappings>
             </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="SquareX" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="IntProperty">
+                <Value>1</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="scr:ExpressionTransform">
+              <scr:Expression>it*26.5</scr:Expression>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="SquareY" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="IntProperty">
+                <Value>-1</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="scr:ExpressionTransform">
+              <scr:Expression>it*14.5</scr:Expression>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Zip" />
+            </Expression>
+            <Expression xsi:type="PropertyMapping">
+              <PropertyMappings>
+                <Property Name="LocationX" Selector="Item1" />
+                <Property Name="LocationY" Selector="Item2" />
+              </PropertyMappings>
+            </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawQuad.bonsai">
               <ExtentX>1.5</ExtentX>
               <ExtentY>1.5</ExtentY>
               <LocationX>26.5</LocationX>
-              <LocationY>14.7</LocationY>
+              <LocationY>-14.5</LocationY>
               <Layer>0</Layer>
               <Angle>0</Angle>
               <ColorR>0</ColorR>
@@ -382,10 +415,18 @@
             <Edge From="9" To="10" Label="Source1" />
             <Edge From="10" To="11" Label="Source1" />
             <Edge From="12" To="13" Label="Source1" />
-            <Edge From="14" To="18" Label="Source1" />
+            <Edge From="14" To="26" Label="Source1" />
             <Edge From="15" To="16" Label="Source1" />
             <Edge From="16" To="17" Label="Source1" />
-            <Edge From="17" To="18" Label="Source2" />
+            <Edge From="17" To="26" Label="Source2" />
+            <Edge From="18" To="19" Label="Source1" />
+            <Edge From="19" To="20" Label="Source1" />
+            <Edge From="20" To="24" Label="Source1" />
+            <Edge From="21" To="22" Label="Source1" />
+            <Edge From="22" To="23" Label="Source1" />
+            <Edge From="23" To="24" Label="Source2" />
+            <Edge From="24" To="25" Label="Source1" />
+            <Edge From="25" To="26" Label="Source3" />
           </Edges>
         </Workflow>
       </Expression>
@@ -419,7 +460,7 @@
             <Expression xsi:type="WorkflowOutput" />
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="IntProperty">
-                <Value>20</Value>
+                <Value>30</Value>
               </Combinator>
             </Expression>
             <Expression xsi:type="p2:LedArrayCommand">
@@ -1648,7 +1689,7 @@
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="gl:Timer">
-                            <gl:DueTime>PT3S</gl:DueTime>
+                            <gl:DueTime>PT5S</gl:DueTime>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="Combinator">

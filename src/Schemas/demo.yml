@@ -3,45 +3,22 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/neurogears/BonFly/main/src/Schemas/StimuliSpecification.json
 
 trials:
-  [
-    &loomingCircleTrial {
-      loomingCircleStimuli:
-        {
-          animationSettings:
+  [{loomingCircleStimuli: &loomingCircleTrial
+        {animationSettings: &animationTrial 
             {
-              duration: 2,
+              duration: 0.5,
               initialRadius: 0.5,
               initialVirtualDistance: 12.5,
               linearApproachingVelocity: 25,
               maxRadius: 25,
-              monitorDistance: 25,
+              monitorDistance: 19,
             },
-          delayOffset: 1,
-          delayOnset: 1.5,
-          backgroundColor: { a: 1, b: 0, g: 1, r: 0 },
-          color: { a: 1, b: 1, g: 0.6, r: 0.5 },
+          delayOffset: 0,
+          delayOnset: 5,
+          backgroundColor: { a: 1, b: 1, g: 1, r: 1},
+          color: { a: 1, b: 0, g: 0, r: 0},
         }
-    },
-    &controlTrial {
-      controlNoisyStimuli:
-        {
-          animationSettings:
-            {
-              duration: 2,
-              initialRadius: 6,
-              initialVirtualDistance: 12.5,
-              linearApproachingVelocity: 25,
-              maxRadius: 25,
-              monitorDistance: 25,
-            },
-          delayOffset: 1,
-          delayOnset: 1.5,
-          backgroundColor: { a: 1, b: 1, g: 1, r: 1 },
-          diameter: 25,
-          offColor: { a: 0, b: 1, g: 1, r: 1 },
-          onColor: { a: 1, b: 0, g: 0, r: 0 },
-        }
-    },
-    { <<: *loomingCircleTrial },
-    { <<: *controlTrial },
+    }
+    #, {loomingCircleStimuli: { <<: *loomingCircleTrial, delayOnset: 10}}
+
   ]
