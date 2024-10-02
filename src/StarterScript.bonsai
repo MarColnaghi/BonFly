@@ -53,7 +53,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="p1:LoadSettings">
-                <p1:Path>Schemas\visualstim.yml</p1:Path>
+                <p1:Path>Schemas\optostimempty.yml</p1:Path>
               </Combinator>
             </Expression>
             <Expression xsi:type="rx:AsyncSubject">
@@ -410,7 +410,7 @@
                 <harp:VisualIndicators>Off</harp:VisualIndicators>
                 <harp:Heartbeat>Disabled</harp:Heartbeat>
                 <harp:IgnoreErrors>false</harp:IgnoreErrors>
-                <harp:PortName>COM3</harp:PortName>
+                <harp:PortName>COM5</harp:PortName>
               </Combinator>
             </Expression>
             <Expression xsi:type="rx:PublishSubject">
@@ -1598,7 +1598,7 @@
                           <Duration>PT0.5S</Duration>
                           <MaxRadius>25</MaxRadius>
                           <MonitorDistance>19</MonitorDistance>
-                          <InitialRadius>1</InitialRadius>
+                          <InitialRadius>0.5</InitialRadius>
                           <InitialVirtualDistance>12.5</InitialVirtualDistance>
                           <LinearApproachingVelocity>25</LinearApproachingVelocity>
                         </Expression>
@@ -2021,7 +2021,7 @@
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="IntProperty">
-                                  <Value>25</Value>
+                                  <Value>10</Value>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="harp:Format">
@@ -2065,7 +2065,7 @@
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="IntProperty">
-                                  <Value>25</Value>
+                                  <Value>10</Value>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="harp:Format">
@@ -2109,7 +2109,7 @@
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="IntProperty">
-                                  <Value>25</Value>
+                                  <Value>10</Value>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="harp:Format">
@@ -2376,7 +2376,7 @@
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="gl:Delay">
-                            <gl:DueTime>PT1S</gl:DueTime>
+                            <gl:DueTime>PT2S</gl:DueTime>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="rx:SelectMany">
@@ -2730,7 +2730,7 @@
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="gl:Timer">
-                            <gl:DueTime>PT10S</gl:DueTime>
+                            <gl:DueTime>PT5S</gl:DueTime>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="Combinator">
@@ -5742,7 +5742,7 @@
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="gl:Timer">
-                            <gl:DueTime>PT10S</gl:DueTime>
+                            <gl:DueTime>PT5S</gl:DueTime>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="Combinator">
