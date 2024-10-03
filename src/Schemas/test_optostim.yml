@@ -5,9 +5,9 @@
 trials:
   [
     &optoTrial {
-      optogeneticsContinuousStimuli: {amplitude: 3, duration: 20, delayOnset: 5, ledTarget: Led1}
+      optogeneticsContinuousStimuli: {amplitude: 5, duration: 10, delayOnset: 5, ledTarget: Led0}
     }, 
     &optoTrial {
-      optogeneticsContinuousStimuli: {amplitude: 3, duration: 300, delayOnset: 280, ledTarget: Led0}
+      optogeneticsContinuousStimuli: {amplitude: 3, duration: 5, delayOnset: 30, ledTarget: Led1}
     }
   ]

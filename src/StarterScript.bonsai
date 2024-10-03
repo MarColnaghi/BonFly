@@ -45,7 +45,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="p1:LoadSettings">
-                <p1:Path>Schemas\tutorial_optostim.yml</p1:Path>
+                <p1:Path>Schemas\test_optostim.yml</p1:Path>
               </Combinator>
             </Expression>
             <Expression xsi:type="rx:AsyncSubject">
@@ -56,7 +56,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="p1:LoadSettings">
-                <p1:Path>Schemas\tutorial_empty.yml</p1:Path>
+                <p1:Path>Schemas\test_visualstim.yml</p1:Path>
               </Combinator>
             </Expression>
             <Expression xsi:type="rx:AsyncSubject">
@@ -114,7 +114,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="StringProperty">
-                <Value>1d</Value>
+                <Value>2d</Value>
               </Combinator>
             </Expression>
             <Expression xsi:type="ExternalizedMapping">
@@ -156,7 +156,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="IntProperty">
-                <Value>65</Value>
+                <Value>55</Value>
               </Combinator>
             </Expression>
             <Expression xsi:type="Add">
@@ -372,7 +372,7 @@
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="ExternalizedMapping">
-              <Property Name="Value" DisplayName="Square X Position" Description="Position of the photodiode indicator along the Height of the monitor. 1: Right, -1: Left" Category="Photodiode Properties" />
+              <Property Name="Value" DisplayName="Square X Position" Description="Position of the photodiode indicator along the Width of the monitor. 1: Right, -1: Left" Category="Photodiode Properties" />
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="FloatProperty">
@@ -388,9 +388,9 @@
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawQuad.bonsai">
-              <ExtentX>2</ExtentX>
-              <ExtentY>2</ExtentY>
-              <LocationX>-26</LocationX>
+              <ExtentX>3</ExtentX>
+              <ExtentY>3</ExtentY>
+              <LocationX>26</LocationX>
               <LocationY>13.9</LocationY>
               <Layer>0</Layer>
               <Angle>0</Angle>
@@ -455,18 +455,6 @@
               <Name>LedBoardEvents</Name>
             </Expression>
             <Expression xsi:type="WorkflowOutput" />
-            <Expression xsi:type="ExternalizedMapping">
-              <Property Name="Value" DisplayName="Infrared Intensity" Description="Infrared (IR) Lights Intensity. Normally set to 20." Category="LED Board" />
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="IntProperty">
-                <Value>20</Value>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="p2:LedArrayCommand">
-              <p2:Type>WriteAuxiliaryIntensity</p2:Type>
-              <p2:Mask>Index1</p2:Mask>
-            </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="BooleanProperty">
                 <Value>true</Value>
@@ -476,32 +464,54 @@
               <p2:Type>SetAuxiliaryOutput</p2:Type>
               <p2:Mask>Index1</p2:Mask>
             </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="rx:Merge" />
-            </Expression>
             <Expression xsi:type="MulticastSubject">
               <Name>LedBoardCommands</Name>
             </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="Infrared Intensity" Description="Intensity of the Infrared Light on the array. Increases brightness in the video. Normally set to 20." Category="LED Board" />
+            </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="BooleanProperty">
-                <Value>true</Value>
+              <Combinator xsi:type="IntProperty">
+                <Value>2</Value>
               </Combinator>
             </Expression>
             <Expression xsi:type="p2:LedArrayCommand">
-              <p2:Type>ClearAuxiliaryOutput</p2:Type>
+              <p2:Type>WriteAuxiliaryIntensity</p2:Type>
               <p2:Mask>Index1</p2:Mask>
             </Expression>
             <Expression xsi:type="MulticastSubject">
               <Name>LedBoardCommands</Name>
             </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="wie:KeyDown">
-                <wie:Filter>O</wie:Filter>
-                <wie:SuppressRepetitions>false</wie:SuppressRepetitions>
-              </Combinator>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="Combinator">
+                <Combinator xsi:type="BooleanProperty">
+                  <Value>true</Value>
+                </Combinator>
+              </Builder>
             </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="rx:SubscribeWhen" />
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="p2:LedArrayCommand">
+                <p2:Type>ClearAuxiliaryOutput</p2:Type>
+                <p2:Mask>Index1</p2:Mask>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="MulticastSubject">
+                <Name>LedBoardCommands</Name>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="Combinator">
+                <Combinator xsi:type="wie:KeyDown">
+                  <wie:Filter>O</wie:Filter>
+                  <wie:SuppressRepetitions>false</wie:SuppressRepetitions>
+                </Combinator>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="Combinator">
+                <Combinator xsi:type="rx:SubscribeWhen" />
+              </Builder>
             </Expression>
           </Nodes>
           <Edges>
@@ -511,9 +521,8 @@
             <Edge From="3" To="4" Label="Source1" />
             <Edge From="5" To="6" Label="Source1" />
             <Edge From="6" To="7" Label="Source1" />
-            <Edge From="7" To="10" Label="Source1" />
             <Edge From="8" To="9" Label="Source1" />
-            <Edge From="9" To="10" Label="Source2" />
+            <Edge From="9" To="10" Label="Source1" />
             <Edge From="10" To="11" Label="Source1" />
             <Edge From="12" To="13" Label="Source1" />
             <Edge From="13" To="14" Label="Source1" />
@@ -659,7 +668,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="cv:VideoWriter">
-                <cv:FileName>C:\Users\User\BonFly\data\MC-CS-20Looms-F-1d-FH5-CamA-.avi</cv:FileName>
+                <cv:FileName>C:\Users\User\BonFly\data\MC-CS-20Looms-F-2d-FH5-CamA-.avi</cv:FileName>
                 <cv:Suffix>Timestamp</cv:Suffix>
                 <cv:Buffered>true</cv:Buffered>
                 <cv:Overwrite>false</cv:Overwrite>
@@ -684,7 +693,7 @@
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:\Users\User\BonFly\data\MC-CS-20Looms-F-1d-FH5-CamA-.csv</io:FileName>
+              <io:FileName>C:\Users\User\BonFly\data\MC-CS-20Looms-F-2d-FH5-CamA-.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>Timestamp</io:Suffix>
@@ -720,7 +729,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="cv:VideoWriter">
-                <cv:FileName>C:\Users\User\BonFly\data\MC-CS-20Looms-F-1d-FH5-CamB-.avi</cv:FileName>
+                <cv:FileName>C:\Users\User\BonFly\data\MC-CS-20Looms-F-2d-FH5-CamB-.avi</cv:FileName>
                 <cv:Suffix>Timestamp</cv:Suffix>
                 <cv:Buffered>true</cv:Buffered>
                 <cv:Overwrite>false</cv:Overwrite>
@@ -745,7 +754,7 @@
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:\Users\User\BonFly\data\MC-CS-20Looms-F-1d-FH5-CamB-.csv</io:FileName>
+              <io:FileName>C:\Users\User\BonFly\data\MC-CS-20Looms-F-2d-FH5-CamB-.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>Timestamp</io:Suffix>
@@ -1688,7 +1697,7 @@
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="gl:Timer">
-                            <gl:DueTime>PT5S</gl:DueTime>
+                            <gl:DueTime>PT5.5S</gl:DueTime>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="Combinator">
@@ -2061,7 +2070,7 @@
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="IntProperty">
-                                  <Value>10</Value>
+                                  <Value>3</Value>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="harp:Format">
@@ -2105,7 +2114,7 @@
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="IntProperty">
-                                  <Value>10</Value>
+                                  <Value>3</Value>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="harp:Format">
@@ -2149,7 +2158,7 @@
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="IntProperty">
-                                  <Value>10</Value>
+                                  <Value>3</Value>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="harp:Format">
@@ -2369,7 +2378,7 @@
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="IntProperty">
-                                  <Value>1</Value>
+                                  <Value>2</Value>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="harp:Format">
@@ -2416,7 +2425,7 @@
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="gl:Delay">
-                            <gl:DueTime>PT2S</gl:DueTime>
+                            <gl:DueTime>PT5S</gl:DueTime>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="rx:SelectMany">
@@ -2568,7 +2577,7 @@
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="IntProperty">
-                                  <Value>4</Value>
+                                  <Value>8</Value>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="harp:Format">
@@ -2770,7 +2779,7 @@
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="gl:Timer">
-                            <gl:DueTime>PT5S</gl:DueTime>
+                            <gl:DueTime>PT30S</gl:DueTime>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="Combinator">
@@ -3004,7 +3013,7 @@
                                     </Expression>
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="IntProperty">
-                                        <Value>5</Value>
+                                        <Value>3</Value>
                                       </Combinator>
                                     </Expression>
                                     <Expression xsi:type="Combinator">
@@ -3049,7 +3058,7 @@
                                     </Expression>
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="IntProperty">
-                                        <Value>5</Value>
+                                        <Value>3</Value>
                                       </Combinator>
                                     </Expression>
                                     <Expression xsi:type="harp:Format">
@@ -3093,7 +3102,7 @@
                                     </Expression>
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="IntProperty">
-                                        <Value>5</Value>
+                                        <Value>3</Value>
                                       </Combinator>
                                     </Expression>
                                     <Expression xsi:type="harp:Format">
@@ -3137,7 +3146,7 @@
                                     </Expression>
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="IntProperty">
-                                        <Value>5</Value>
+                                        <Value>3</Value>
                                       </Combinator>
                                     </Expression>
                                     <Expression xsi:type="harp:Format">
@@ -4850,7 +4859,7 @@
                                     <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.RangeAnimation.bonsai">
                                       <Duration>1</Duration>
                                       <RangeBegin>1</RangeBegin>
-                                      <RangeEnd>20</RangeEnd>
+                                      <RangeEnd>10</RangeEnd>
                                     </Expression>
                                     <Expression xsi:type="WorkflowOutput" />
                                   </Nodes>
@@ -4937,7 +4946,7 @@
                                     <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.RangeAnimation.bonsai">
                                       <Duration>1</Duration>
                                       <RangeBegin>1</RangeBegin>
-                                      <RangeEnd>20</RangeEnd>
+                                      <RangeEnd>10</RangeEnd>
                                     </Expression>
                                     <Expression xsi:type="WorkflowOutput" />
                                   </Nodes>
@@ -5114,7 +5123,7 @@
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="gl:Delay">
-                            <gl:DueTime>PT4.5S</gl:DueTime>
+                            <gl:DueTime>PT3S</gl:DueTime>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="rx:SelectMany">
@@ -5183,7 +5192,7 @@
                                     </Expression>
                                     <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.RangeAnimation.bonsai">
                                       <Duration>1</Duration>
-                                      <RangeBegin>20</RangeBegin>
+                                      <RangeBegin>10</RangeBegin>
                                       <RangeEnd>1</RangeEnd>
                                     </Expression>
                                     <Expression xsi:type="WorkflowOutput" />
@@ -5270,7 +5279,7 @@
                                     </Expression>
                                     <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.RangeAnimation.bonsai">
                                       <Duration>1</Duration>
-                                      <RangeBegin>20</RangeBegin>
+                                      <RangeBegin>10</RangeBegin>
                                       <RangeEnd>1</RangeEnd>
                                     </Expression>
                                     <Expression xsi:type="WorkflowOutput" />
@@ -5932,7 +5941,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="rx:Take">
-          <rx:Count>4500</rx:Count>
+          <rx:Count>3900</rx:Count>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">

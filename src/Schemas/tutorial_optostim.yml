@@ -5,21 +5,21 @@
 trials:
   [
     &optoTrial {
-      optogeneticsContinuousStimuli: {amplitude: 10, duration: 2, delayOnset: 5, ledTarget: Led1}
+      optogeneticsContinuousStimuli: {amplitude: 3, duration: 2, delayOnset: 15, ledTarget: Led1}
     }, 
     &optoTrial {
-      optogeneticsContinuousStimuli: {amplitude: 10, duration: 2, delayOnset: 5, ledTarget: Led0}
+      optogeneticsContinuousStimuli: {amplitude: 3, duration: 2, delayOnset: 5, ledTarget: Led0}
     },      
     &optoTrial {
-      optogeneticsPulsedStimuli: {amplitude: 5, duration: 3, frequency: 2, dutyCycle: 50, delayOnset: 10, ledTarget: Led1}
+      optogeneticsPulsedStimuli: {amplitude: 3, duration: 3, frequency: 2, dutyCycle: 50, delayOnset: 10, ledTarget: Led1}
     },
     &optoTrial {
-      optogeneticsPulsedStimuli: {amplitude: 5, duration: 3, frequency: 2, dutyCycle: 50, delayOnset: 10, ledTarget: Led0}
+      optogeneticsPulsedStimuli: {amplitude: 3, duration: 3, frequency: 2, dutyCycle: 50, delayOnset: 10, ledTarget: Led0}
     },
     &optoTrial {
-      optogeneticsRampedStimuli: {amplitude: 20, durationSteady: 4.5, durationRamp: 1.0, delayOnset: 5, ledTarget: Led1}
+      optogeneticsRampedStimuli: {amplitude: 10, durationSteady: 3, durationRamp: 1.0, delayOnset: 5, ledTarget: Led1}
     },    
     &optoTrial {
-      optogeneticsRampedStimuli: {amplitude: 20, durationSteady: 4.5, durationRamp: 1.0, delayOnset: 5, ledTarget: Led0}
+      optogeneticsRampedStimuli: {amplitude: 10, durationSteady: 3, durationRamp: 1.0, delayOnset: 5, ledTarget: Led0}
     }
   ]

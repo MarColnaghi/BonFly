@@ -15,11 +15,14 @@ trials:
               monitorDistance: 19,
             },
           delayOffset: 0,
-          delayOnset: 5,
+          delayOnset: 20,
           backgroundColor: { a: 1, b: 1, g: 1, r: 1},
           color: { a: 1, b: 0, g: 0, r: 0},
         }
     },
-    #, {loomingCircleStimuli: { <<: *loomingCircleTrial, delayOnset: 10}}
-
+    {loomingCircleStimuli: { <<: *loomingCircleTrial, delayOnset: 3}},
+    {loomingCircleStimuli: { <<: *loomingCircleTrial, delayOnset: 5}},
+    {loomingCircleStimuli: { <<: *loomingCircleTrial, delayOnset: 4}},
+    {loomingCircleStimuli: { <<: *loomingCircleTrial, delayOnset: 5 , color: { a: 1, b: 1, g: 1, r: 1}, backgroundColor: { a: 1, b: 0, g: 0, r: 0}}},
+    {loomingCircleStimuli: { <<: *loomingCircleTrial, delayOnset: 5.5}}
   ]
