@@ -20,6 +20,6 @@ trials:
           color: { a: 1, b: 0, g: 0, r: 0},
         }
     },
-    #, {loomingCircleStimuli: { <<: *loomingCircleTrial, delayOnset: 10}}
+    {loomingCircleStimuli: { <<: *loomingCircleTrial, delayOnset: 10, animationSettings: {<<: *animationTrial, duration: 15}}}
 
   ]

@@ -45,7 +45,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="p1:LoadSettings">
-                <p1:Path>Schemas\test_optostim.yml</p1:Path>
+                <p1:Path>Schemas\tutorial_empty.yml</p1:Path>
               </Combinator>
             </Expression>
             <Expression xsi:type="rx:AsyncSubject">
@@ -56,7 +56,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="p1:LoadSettings">
-                <p1:Path>Schemas\test_visualstim.yml</p1:Path>
+                <p1:Path>Schemas\tutorial_visualstim.yml</p1:Path>
               </Combinator>
             </Expression>
             <Expression xsi:type="rx:AsyncSubject">
@@ -156,7 +156,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="IntProperty">
-                <Value>55</Value>
+                <Value>60</Value>
               </Combinator>
             </Expression>
             <Expression xsi:type="Add">
@@ -455,33 +455,6 @@
               <Name>LedBoardEvents</Name>
             </Expression>
             <Expression xsi:type="WorkflowOutput" />
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="BooleanProperty">
-                <Value>true</Value>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="p2:LedArrayCommand">
-              <p2:Type>SetAuxiliaryOutput</p2:Type>
-              <p2:Mask>Index1</p2:Mask>
-            </Expression>
-            <Expression xsi:type="MulticastSubject">
-              <Name>LedBoardCommands</Name>
-            </Expression>
-            <Expression xsi:type="ExternalizedMapping">
-              <Property Name="Value" DisplayName="Infrared Intensity" Description="Intensity of the Infrared Light on the array. Increases brightness in the video. Normally set to 20." Category="LED Board" />
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="IntProperty">
-                <Value>2</Value>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="p2:LedArrayCommand">
-              <p2:Type>WriteAuxiliaryIntensity</p2:Type>
-              <p2:Mask>Index1</p2:Mask>
-            </Expression>
-            <Expression xsi:type="MulticastSubject">
-              <Name>LedBoardCommands</Name>
-            </Expression>
             <Expression xsi:type="Disable">
               <Builder xsi:type="Combinator">
                 <Combinator xsi:type="BooleanProperty">
@@ -513,6 +486,65 @@
                 <Combinator xsi:type="rx:SubscribeWhen" />
               </Builder>
             </Expression>
+            <Expression xsi:type="rx:Defer">
+              <Name>IR_lightsON</Name>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="harp:CreateMessage">
+                    <harp:MessageType>Write</harp:MessageType>
+                    <harp:Payload xsi:type="harp:CreateMessagePayload">
+                      <harp:Address>61</harp:Address>
+                      <harp:PayloadType>U8</harp:PayloadType>
+                      <harp:Value>2</harp:Value>
+                    </harp:Payload>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:Take">
+                      <rx:Count>1</rx:Count>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="gl:Delay">
+                      <gl:DueTime>PT0.01S</gl:DueTime>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="MulticastSubject">
+                    <Name>LedBoardCommands</Name>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="2" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source1" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="Infrared Intensity" Description="Adjust the intensity of the Infrared Light on the board. Can be used to increase brighness of the video." Category="LED Board" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="IntProperty">
+                <Value>20</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>IR_Intensity</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>IR_Intensity</Name>
+            </Expression>
+            <Expression xsi:type="harp:Format">
+              <harp:MessageType>Write</harp:MessageType>
+              <harp:Register xsi:type="harp:FormatMessagePayload">
+                <harp:Address>62</harp:Address>
+                <harp:PayloadType>U8</harp:PayloadType>
+              </harp:Register>
+            </Expression>
+            <Expression xsi:type="MulticastSubject">
+              <Name>LedBoardCommands</Name>
+            </Expression>
           </Nodes>
           <Edges>
             <Edge From="0" To="2" Label="Source1" />
@@ -521,13 +553,12 @@
             <Edge From="3" To="4" Label="Source1" />
             <Edge From="5" To="6" Label="Source1" />
             <Edge From="6" To="7" Label="Source1" />
-            <Edge From="8" To="9" Label="Source1" />
-            <Edge From="9" To="10" Label="Source1" />
-            <Edge From="10" To="11" Label="Source1" />
+            <Edge From="7" To="9" Label="Source1" />
+            <Edge From="8" To="9" Label="Source2" />
+            <Edge From="11" To="12" Label="Source1" />
             <Edge From="12" To="13" Label="Source1" />
-            <Edge From="13" To="14" Label="Source1" />
-            <Edge From="14" To="16" Label="Source1" />
-            <Edge From="15" To="16" Label="Source2" />
+            <Edge From="14" To="15" Label="Source1" />
+            <Edge From="15" To="16" Label="Source1" />
           </Edges>
         </Workflow>
       </Expression>
@@ -557,7 +588,7 @@
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="gl:Delay">
-                      <gl:DueTime>PT0.1S</gl:DueTime>
+                      <gl:DueTime>PT0.01S</gl:DueTime>
                     </Combinator>
                   </Expression>
                   <Expression xsi:type="MulticastSubject">
@@ -1644,7 +1675,7 @@
                           </PropertyMappings>
                         </Expression>
                         <Expression xsi:type="IncludeWorkflow" Path="Extensions\LoomRangeAnimation.bonsai">
-                          <Duration>PT0.5S</Duration>
+                          <Duration>PT15S</Duration>
                           <MaxRadius>25</MaxRadius>
                           <MonitorDistance>19</MonitorDistance>
                           <InitialRadius>0.5</InitialRadius>
@@ -1697,7 +1728,7 @@
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="gl:Timer">
-                            <gl:DueTime>PT5.5S</gl:DueTime>
+                            <gl:DueTime>PT10S</gl:DueTime>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="Combinator">
@@ -2378,7 +2409,7 @@
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="IntProperty">
-                                  <Value>2</Value>
+                                  <Value>1</Value>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="harp:Format">
@@ -2425,7 +2456,7 @@
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="gl:Delay">
-                            <gl:DueTime>PT5S</gl:DueTime>
+                            <gl:DueTime>PT2S</gl:DueTime>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="rx:SelectMany">
@@ -2577,7 +2608,7 @@
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="IntProperty">
-                                  <Value>8</Value>
+                                  <Value>4</Value>
                                 </Combinator>
                               </Expression>
                               <Expression xsi:type="harp:Format">
@@ -2779,7 +2810,7 @@
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="gl:Timer">
-                            <gl:DueTime>PT30S</gl:DueTime>
+                            <gl:DueTime>PT5S</gl:DueTime>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="Combinator">
@@ -5941,7 +5972,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="rx:Take">
-          <rx:Count>3900</rx:Count>
+          <rx:Count>4200</rx:Count>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
@@ -5952,7 +5983,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="gl:Delay">
-          <gl:DueTime>PT1S</gl:DueTime>
+          <gl:DueTime>PT2S</gl:DueTime>
         </Combinator>
       </Expression>
       <Expression xsi:type="Disable">
