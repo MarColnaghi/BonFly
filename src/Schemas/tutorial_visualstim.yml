@@ -20,6 +20,36 @@ trials:
           color: { a: 1, b: 0, g: 0, r: 0},
         }
     },
-    {loomingCircleStimuli: { <<: *loomingCircleTrial, delayOnset: 10, animationSettings: {<<: *animationTrial, duration: 15}}}
-
+    {loomingCircleStimuli: { <<: *loomingCircleTrial, delayOnset: 10, animationSettings: {<<: *animationTrial, duration: 1}}},
+    {loomingCircleStimuli: { <<: *loomingCircleTrial, delayOnset: 5}},
+    {movingCircleStimuli: &movingCircleTrial
+          {startPosition: { x: 0, y: 0 },
+          endPosition: { x: 5, y: 5 },
+          delayOffset: 0,
+          delayOnset: 5,
+          backgroundColor: { a: 1, b: 1, g: 1, r: 1},
+          color: { a: 1, b: 0, g: 0, r: 0},
+          radius: 1,
+          duration: 3
+        }
+    },
+    {controlNoisyStimuli: &controlTrial
+        {animationSettings: &animationTrial 
+            {
+              duration: 2,
+              initialRadius: 0.5,
+              initialVirtualDistance: 12.5,
+              linearApproachingVelocity: 25,
+              maxRadius: 25,
+              monitorDistance: 25,
+            },
+          delayOffset: 1,
+          delayOnset: 1.5,
+          backgroundColor: { a: 1, b: 1, g: 1, r: 1 },
+          diameter: 25,
+          onColor: { a: 1, b: 0, g: 0, r: 0},
+          offColor: { a: 1, b: 1, g: 1, r: 1},
+        }
+    },
+    
   ]
